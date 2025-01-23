@@ -1,27 +1,23 @@
 {
   "name": "pathshala",
   "version": "1.0.0",
-  "description": "Pathshala project for managing educational resources",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kves-Shahid/Pathshala.git"
   },
-  "author": "Your Name",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kves-Shahid/Pathshala/issues"
   },
   "homepage": "https://github.com/kves-Shahid/Pathshala#readme",
+  "description": "",
   "dependencies": {
-    "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

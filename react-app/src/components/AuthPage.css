@@ -1,0 +1,70 @@
+/* General reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333; /* You can change the background color */
+  }
+  
+  .navbar-left {
+    flex: 1;
+  }
+  
+  .navbar-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .navbar-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .logo {
+    display: block;
+  }
+  
+  .logo-text {
+    font-size: 24px; /* Adjust size as needed */
+    font-weight: bold;
+    color: white; /* Change to your preferred color */
+    text-decoration: none;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px 15px;
+    font-size: 16px;
+  }
+  
+  .nav-link:hover {
+    background-color: #444; /* Optional hover effect */
+  }
+  
+  .signup-button {
+    background-color: #4CAF50; /* Green background for signup button */
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .signup-button:hover {
+    background-color: #45a049; /* Optional hover effect for signup */
+  }
+  
