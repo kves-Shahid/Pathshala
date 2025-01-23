@@ -1,70 +1,445 @@
-/* General reset for margin and padding */
+/* General reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333; /* You can change the background color */
-  }
-  
-  .navbar-left {
-    flex: 1;
-  }
-  
-  .navbar-center {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .navbar-right {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .logo {
-    display: block;
-  }
-  
-  .logo-text {
-    font-size: 24px; /* Adjust size as needed */
-    font-weight: bold;
-    color: white; /* Change to your preferred color */
-    text-decoration: none;
-  }
-  
-  .nav-link {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    padding: 10px 15px;
-    font-size: 16px;
-  }
-  
-  .nav-link:hover {
-    background-color: #444; /* Optional hover effect */
-  }
-  
-  .signup-button {
-    background-color: #4CAF50; /* Green background for signup button */
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .signup-button:hover {
-    background-color: #45a049; /* Optional hover effect for signup */
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Navbar styling */
+.navbar {
+  position: fixed; /* Fix the navbar at the top */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ensure it stays on top */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+}
+
+.navbar-left,
+.navbar-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+/* Adjust search bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  width: 300px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.search-button {
+  padding: 8px 15px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+/* Align navbar-right to the far right */
+.navbar-right {
+  justify-content: flex-end;
+  gap: 10px; /* Add spacing between buttons */
+}
+
+/* Login Button */
+.login-button {
+  background-color: transparent;
+  color: white;
+  padding: 8px 15px;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.login-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Signup Button */
+.signup-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.signup-button:hover {
+  background-color: #45a049;
+}
+
+/* Content container to account for fixed navbar */
+.auth-page {
+  padding-top: 70px; /* Add space below the fixed navbar */
+  overflow-y: auto; /* Allow scrolling for the rest of the content */
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  background-color: #f9f9f9;
+}
+
+.hero-text {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-text h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.hero-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hero-button:hover {
+  background-color: #45a049;
+}
+
+.hero-photo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-photo img {
+  max-width: 80%;
+  border-radius: 10px;
+}
+
+/* Why Pathshala Works Section */
+.why-section {
+  padding: 50px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.why-section h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.why-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.why-item {
+  flex: 1;
+  max-width: 300px;
+  text-align: center;
+}
+
+.why-item img {
+  max-width: 100px;
+  margin-bottom: 15px;
+}
+
+.why-item h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.why-item p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Teachers Section */
+.teachers-section {
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+}
+
+.teachers-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.teachers-text {
+  flex: 1;
+  text-align: left;
+}
+
+.teachers-text h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.teachers-text h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.teachers-text p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.teachers-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.teachers-button:hover {
+  background-color: #45a049;
+}
+
+.teachers-photo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.teachers-photo img {
+  max-width: 80%;
+  border-radius: 10px;
+}
+
+/* Learners and Students Section */
+.learners-section {
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+}
+
+.learners-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.learners-text {
+  flex: 1;
+  text-align: left;
+}
+
+.learners-text h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.learners-text p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.learners-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.learners-button:hover {
+  background-color: #45a049;
+}
+
+.learners-photo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.learners-photo img {
+  max-width: 80%;
+  border-radius: 10px;
+}
+
+/* New Image Section */
+.image-section {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+}
+
+.image-section h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.image-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.image-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.image-button:hover {
+  background-color: #45a049;
+}
+
+/* About Us Section */
+.about-us-section {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 30px 20px; /* Reduced padding */
+  background-color: #333;
+  color: #ffffff;
+  box-sizing: border-box;
+  margin-top: 20px; /* Add gap above About Us */
+}
+
+.about-us-section h2 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 15px; /* Add gap between heading and paragraph */
+}
+
+.about-us-section p {
+  color: #ffffff;
+  text-align: center;
+  margin: 0; /* Reset margin for paragraph */
+}
+
+/* Contact Section */
+.contact {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 30px 20px; /* Reduced padding */
+  background-color: #333;
+  color: #ffffff;
+  box-sizing: border-box;
+  padding-bottom: 60px; /* Add padding to the bottom for the bottom bar */
+}
+
+.contact h2 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 15px; /* Add gap between heading and links */
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.contact-links a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  color: #ffffff;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
