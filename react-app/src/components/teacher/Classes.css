@@ -1,0 +1,276 @@
+/* Classes Page Styles */
+.classes-page {
+    background-color: #f9f9f9;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Separate Navbar for Classes Page */
+.classes-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* Hamburger Icon for Sidebar Toggle */
+.sidebar-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+}
+
+.sidebar-toggle .line {
+    width: 24px;
+    height: 2px;
+    background-color: white;
+}
+
+/* Explore Link and Search Bar */
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-left .nav-link {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-left .nav-link:hover {
+    text-decoration: underline;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar .search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.search-bar .search-button {
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Logo in the Center */
+.navbar-center {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Donate and Logout on the Right */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-right .nav-link {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-right .nav-link:hover {
+    text-decoration: underline;
+}
+
+.navbar-right .logout-button {
+    padding: 8px 16px;
+    background-color: #45a049;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: fixed;
+    left: -250px; /* Initially hidden */
+    top: 60px; /* Below the navbar */
+    transition: left 0.3s ease;
+    z-index: 999;
+}
+
+.sidebar.open {
+    left: 0; /* Visible when open */
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+.classes-content {
+    margin-top: 60px; /* To account for the fixed navbar */
+    margin-left: 0; /* No margin when sidebar is closed */
+    transition: margin-left 0.3s ease;
+    width: 100%;
+    max-width: 1200px; /* Adjust as needed */
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.classes-content.sidebar-open {
+    margin-left: 250px; /* Adjust for open sidebar */
+}
+
+.main-sections {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.classes-section,
+.onboarding-section,
+.khan-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.classes-section h2,
+.onboarding-section h2,
+.khan-section h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.classes-section p,
+.onboarding-section p,
+.khan-section p {
+    font-size: 16px;
+    color: #666;
+}
+
+.create-class-button {
+    margin-top: 10px;
+    background-color: #45a049; /* Updated color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+/* Get Started Button */
+.btn-primary {
+    background-color: #45a049; /* Updated color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+/* Show/Hide Button */
+.btn-info {
+    background-color: #45a049; /* Ensure the button is green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+/* Help and Tips Section */
+.help-section {
+    width: 300px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.help-tips {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.help-tip {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.help-tip h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.help-tip p {
+    font-size: 14px;
+    color: #666;
+}
+
+.help-center-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.help-center-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.help-center-link a:hover {
+    text-decoration: underline;
+}

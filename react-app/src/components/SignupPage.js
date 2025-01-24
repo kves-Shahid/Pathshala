@@ -33,8 +33,8 @@ const SignupPage = () => {
   const handleProviderSignup = (provider) => {
     // Handle provider signup logic here
     console.log("Signing up with:", provider);
-    // Redirect to the AuthPage after signup
-    navigate("/");
+    // Redirect to the Teacher Dashboard after signup
+    navigate("/teacher-dashboard");
   };
 
   return (
@@ -124,6 +124,11 @@ const SignupPage = () => {
               />
             </div>
           </div>
+
+          {/* Submit Button for Learners */}
+          <button className="submit-button" onClick={handleEmailSignup}>
+            Submit
+          </button>
         </div>
       )}
 
@@ -162,17 +167,17 @@ const SignupPage = () => {
             <img src={appleLogo} alt="Apple Logo" className="provider-logo" />
             Continue with Apple
           </button>
+
+          {/* Sign up with Email Button for Teachers */}
+          <button
+            className="provider-button email-signup-button"
+            onClick={() => handleProviderSignup("Email")}
+          >
+            <img src={emailLogo} alt="Email Logo" className="provider-logo" />
+            Sign up with Email
+          </button>
         </div>
       )}
-
-      {/* Sign up with Email Button */}
-      <button
-        className="provider-button email-signup-button"
-        onClick={handleEmailSignup}
-      >
-        <img src={emailLogo} alt="Email Logo" className="provider-logo" />
-        Sign up with Email
-      </button>
 
       <p className="login-link">
         Already have an account? <a href="/login">Log in</a>
