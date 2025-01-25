@@ -12,37 +12,36 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // Unique function name for the login button
-  const handleLoginPageButtonClick = () => {
-    console.log("Login button clicked on LoginPage");
+  const handleLoginAction = () => {
+    console.log("Login action triggered");
     console.log("Logging in as:", role);
     console.log("Email:", email);
     console.log("Password:", password);
 
-    // Redirect based on role
     if (role === "learner") {
-      navigate("/learner-dashboard");
+      navigate("/learner");
     } else if (role === "teacher") {
       navigate("/teacher-dashboard");
     }
   };
 
-  // Function for handling provider login (Google, Clever, etc.)
-  const handleProviderLogin = (provider) => {
-    console.log("Logging in with:", provider);
+  const handleProviderAction = (provider) => {
+    console.log("Provider action triggered:", provider);
 
-    // Redirect based on role
     if (role === "learner") {
-      navigate("/learner-dashboard");
+      navigate("/learner");
     } else if (role === "teacher") {
       navigate("/teacher-dashboard");
     }
   };
 
-  // Function for handling signup redirection
-  const handleSignupRedirect = () => {
-    console.log("Redirecting to signup page..."); // Debugging line
+  const handleSignupAction = () => {
+    console.log("Signup action triggered");
     navigate("/signup");
+  };
+
+  const handleForgotPassword = () => {
+    navigate("/forgot-password"); // Navigate to the Forgot Password screen
   };
 
   return (
@@ -85,39 +84,44 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className="login-page-button" onClick={handleLoginPageButtonClick}>
+        <button className="login-page-button" onClick={handleLoginAction}>
           Log in
         </button>
         <p className="forgot-password">
-          <a href="#forgot-password">Forgot password?</a>
+          <button
+            onClick={handleForgotPassword}
+            style={{ background: "none", border: "none", color: "#4caf50", cursor: "pointer" }}
+          >
+            Forgot password?
+          </button>
         </p>
       </div>
 
       <div className="provider-buttons">
         <button
           className="provider-button google"
-          onClick={() => handleProviderLogin("Google")}
+          onClick={() => handleProviderAction("Google")}
         >
           <img src={googleLogo} alt="Google Logo" className="provider-logo" />
           Continue with Google
         </button>
         <button
           className="provider-button clever"
-          onClick={() => handleProviderLogin("Clever")}
+          onClick={() => handleProviderAction("Clever")}
         >
           <img src={cleverLogo} alt="Clever Logo" className="provider-logo" />
           Continue with Clever
         </button>
         <button
           className="provider-button facebook"
-          onClick={() => handleProviderLogin("Facebook")}
+          onClick={() => handleProviderAction("Facebook")}
         >
           <img src={facebookLogo} alt="Facebook Logo" className="provider-logo" />
           Continue with Facebook
         </button>
         <button
           className="provider-button apple"
-          onClick={() => handleProviderLogin("Apple")}
+          onClick={() => handleProviderAction("Apple")}
         >
           <img src={appleLogo} alt="Apple Logo" className="provider-logo" />
           Continue with Apple
@@ -127,7 +131,7 @@ const LoginPage = () => {
       <p className="signup-link">
         Don't have an account?{" "}
         <button
-          onClick={handleSignupRedirect}
+          onClick={handleSignupAction}
           style={{ background: "none", border: "none", color: "#4caf50", cursor: "pointer" }}
         >
           Sign up

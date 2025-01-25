@@ -8,6 +8,8 @@ import Teacher from "./components/teacher/teacher"; // Import Teacher component
 import Classes from "./components/teacher/Classes"; // Import Classes component
 import Students from "./components/teacher/Students"; // Import Students component
 import Resources from "./components/teacher/Resources"; // Import Resources component
+import Learner from "./components/learner/learner"; // Import Learner component
+import ForgetPassword from "./components/login/forgetpassword"; // Import ForgetPassword component
 import "./App.css"; // Import App-specific CSS
 
 function App() {
@@ -30,6 +32,12 @@ function App() {
           <Route path="/teacher/classes" element={<Classes />} />
           <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/resources" element={<Resources />} />
+
+          {/* Route for Learner Section */}
+          <Route path="/learner" element={<Learner />} />
+
+          {/* Route for Forget Password */}
+          <Route path="/forget-password" element={<ForgetPassword />} />
         </Routes>
       </div>
     </Router>

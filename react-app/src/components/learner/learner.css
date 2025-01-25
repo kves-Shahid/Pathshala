@@ -1,0 +1,419 @@
+/* Learner Dashboard Styles */
+.learner-dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the page can grow beyond the viewport height */
+    background-color: #f9f9f9;
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
+  /* Navbar for Learner Dashboard */
+  .learner-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  .learner-navbar .navbar-left,
+  .learner-navbar .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .learner-navbar .navbar-center {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .learner-navbar .logo-link {
+    text-decoration: none; /* Remove underline from the link */
+  }
+  
+  .learner-navbar .search-bar {
+    display: flex;
+    margin-left: 20px;
+  }
+  
+  .learner-navbar .search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .learner-navbar .search-button {
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .learner-navbar .nav-link {
+    margin: 0 10px;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .learner-navbar .logout-button {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Welcome Section (Under Navbar) */
+  .welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #444; /* Same as hover-header background */
+    color: white;
+    margin-top: 60px; /* To account for the fixed navbar */
+  }
+  
+  .welcome-section .welcome-text {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .start-learning-link {
+    color: #4caf50; /* Same as add-university-link color */
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .start-learning-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Main Content for Learner Dashboard */
+  .learner-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the top */
+    padding: 20px;
+    margin-top: 60px; /* Adjusted to move the section higher */
+  }
+  
+  /* Three Vertical Sections */
+  .three-vertical-sections {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .vertical-section {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .vertical-section h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .vertical-section ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .vertical-section ul li {
+    margin-bottom: 10px;
+  }
+  
+  .vertical-section ul li a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .vertical-section ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Pop-up overlay */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Pop-up content */
+  .popup-content {
+    width: 90%;
+    max-width: 800px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Grade Section with Background Image */
+  .popup-content .grade-section,
+  .popup-content .course-section {
+    background-image: url("https://img.freepik.com/free-vector/watercolor-emerald-background_23-2150270303.jpg?uid=R181605060&ga=GA1.1.1480723922.1733014747&semt=ais_hybrid");
+    background-size: cover;
+    background-position: center;
+    color: white; /* White text for better contrast */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Paragraph styling inside the grade and course sections */
+  .popup-content .grade-section p,
+  .popup-content .course-section p {
+    margin-bottom: 0; /* Remove default margin */
+    font-size: 1.1rem; /* Slightly larger font size */
+  }
+  
+  /* Card styling */
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add spacing between cards */
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333; /* Darker text for card titles */
+  }
+  
+  /* List group items (grade and course options) */
+  .list-group-item {
+    cursor: pointer;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px; /* Add padding for better spacing */
+  }
+  
+  .list-group-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* Hover effect for list group items */
+  .list-group-item:hover {
+    background-color: #f8f9fa; /* Light gray background on hover */
+  }
+  
+  /* Active state for selected courses */
+  .list-group-item.active {
+    background-color: #4caf50; /* Green background for selected courses */
+    color: white; /* White text for better contrast */
+  }
+  
+  /* Step Footer Styling */
+  .step-footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .step-footer p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #777; /* Lighter gray color for the text */
+  }
+  
+  /* Button-like styling for "Choose a grade to continue" */
+  .step-footer .step-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555; /* Light gray text */
+    background-color: #f0f0f0; /* Light gray background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .step-footer .step-button:hover {
+    background-color: #e0e0e0; /* Slightly darker gray on hover */
+  }
+  
+  /* Continue Button Styling */
+  .step-footer .btn-primary {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555; /* Light gray text */
+    background-color: #f0f0f0; /* Light gray background */
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .step-footer .btn-primary:hover {
+    background-color: #e0e0e0; /* Slightly darker gray on hover */
+  }
+  
+  /* About Us Section */
+  .about-us-section {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 30px 20px;
+    background-color: #333;
+    color: #ffffff;
+    box-sizing: border-box;
+    margin-top: 40px;
+  }
+  
+  .about-us-section h2 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .about-us-section p {
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+  }
+  
+  /* Contact Section */
+  .contact {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 30px 20px;
+    background-color: #333;
+    color: #ffffff;
+    box-sizing: border-box;
+    padding-bottom: 60px;
+  }
+  
+  .contact h2 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .contact-links a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  /* Bottom Bar */
+  .bottom-bar {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #222;
+    color: #ffffff;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  /* Responsive Design for Learner Dashboard */
+  @media (max-width: 768px) {
+    .learner-content {
+      margin-top: 60px; /* Adjust for smaller screens */
+      padding: 10px; /* Reduce padding for smaller screens */
+    }
+  
+    .welcome-section {
+      flex-direction: column; /* Stack welcome text and link vertically */
+      text-align: center;
+      padding: 15px;
+    }
+  
+    .welcome-section .welcome-text {
+      margin-bottom: 10px; /* Add spacing between text and link */
+    }
+  
+    .learner-navbar .search-bar {
+      margin-left: 10px; /* Reduce margin for smaller screens */
+    }
+  
+    .learner-navbar .search-input {
+      width: 150px; /* Reduce input width for smaller screens */
+    }
+  
+    .three-vertical-sections {
+      flex-direction: column;
+    }
+  
+    .vertical-section {
+      margin: 10px 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .learner-content {
+      margin-top: 50px; /* Further adjust for very small screens */
+    }
+  
+    .learner-navbar .navbar-left,
+    .learner-navbar .navbar-right {
+      flex-direction: column; /* Stack navbar items vertically */
+      gap: 10px;
+    }
+  
+    .learner-navbar .search-bar {
+      margin-left: 0; /* Remove margin for very small screens */
+    }
+  
+    .learner-navbar .search-input {
+      width: 120px; /* Further reduce input width */
+    }
+  }
+  /* Box-Type Shape Button Links */
+.vertical-section ul li a {
+    display: block; /* Make the link fill the container */
+    padding: 10px 15px; /* Add padding for a button-like appearance */
+    background-color: #4caf50; /* Green background color */
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-weight: 500; /* Medium font weight */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center the text */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .vertical-section ul li a:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
