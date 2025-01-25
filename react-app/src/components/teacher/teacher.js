@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-import React from "react";
-import { useNavigate } from "react-router-dom";
-=======
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom"; // Import Link
->>>>>>> 8df69bb (Login commit)
 import "./teacher.css"; // Import the CSS for the Teacher Dashboard
 
 const Teacher = () => {
   const navigate = useNavigate();
-<<<<<<< HEAD
-=======
   const [showHoverHeader, setShowHoverHeader] = useState(false);
   const email = "kazishahedpoco@example.com"; // Simulated email for demonstration
->>>>>>> 8df69bb (Login commit)
 
   const handleLogout = () => {
     // Handle logout logic here
@@ -27,13 +19,10 @@ const Teacher = () => {
     // Add your donate logic here (e.g., open a modal, redirect to a donation page, etc.)
   };
 
-<<<<<<< HEAD
-=======
   const toggleHoverHeader = () => {
     setShowHoverHeader(!showHoverHeader);
   };
 
->>>>>>> 8df69bb (Login commit)
   return (
     <div className="teacher-dashboard">
       {/* Fixed Navbar for Teacher Dashboard */}
@@ -52,14 +41,10 @@ const Teacher = () => {
           </div>
         </div>
         <div className="navbar-center">
-<<<<<<< HEAD
-          <span className="logo-text">Pathshala</span>
-=======
           {/* Wrap the logo-text with a Link */}
           <Link to="/" className="logo-link">
             <span className="logo-text">Pathshala</span>
           </Link>
->>>>>>> 8df69bb (Login commit)
         </div>
         <div className="navbar-right">
           <a
@@ -75,11 +60,6 @@ const Teacher = () => {
         </div>
       </header>
 
-<<<<<<< HEAD
-      {/* Main Content */}
-      <main className="teacher-content">
-        <h1>Welcome</h1>
-=======
       {/* Welcome Section (Under Navbar) */}
       <div className="welcome-section">
         <p className="welcome-text">Welcome, {email}</p>
@@ -105,7 +85,6 @@ const Teacher = () => {
       {/* Main Content */}
       <main className="teacher-content">
         <h1>Let's get started</h1>
->>>>>>> 8df69bb (Login commit)
         <p>Here, you can manage your classes, students, and resources.</p>
 
         {/* Clickable Cards for Classes, Students, and Resources */}
@@ -135,8 +114,6 @@ const Teacher = () => {
           </div>
         </div>
       </main>
-<<<<<<< HEAD
-=======
 
       {/* About Us Section */}
       <section className="about-us-section">
@@ -171,7 +148,6 @@ const Teacher = () => {
       <div className="bottom-bar">
         <p>© 2025 Pathshala. All rights reserved.</p>
       </div>
->>>>>>> 8df69bb (Login commit)
     </div>
   );
 };

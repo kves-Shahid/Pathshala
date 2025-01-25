@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-/* Classes Page Styles */
-.classes-page {
-    background-color: #f9f9f9;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Separate Navbar for Classes Page */
-.classes-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-=======
 /* Classes Dashboard Styles */
 .classes-dashboard {
   display: flex;
@@ -46,26 +21,10 @@
   left: 0;
   right: 0;
   z-index: 1000;
->>>>>>> 8df69bb (Login commit)
 }
 
 /* Hamburger Icon for Sidebar Toggle */
 .sidebar-toggle {
-<<<<<<< HEAD
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px;
-}
-
-.sidebar-toggle .line {
-    width: 24px;
-    height: 2px;
-    background-color: white;
-=======
   background: none;
   border: none;
   cursor: pointer;
@@ -79,52 +38,10 @@
   width: 24px;
   height: 2px;
   background-color: white;
->>>>>>> 8df69bb (Login commit)
 }
 
 /* Explore Link and Search Bar */
 .navbar-left {
-<<<<<<< HEAD
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.navbar-left .nav-link {
-    color: white;
-    text-decoration: none;
-}
-
-.navbar-left .nav-link:hover {
-    text-decoration: underline;
-}
-
-.search-bar {
-    display: flex;
-    align-items: center;
-}
-
-.search-bar .search-input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-
-.search-bar .search-button {
-    padding: 8px 12px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* Logo in the Center */
-.navbar-center {
-    font-size: 24px;
-    font-weight: bold;
-=======
   display: flex;
   align-items: center;
   gap: 20px;
@@ -175,34 +92,10 @@
 
 .navbar-center .logo-link:hover {
   text-decoration: underline; /* Add underline on hover */
->>>>>>> 8df69bb (Login commit)
 }
 
 /* Donate and Logout on the Right */
 .navbar-right {
-<<<<<<< HEAD
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.navbar-right .nav-link {
-    color: white;
-    text-decoration: none;
-}
-
-.navbar-right .nav-link:hover {
-    text-decoration: underline;
-}
-
-.navbar-right .logout-button {
-    padding: 8px 16px;
-    background-color: #45a049;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-=======
   display: flex;
   align-items: center;
   gap: 20px;
@@ -228,74 +121,10 @@
 
 .navbar-right .logout-button:hover {
   background-color: #3d8b40;
->>>>>>> 8df69bb (Login commit)
 }
 
 /* Sidebar */
 .sidebar {
-<<<<<<< HEAD
-    width: 250px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    position: fixed;
-    left: -250px; /* Initially hidden */
-    top: 60px; /* Below the navbar */
-    transition: left 0.3s ease;
-    z-index: 999;
-}
-
-.sidebar.open {
-    left: 0; /* Visible when open */
-}
-
-.sidebar h2 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin-bottom: 10px;
-}
-
-.sidebar ul li a {
-    color: #333;
-    text-decoration: none;
-}
-
-.sidebar ul li a:hover {
-    text-decoration: underline;
-}
-
-/* Main Content */
-.classes-content {
-    margin-top: 60px; /* To account for the fixed navbar */
-    margin-left: 0; /* No margin when sidebar is closed */
-    transition: margin-left 0.3s ease;
-    width: 100%;
-    max-width: 1200px; /* Adjust as needed */
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-}
-
-.classes-content.sidebar-open {
-    margin-left: 250px; /* Adjust for open sidebar */
-}
-
-.main-sections {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-=======
   width: 250px;
   background-color: #ffffff;
   border-radius: 8px;
@@ -350,6 +179,7 @@
 .sidebar ul li a:hover {
   color: #45a049; /* Change text color on hover */
 }
+
 /* Welcome Section (Under Navbar) */
 .welcome-section {
   display: flex;
@@ -409,6 +239,7 @@
 .add-university-link:hover {
   text-decoration: underline;
 }
+
 /* Main Content */
 .classes-content {
   margin-top: 60px; /* To account for the fixed navbar */
@@ -432,56 +263,28 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
->>>>>>> 8df69bb (Login commit)
 }
 
 .classes-section,
 .onboarding-section,
 .khan-section {
-<<<<<<< HEAD
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-=======
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
->>>>>>> 8df69bb (Login commit)
 }
 
 .classes-section h2,
 .onboarding-section h2,
 .khan-section h2 {
-<<<<<<< HEAD
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
-=======
   font-size: 24px;
   color: #333;
   margin-bottom: 10px;
->>>>>>> 8df69bb (Login commit)
 }
 
 .classes-section p,
 .onboarding-section p,
 .khan-section p {
-<<<<<<< HEAD
-    font-size: 16px;
-    color: #666;
-}
-
-.create-class-button {
-    margin-top: 10px;
-    background-color: #45a049; /* Updated color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-=======
   font-size: 16px;
   color: #666;
 }
@@ -498,19 +301,10 @@
 
 .create-class-button:hover {
   background-color: #3d8b40; /* Darker shade for hover */
->>>>>>> 8df69bb (Login commit)
 }
 
 /* Get Started Button */
 .btn-primary {
-<<<<<<< HEAD
-    background-color: #45a049; /* Updated color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-=======
   background-color: #45a049; /* Updated color */
   color: white;
   border: none;
@@ -521,19 +315,10 @@
 
 .btn-primary:hover {
   background-color: #3d8b40; /* Darker shade for hover */
->>>>>>> 8df69bb (Login commit)
 }
 
 /* Show/Hide Button */
 .btn-info {
-<<<<<<< HEAD
-    background-color: #45a049; /* Ensure the button is green */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-=======
   background-color: #45a049; /* Ensure the button is green */
   color: white;
   border: none;
@@ -544,57 +329,10 @@
 
 .btn-info:hover {
   background-color: #3d8b40; /* Darker shade for hover */
->>>>>>> 8df69bb (Login commit)
 }
 
 /* Help and Tips Section */
 .help-section {
-<<<<<<< HEAD
-    width: 300px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-.help-tips {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.help-tip {
-    background-color: #f1f1f1;
-    border-radius: 8px;
-    padding: 10px;
-    text-decoration: none;
-    color: inherit;
-}
-
-.help-tip h3 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.help-tip p {
-    font-size: 14px;
-    color: #666;
-}
-
-.help-center-link {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.help-center-link a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.help-center-link a:hover {
-    text-decoration: underline;
-=======
   width: 300px;
   background-color: #ffffff;
   border-radius: 8px;
@@ -733,5 +471,4 @@
 .bottom-bar p {
   margin: 0;
   font-size: 14px;
->>>>>>> 8df69bb (Login commit)
 }
