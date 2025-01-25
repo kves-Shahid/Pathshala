@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Classes Page Styles */
 .classes-page {
     background-color: #f9f9f9;
@@ -21,10 +22,36 @@
     left: 0;
     right: 0;
     z-index: 1000;
+=======
+/* Classes Dashboard Styles */
+.classes-dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the page can grow beyond the viewport height */
+  background-color: #f9f9f9;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Navbar for Classes Page */
+.classes-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+>>>>>>> 8df69bb (Login commit)
 }
 
 /* Hamburger Icon for Sidebar Toggle */
 .sidebar-toggle {
+<<<<<<< HEAD
     background: none;
     border: none;
     cursor: pointer;
@@ -38,10 +65,26 @@
     width: 24px;
     height: 2px;
     background-color: white;
+=======
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+}
+
+.sidebar-toggle .line {
+  width: 24px;
+  height: 2px;
+  background-color: white;
+>>>>>>> 8df69bb (Login commit)
 }
 
 /* Explore Link and Search Bar */
 .navbar-left {
+<<<<<<< HEAD
     display: flex;
     align-items: center;
     gap: 20px;
@@ -81,10 +124,63 @@
 .navbar-center {
     font-size: 24px;
     font-weight: bold;
+=======
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-left .nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-left .nav-link:hover {
+  text-decoration: underline;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar .search-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.search-bar .search-button {
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-bar .search-button:hover {
+  background-color: #45a049;
+}
+
+/* Logo in the Center */
+.navbar-center .logo-link {
+  text-decoration: none; /* Remove underline from the link */
+  color: white; /* Ensure the text color matches the navbar */
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navbar-center .logo-link:hover {
+  text-decoration: underline; /* Add underline on hover */
+>>>>>>> 8df69bb (Login commit)
 }
 
 /* Donate and Logout on the Right */
 .navbar-right {
+<<<<<<< HEAD
     display: flex;
     align-items: center;
     gap: 20px;
@@ -106,10 +202,38 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+=======
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-right .nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-right .nav-link:hover {
+  text-decoration: underline;
+}
+
+.navbar-right .logout-button {
+  padding: 8px 16px;
+  background-color: #45a049;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.navbar-right .logout-button:hover {
+  background-color: #3d8b40;
+>>>>>>> 8df69bb (Login commit)
 }
 
 /* Sidebar */
 .sidebar {
+<<<<<<< HEAD
     width: 250px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -171,28 +295,180 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+=======
+  width: 250px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: fixed;
+  left: -250px; /* Initially hidden */
+  top: 60px; /* Below the navbar */
+  transition: left 0.3s ease;
+  z-index: 999;
+  height: calc(100vh - 80px); /* Full height minus navbar and padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items to the top */
+}
+
+.sidebar.open {
+  left: 0; /* Visible when open */
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center; /* Center the "Menu" heading */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1; /* Take up remaining space */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between items */
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  display: block; /* Make the link fill the box */
+  padding: 10px 0; /* Add padding for spacing */
+  color: #333;
+  text-decoration: none;
+  border-bottom: 2px solid #333; /* Underline the text */
+  text-align: left; /* Align text to the left */
+  transition: color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  color: #45a049; /* Change text color on hover */
+}
+/* Welcome Section (Under Navbar) */
+.welcome-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #444; /* Same as hover-header background */
+  color: white;
+  margin-top: 60px; /* To account for the fixed navbar */
+}
+
+.welcome-section .welcome-text {
+  margin: 0;
+  font-size: 18px;
+}
+
+.add-school-link {
+  color: #4caf50; /* Same as add-university-link color */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.add-school-link:hover {
+  text-decoration: underline;
+}
+
+/* Hover Header */
+.hover-header {
+  position: fixed;
+  top: 60px; /* Adjust based on navbar height */
+  left: 0;
+  right: 0;
+  background-color: #444;
+  color: white;
+  padding: 10px 20px;
+  display: none;
+  z-index: 999;
+  transition: opacity 0.3s ease;
+}
+
+.hover-header.visible {
+  display: block;
+  opacity: 1;
+}
+
+.hover-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-university-link {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.add-university-link:hover {
+  text-decoration: underline;
+}
+/* Main Content */
+.classes-content {
+  margin-top: 60px; /* To account for the fixed navbar */
+  margin-left: auto; /* Center the content when sidebar is closed */
+  margin-right: auto; /* Center the content when sidebar is closed */
+  transition: margin-left 0.3s ease;
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.classes-content.sidebar-open {
+  margin-left: 250px; /* Adjust for open sidebar */
+  margin-right: 0; /* Reset margin-right when sidebar is open */
+}
+
+.main-sections {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+>>>>>>> 8df69bb (Login commit)
 }
 
 .classes-section,
 .onboarding-section,
 .khan-section {
+<<<<<<< HEAD
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
+=======
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+>>>>>>> 8df69bb (Login commit)
 }
 
 .classes-section h2,
 .onboarding-section h2,
 .khan-section h2 {
+<<<<<<< HEAD
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
+=======
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+>>>>>>> 8df69bb (Login commit)
 }
 
 .classes-section p,
 .onboarding-section p,
 .khan-section p {
+<<<<<<< HEAD
     font-size: 16px;
     color: #666;
 }
@@ -205,30 +481,75 @@
     border-radius: 4px;
     padding: 8px 16px;
     cursor: pointer;
+=======
+  font-size: 16px;
+  color: #666;
+}
+
+.create-class-button {
+  margin-top: 10px;
+  background-color: #45a049; /* Updated color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.create-class-button:hover {
+  background-color: #3d8b40; /* Darker shade for hover */
+>>>>>>> 8df69bb (Login commit)
 }
 
 /* Get Started Button */
 .btn-primary {
+<<<<<<< HEAD
     background-color: #45a049; /* Updated color */
     color: white;
     border: none;
     border-radius: 4px;
     padding: 8px 16px;
     cursor: pointer;
+=======
+  background-color: #45a049; /* Updated color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #3d8b40; /* Darker shade for hover */
+>>>>>>> 8df69bb (Login commit)
 }
 
 /* Show/Hide Button */
 .btn-info {
+<<<<<<< HEAD
     background-color: #45a049; /* Ensure the button is green */
     color: white;
     border: none;
     border-radius: 4px;
     padding: 8px 16px;
     cursor: pointer;
+=======
+  background-color: #45a049; /* Ensure the button is green */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.btn-info:hover {
+  background-color: #3d8b40; /* Darker shade for hover */
+>>>>>>> 8df69bb (Login commit)
 }
 
 /* Help and Tips Section */
 .help-section {
+<<<<<<< HEAD
     width: 300px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -273,4 +594,144 @@
 
 .help-center-link a:hover {
     text-decoration: underline;
+=======
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.help-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.help-tip {
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.help-tip:hover {
+  background-color: #e1e1e1;
+}
+
+.help-tip h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.help-tip p {
+  font-size: 14px;
+  color: #666;
+}
+
+.help-center-link {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.help-center-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.help-center-link a:hover {
+  text-decoration: underline;
+}
+
+/* Row and Column Styles (if not using Bootstrap) */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+
+.col-md-4 {
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
+  padding: 10px;
+}
+
+/* Visually Hidden Text */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* About Us Section */
+.about-us-section {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #333;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 40px; /* Add gap above About Us */
+}
+
+.about-us-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.about-us-section p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Contact Section */
+.contact {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #444;
+  color: #ffffff;
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.contact-links a:hover {
+  text-decoration: underline;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  width: 100%;
+  padding: 20px;
+  background-color: #222;
+  color: #ffffff;
+  text-align: center;
+}
+
+.bottom-bar p {
+  margin: 0;
+  font-size: 14px;
+>>>>>>> 8df69bb (Login commit)
 }

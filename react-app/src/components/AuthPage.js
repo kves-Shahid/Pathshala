@@ -1,36 +1,50 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom"; // Import Link
 import "./AuthPage.css";
-import smilingImage from "./smiling.png"; // Adjust the path based on where your image is stored
-import laptopImage from "./laptop.png"; // Import the laptop image
-import iconImage from "./icon.png"; // Import the icon image
-import trustedImage from "./trusted.png"; // Import the trusted image
-import empowerImage from "./empower.png"; // Import the empower image
-import collegeImage from "./college.png"; // Import the college image
+import smilingImage from "./smiling.png";
+import iconImage from "./icon.png"; // Used in why-section
+import trustedImage from "./trusted.png"; // Used in why-section
+import empowerImage from "./empower.png"; // Used in why-section
+import laptopImage from "./laptop.png"; // Used in learners-section
+import collegeImage from "./college.png"; // Used in teachers-section
 
 const AuthPage = () => {
   const navigate = useNavigate();
 
+  // State to manage visibility of details for each course
+  const [showDetails, setShowDetails] = useState({});
+
+  // Function to toggle details visibility
+  const toggleDetails = (course) => {
+    setShowDetails((prevState) => ({
+      ...prevState,
+      [course]: !prevState[course],
+    }));
+  };
+
   const handleSignupRedirect = () => {
-    navigate("/signup"); // Redirect to the Signup Page
+    navigate("/signup");
   };
 
   const handleLoginRedirect = () => {
-    navigate("/login"); // Redirect to the Login Page
+    navigate("/login");
   };
 
   const handleDonateClick = (e) => {
-    e.preventDefault(); // Prevent default link behavior
+    e.preventDefault();
     console.log("Donate clicked");
-    // Add your donate logic here (e.g., open a modal, redirect to a donation page, etc.)
+  };
+
+  const handleExploreClick = (e) => {
+    e.preventDefault();
+    console.log("Explore clicked");
   };
 
   return (
     <div className="auth-page">
-      {/* Navbar */}
       <header className="navbar">
         <div className="navbar-left">
-          <a href="#explore" className="nav-link">
+          <a href="#explore" className="nav-link" onClick={handleExploreClick}>
             Explore
           </a>
           <div className="search-bar">
@@ -43,14 +57,13 @@ const AuthPage = () => {
           </div>
         </div>
         <div className="navbar-center">
-          <span className="logo-text">Pathshala</span>
+          {/* Wrap the logo-text with a Link */}
+          <Link to="/" className="logo-link">
+            <span className="logo-text">Pathshala</span>
+          </Link>
         </div>
         <div className="navbar-right">
-          <a
-            href="#donate" // Keep the href for accessibility, but prevent default behavior
-            className="nav-link"
-            onClick={handleDonateClick}
-          >
+          <a href="#donate" className="nav-link" onClick={handleDonateClick}>
             Donate
           </a>
           <button className="login-button" onClick={handleLoginRedirect}>
@@ -62,7 +75,6 @@ const AuthPage = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
       <main className="hero-section">
         <div className="hero-text">
           <h1>For every student, every classroom. Real results.</h1>
@@ -71,10 +83,10 @@ const AuthPage = () => {
             education for anyone, anywhere.
           </p>
           <div className="hero-buttons">
-            <button className="hero-button" onClick={handleSignupRedirect}>
+            <button className="hero-button" onClick={handleLoginRedirect}>
               Teachers
             </button>
-            <button className="hero-button" onClick={handleSignupRedirect}>
+            <button className="hero-button" onClick={handleLoginRedirect}>
               Learners
             </button>
           </div>
@@ -84,12 +96,64 @@ const AuthPage = () => {
         </div>
       </main>
 
+      {/* Explore Our Courses Section */}
+      <section className="explore-section">
+        <h2>Top Trending</h2>
+        <div className="explore-grid">
+          {/* Example Course Item */}
+          <div className="explore-item">
+            <div className="course-header" onClick={() => toggleDetails("Competitive Programming")}>
+              <span>Competitive Programming</span>
+              <button className="toggle-button">
+                {showDetails["Competitive Programming"] ? "▲" : "▼"}
+              </button>
+            </div>
+            {showDetails["Competitive Programming"] && (
+              <div className="course-details">
+                <p>Programming.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Add more course items similarly */}
+          <div className="explore-item">
+            <div className="course-header" onClick={() => toggleDetails("Software Development")}>
+              <span>Software Development</span>
+              <button className="toggle-button">
+                {showDetails["Software Development"] ? "▲" : "▼"}
+              </button>
+            </div>
+            {showDetails["Software Development"] && (
+              <div className="course-details">
+                <p>Mern, Python, Javascript.</p>
+              </div>
+            )}
+          </div>
+
+          <div className="explore-item">
+            <div className="course-header" onClick={() => toggleDetails("Mapping")}>
+              <span>Mapping</span>
+              <button className="toggle-button">
+                {showDetails["Mapping"] ? "▲" : "▼"}
+              </button>
+            </div>
+            {showDetails["Mapping"] && (
+              <div className="course-details">
+                <p>Preparation courses for upcoming challenges.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Add more course items as needed */}
+        </div>
+      </section>
+
       {/* Why Pathshala Works Section */}
       <section className="why-section">
         <h2>Why Pathshala works</h2>
         <div className="why-content">
           <div className="why-item">
-            <img src={iconImage} alt="Personalized Learning" />
+            <img src={iconImage} alt="Personalized Learning" /> {/* iconImage used here */}
             <h3>Personalized learning</h3>
             <p>
               Students practice at their own pace, first filling in gaps in their
@@ -97,7 +161,7 @@ const AuthPage = () => {
             </p>
           </div>
           <div className="why-item">
-            <img src={trustedImage} alt="Trusted Content" />
+            <img src={trustedImage} alt="Trusted Content" /> {/* trustedImage used here */}
             <h3>Trusted content</h3>
             <p>
               Created by experts, Pathshala's library of trusted practice and
@@ -106,7 +170,7 @@ const AuthPage = () => {
             </p>
           </div>
           <div className="why-item">
-            <img src={empowerImage} alt="Tools to Empower Teachers" />
+            <img src={empowerImage} alt="Tools to Empower Teachers" /> {/* empowerImage used here */}
             <h3>Tools to empower teachers</h3>
             <p>
               With Pathshala, teachers can identify gaps in their students'
@@ -127,12 +191,12 @@ const AuthPage = () => {
               We empower teachers to support their entire classroom. 90% of US
               teachers who have used Pathshala have found us effective.
             </p>
-            <button className="teachers-button" onClick={handleSignupRedirect}>
+            <button className="teachers-button" onClick={handleLoginRedirect}>
               Teachers, start here
             </button>
           </div>
           <div className="teachers-photo">
-            <img src={collegeImage} alt="College" />
+            <img src={collegeImage} alt="College" /> {/* collegeImage used here */}
           </div>
         </div>
       </section>
@@ -144,12 +208,12 @@ const AuthPage = () => {
             <h2>LEARNERS AND STUDENTS</h2>
             <p>You can learn anything.</p>
             <p>Build a deep, solid understanding in math, science, and more.</p>
-            <button className="learners-button" onClick={handleSignupRedirect}>
+            <button className="learners-button" onClick={handleLoginRedirect}>
               Learners, start here
             </button>
           </div>
           <div className="learners-photo">
-            <img src={laptopImage} alt="Laptop" />
+            <img src={laptopImage} alt="Laptop" /> {/* laptopImage used here */}
           </div>
         </div>
       </section>
@@ -158,10 +222,10 @@ const AuthPage = () => {
       <section className="image-section">
         <h2>Join Pathshala Today</h2>
         <div className="image-buttons">
-          <button className="image-button" onClick={handleSignupRedirect}>
+          <button className="image-button" onClick={handleLoginRedirect}>
             Learners
           </button>
-          <button className="image-button" onClick={handleSignupRedirect}>
+          <button className="image-button" onClick={handleLoginRedirect}>
             Teachers
           </button>
           <button className="image-button" onClick={handleDonateClick}>

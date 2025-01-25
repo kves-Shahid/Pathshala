@@ -39,6 +39,10 @@ body {
   justify-content: center;
 }
 
+.logo-link {
+  text-decoration: none; /* Remove underline from the link */
+}
+
 .logo-text {
   font-size: 24px;
   font-weight: bold;
@@ -442,4 +446,62 @@ body {
   padding: 10px 20px;
   box-sizing: border-box;
   text-align: center;
+}
+
+/* Explore Our Courses Section */
+.explore-section {
+  padding: 50px 20px;
+  background-color: #ddd;
+  text-align: center;
+}
+
+.explore-section h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.explore-item {
+  padding: 20px;
+  background-color: #45a049;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 16px;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.explore-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.course-details {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
 }
