@@ -13,36 +13,17 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLoginAction = () => {
-    console.log("Login action triggered");
-    console.log("Logging in as:", role);
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    if (role === "learner") {
-      navigate("/learner");
-    } else if (role === "teacher") {
-      navigate("/teacher-dashboard");
-    }
+    console.log("Logging in as:", role, "Email:", email, "Password:", password);
+    role === "learner" ? navigate("/learner") : navigate("/teacher-dashboard");
   };
 
   const handleProviderAction = (provider) => {
-    console.log("Provider action triggered:", provider);
-
-    if (role === "learner") {
-      navigate("/learner");
-    } else if (role === "teacher") {
-      navigate("/teacher-dashboard");
-    }
+    console.log("Provider login:", provider);
+    role === "learner" ? navigate("/learner") : navigate("/teacher-dashboard");
   };
 
-  const handleSignupAction = () => {
-    console.log("Signup action triggered");
-    navigate("/signup");
-  };
-
-  const handleForgotPassword = () => {
-    navigate("/forgot-password"); // Navigate to the Forgot Password screen
-  };
+  const handleSignupAction = () => navigate("/signup");
+  const handleForgotPassword = () => navigate("/forget-password");
 
   return (
     <div className="login-page">
@@ -98,34 +79,21 @@ const LoginPage = () => {
       </div>
 
       <div className="provider-buttons">
-        <button
-          className="provider-button google"
-          onClick={() => handleProviderAction("Google")}
-        >
-          <img src={googleLogo} alt="Google Logo" className="provider-logo" />
-          Continue with Google
-        </button>
-        <button
-          className="provider-button clever"
-          onClick={() => handleProviderAction("Clever")}
-        >
-          <img src={cleverLogo} alt="Clever Logo" className="provider-logo" />
-          Continue with Clever
-        </button>
-        <button
-          className="provider-button facebook"
-          onClick={() => handleProviderAction("Facebook")}
-        >
-          <img src={facebookLogo} alt="Facebook Logo" className="provider-logo" />
-          Continue with Facebook
-        </button>
-        <button
-          className="provider-button apple"
-          onClick={() => handleProviderAction("Apple")}
-        >
-          <img src={appleLogo} alt="Apple Logo" className="provider-logo" />
-          Continue with Apple
-        </button>
+        {[
+          { name: "Google", logo: googleLogo },
+          { name: "Clever", logo: cleverLogo },
+          { name: "Facebook", logo: facebookLogo },
+          { name: "Apple", logo: appleLogo },
+        ].map(({ name, logo }) => (
+          <button
+            key={name}
+            className={`provider-button ${name.toLowerCase()}`}
+            onClick={() => handleProviderAction(name)}
+          >
+            <img src={logo} alt={`${name} Logo`} className="provider-logo" />
+            Continue with {name}
+          </button>
+        ))}
       </div>
 
       <p className="signup-link">
