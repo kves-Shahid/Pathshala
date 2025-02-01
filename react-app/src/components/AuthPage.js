@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link
+import { useNavigate, Link } from "react-router-dom";
 import "./AuthPage.css";
 import smilingImage from "./smiling.png";
 import iconImage from "./icon.png"; // Used in why-section
@@ -10,11 +10,8 @@ import collegeImage from "./college.png"; // Used in teachers-section
 
 const AuthPage = () => {
   const navigate = useNavigate();
-
-  // State to manage visibility of details for each course
   const [showDetails, setShowDetails] = useState({});
 
-  // Function to toggle details visibility
   const toggleDetails = (course) => {
     setShowDetails((prevState) => ({
       ...prevState,
@@ -40,6 +37,10 @@ const AuthPage = () => {
     console.log("Explore clicked");
   };
 
+  const handleCourseClick = (course) => {
+    navigate(`/course/${course}`);
+  };
+
   return (
     <div className="auth-page">
       <header className="navbar">
@@ -57,7 +58,6 @@ const AuthPage = () => {
           </div>
         </div>
         <div className="navbar-center">
-          {/* Wrap the logo-text with a Link */}
           <Link to="/" className="logo-link">
             <span className="logo-text">Pathshala</span>
           </Link>
@@ -96,55 +96,146 @@ const AuthPage = () => {
         </div>
       </main>
 
-      {/* Explore Our Courses Section */}
+      {/* Updated Explore Our Courses Section */}
       <section className="explore-section">
-        <h2>Top Trending</h2>
+        <h2>Courses</h2>
         <div className="explore-grid">
-          {/* Example Course Item */}
-          <div className="explore-item">
-            <div className="course-header" onClick={() => toggleDetails("Competitive Programming")}>
-              <span>Competitive Programming</span>
-              <button className="toggle-button">
-                {showDetails["Competitive Programming"] ? "▲" : "▼"}
-              </button>
-            </div>
-            {showDetails["Competitive Programming"] && (
-              <div className="course-details">
-                <p>Programming.</p>
+          <div className="explore-column">
+            <div className="explore-item">
+              <div className="course-header" onClick={() => toggleDetails("Math: High School & College")}>
+                <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/math.png-444b34-128c.png" alt="Math" />
+                <span>Math: High School & College</span>
+                <button className="toggle-button">
+                  {showDetails["Math: High School & College"] ? "▲" : "▼"}
+                </button>
               </div>
-            )}
-          </div>
-
-          {/* Add more course items similarly */}
-          <div className="explore-item">
-            <div className="course-header" onClick={() => toggleDetails("Software Development")}>
-              <span>Software Development</span>
-              <button className="toggle-button">
-                {showDetails["Software Development"] ? "▲" : "▼"}
-              </button>
+              {showDetails["Math: High School & College"] && (
+                <div className="course-details">
+                  <div className="course-details-grid">
+                    <div onClick={() => handleCourseClick("Algebra 1")}>Algebra 1</div>
+                    <div onClick={() => handleCourseClick("Statistics & probability")}>Statistics & probability</div>
+                    <div onClick={() => handleCourseClick("Geometry")}>Geometry</div>
+                    <div onClick={() => handleCourseClick("College algebra")}>College algebra</div>
+                    <div onClick={() => handleCourseClick("Algebra 2")}>Algebra 2</div>
+                    <div onClick={() => handleCourseClick("AP®/College Calculus AB")}>AP®/College Calculus AB</div>
+                    <div onClick={() => handleCourseClick("Integrated math 1")}>Integrated math 1</div>
+                    <div onClick={() => handleCourseClick("AP®/College Calculus BC")}>AP®/College Calculus BC</div>
+                    <div onClick={() => handleCourseClick("Integrated math 2")}>Integrated math 2</div>
+                    <div onClick={() => handleCourseClick("AP®/College Statistics")}>AP®/College Statistics</div>
+                    <div onClick={() => handleCourseClick("Integrated math 3")}>Integrated math 3</div>
+                    <div onClick={() => handleCourseClick("Multivariable calculus")}>Multivariable calculus</div>
+                    <div onClick={() => handleCourseClick("Algebra basics")}>Algebra basics</div>
+                    <div onClick={() => handleCourseClick("Differential equations")}>Differential equations</div>
+                    <div onClick={() => handleCourseClick("Trigonometry")}>Trigonometry</div>
+                    <div onClick={() => handleCourseClick("Linear algebra")}>Linear algebra</div>
+                    <div onClick={() => handleCourseClick("Precalculus")}>Precalculus</div>
+                    <div onClick={() => handleCourseClick("See all Math")}>See all Math</div>
+                  </div>
+                </div>
+              )}
             </div>
-            {showDetails["Software Development"] && (
-              <div className="course-details">
-                <p>Mern, Python, Javascript.</p>
+            <div className="explore-item">
+              <div className="course-header" onClick={() => toggleDetails("Test Prep")}>
+                <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/test_prep.png-f7c71f-128c.png" alt="Test Prep" />
+                <span>Test Prep</span>
+                <button className="toggle-button">
+                  {showDetails["Test Prep"] ? "▲" : "▼"}
+                </button>
               </div>
-            )}
-          </div>
-
-          <div className="explore-item">
-            <div className="course-header" onClick={() => toggleDetails("Mapping")}>
-              <span>Mapping</span>
-              <button className="toggle-button">
-                {showDetails["Mapping"] ? "▲" : "▼"}
-              </button>
+              {showDetails["Test Prep"] && (
+                <div className="course-details">
+                <div className="course-details-grid">
+                  <div onClick={() => handleCourseClick("Algebra 1")}>Algebra 1</div>
+                    <div onClick={() => handleCourseClick("Statistics & probability")}>Statistics & probability</div>
+                    <div onClick={() => handleCourseClick("Geometry")}>Geometry</div>
+                    <div onClick={() => handleCourseClick("College algebra")}>College algebra</div>
+                    <div onClick={() => handleCourseClick("Algebra 2")}>Algebra 2</div>
+                    <div onClick={() => handleCourseClick("AP®/College Calculus AB")}>AP®/College Calculus AB</div>
+                    <div onClick={() => handleCourseClick("Integrated math 1")}>Integrated math 1</div>
+                    <div onClick={() => handleCourseClick("AP®/College Calculus BC")}>AP®/College Calculus BC</div>
+                    <div onClick={() => handleCourseClick("Integrated math 2")}>Integrated math 2</div>
+                    <div onClick={() => handleCourseClick("AP®/College Statistics")}>AP®/College Statistics</div>
+                    <div onClick={() => handleCourseClick("Integrated math 3")}>Integrated math 3</div>
+                    <div onClick={() => handleCourseClick("Multivariable calculus")}>Multivariable calculus</div>
+                    <div onClick={() => handleCourseClick("Algebra basics")}>Algebra basics</div>
+                    <div onClick={() => handleCourseClick("Differential equations")}>Differential equations</div>
+                    <div onClick={() => handleCourseClick("Trigonometry")}>Trigonometry</div>
+                    <div onClick={() => handleCourseClick("Linear algebra")}>Linear algebra</div>
+                    <div onClick={() => handleCourseClick("Precalculus")}>Precalculus</div>
+                    <div onClick={() => handleCourseClick("See all Math")}>See all Math</div>
+                </div>
+              </div>
+              )}
             </div>
-            {showDetails["Mapping"] && (
-              <div className="course-details">
-                <p>Preparation courses for upcoming challenges.</p>
-              </div>
-            )}
           </div>
-
-          {/* Add more course items as needed */}
+          <div className="explore-column">
+            <div className="explore-item">
+              <div className="course-header" onClick={() => toggleDetails("Computing")}>
+                <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/computing_orange.png-653676-128c.png" alt="Computing" />
+                <span>Computing</span>
+                <button className="toggle-button">
+                  {showDetails["Computing"] ? "▲" : "▼"}
+                </button>
+              </div>
+              {showDetails["Computing"] && (
+                <div className="course-details">
+                <div className="course-details-grid">
+                  <div onClick={() => handleCourseClick("Algebra 1")}>Algebra 1</div>
+                    <div onClick={() => handleCourseClick("Statistics & probability")}>Statistics & probability</div>
+                    <div onClick={() => handleCourseClick("Geometry")}>Geometry</div>
+                    <div onClick={() => handleCourseClick("College algebra")}>College algebra</div>
+                    <div onClick={() => handleCourseClick("Algebra 2")}>Algebra 2</div>
+                    <div onClick={() => handleCourseClick("AP®/College Calculus AB")}>AP®/College Calculus AB</div>
+                    <div onClick={() => handleCourseClick("Integrated math 1")}>Integrated math 1</div>
+                    <div onClick={() => handleCourseClick("AP®/College Calculus BC")}>AP®/College Calculus BC</div>
+                    <div onClick={() => handleCourseClick("Integrated math 2")}>Integrated math 2</div>
+                    <div onClick={() => handleCourseClick("AP®/College Statistics")}>AP®/College Statistics</div>
+                    <div onClick={() => handleCourseClick("Integrated math 3")}>Integrated math 3</div>
+                    <div onClick={() => handleCourseClick("Multivariable calculus")}>Multivariable calculus</div>
+                    <div onClick={() => handleCourseClick("Algebra basics")}>Algebra basics</div>
+                    <div onClick={() => handleCourseClick("Differential equations")}>Differential equations</div>
+                    <div onClick={() => handleCourseClick("Trigonometry")}>Trigonometry</div>
+                    <div onClick={() => handleCourseClick("Linear algebra")}>Linear algebra</div>
+                    <div onClick={() => handleCourseClick("Precalculus")}>Precalculus</div>
+                    <div onClick={() => handleCourseClick("See all Math")}>See all Math</div>
+                </div>
+              </div>
+              )}
+            </div>
+            <div className="explore-item">
+              <div className="course-header" onClick={() => toggleDetails("Arts & Humanities")}>
+                <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/arts_humanities.png-07c77b-128c.png" alt="Arts & Humanities" />
+                <span>Arts & Humanities</span>
+                <button className="toggle-button">
+                  {showDetails["Arts & Humanities"] ? "▲" : "▼"}
+                </button>
+              </div>
+              {showDetails["Arts & Humanities"] && (
+                <div className="course-details">
+                <div className="course-details-grid">
+                  <div onClick={() => handleCourseClick("Algebra 1")}>Algebra 1</div>
+                    <div onClick={() => handleCourseClick("Statistics & probability")}>Statistics & probability</div>
+                    <div onClick={() => handleCourseClick("Geometry")}>Geometry</div>
+                    <div onClick={() => handleCourseClick("College algebra")}>College algebra</div>
+                    <div onClick={() => handleCourseClick("Algebra 2")}>Algebra 2</div>
+                    <div onClick={() => handleCourseClick("AP®/College Calculus AB")}>AP®/College Calculus AB</div>
+                    <div onClick={() => handleCourseClick("Integrated math 1")}>Integrated math 1</div>
+                    <div onClick={() => handleCourseClick("AP®/College Calculus BC")}>AP®/College Calculus BC</div>
+                    <div onClick={() => handleCourseClick("Integrated math 2")}>Integrated math 2</div>
+                    <div onClick={() => handleCourseClick("AP®/College Statistics")}>AP®/College Statistics</div>
+                    <div onClick={() => handleCourseClick("Integrated math 3")}>Integrated math 3</div>
+                    <div onClick={() => handleCourseClick("Multivariable calculus")}>Multivariable calculus</div>
+                    <div onClick={() => handleCourseClick("Algebra basics")}>Algebra basics</div>
+                    <div onClick={() => handleCourseClick("Differential equations")}>Differential equations</div>
+                    <div onClick={() => handleCourseClick("Trigonometry")}>Trigonometry</div>
+                    <div onClick={() => handleCourseClick("Linear algebra")}>Linear algebra</div>
+                    <div onClick={() => handleCourseClick("Precalculus")}>Precalculus</div>
+                    <div onClick={() => handleCourseClick("See all Math")}>See all Math</div>
+                </div>
+              </div>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 
