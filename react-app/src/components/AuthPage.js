@@ -11,6 +11,7 @@ import collegeImage from "./college.png"; // Used in teachers-section
 const AuthPage = () => {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState({});
+  const [selectedCourse, setSelectedCourse] = useState(null); // Add this line
 
   const toggleDetails = (course) => {
     setShowDetails((prevState) => ({
@@ -38,6 +39,7 @@ const AuthPage = () => {
   };
 
   const handleCourseClick = (course) => {
+    setSelectedCourse(course); // Update the selected course
     navigate(`/course/${course}`);
   };
 
@@ -100,6 +102,7 @@ const AuthPage = () => {
       <section className="explore-section">
         <h2>Courses</h2>
         <div className="explore-grid">
+          {/* Math Column */}
           <div className="explore-column">
             <div className="explore-item">
               <div className="course-header" onClick={() => toggleDetails("Math: High School & College")}>
@@ -112,28 +115,40 @@ const AuthPage = () => {
               {showDetails["Math: High School & College"] && (
                 <div className="course-details">
                   <div className="course-details-grid">
-                    <div onClick={() => handleCourseClick("Algebra 1")}>Algebra 1</div>
-                    <div onClick={() => handleCourseClick("Statistics & probability")}>Statistics & probability</div>
-                    <div onClick={() => handleCourseClick("Geometry")}>Geometry</div>
-                    <div onClick={() => handleCourseClick("College algebra")}>College algebra</div>
-                    <div onClick={() => handleCourseClick("Algebra 2")}>Algebra 2</div>
-                    <div onClick={() => handleCourseClick("AP®/College Calculus AB")}>AP®/College Calculus AB</div>
-                    <div onClick={() => handleCourseClick("Integrated math 1")}>Integrated math 1</div>
-                    <div onClick={() => handleCourseClick("AP®/College Calculus BC")}>AP®/College Calculus BC</div>
-                    <div onClick={() => handleCourseClick("Integrated math 2")}>Integrated math 2</div>
-                    <div onClick={() => handleCourseClick("AP®/College Statistics")}>AP®/College Statistics</div>
-                    <div onClick={() => handleCourseClick("Integrated math 3")}>Integrated math 3</div>
-                    <div onClick={() => handleCourseClick("Multivariable calculus")}>Multivariable calculus</div>
-                    <div onClick={() => handleCourseClick("Algebra basics")}>Algebra basics</div>
-                    <div onClick={() => handleCourseClick("Differential equations")}>Differential equations</div>
-                    <div onClick={() => handleCourseClick("Trigonometry")}>Trigonometry</div>
-                    <div onClick={() => handleCourseClick("Linear algebra")}>Linear algebra</div>
-                    <div onClick={() => handleCourseClick("Precalculus")}>Precalculus</div>
-                    <div onClick={() => handleCourseClick("See all Math")}>See all Math</div>
+                    {[
+                      "Algebra 1",
+                      "Statistics & probability",
+                      "Geometry",
+                      "College algebra",
+                      "Algebra 2",
+                      "AP®/College Calculus AB",
+                      "Integrated math 1",
+                      "AP®/College Calculus BC",
+                      "Integrated math 2",
+                      "AP®/College Statistics",
+                      "Integrated math 3",
+                      "Multivariable calculus",
+                      "Algebra basics",
+                      "Differential equations",
+                      "Trigonometry",
+                      "Linear algebra",
+                      "Precalculus",
+                      "See all Math",
+                    ].map((course) => (
+                      <div
+                        key={course}
+                        onClick={() => handleCourseClick(course)}
+                        className={selectedCourse === course ? "selected-course" : ""}
+                      >
+                        {course}
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
             </div>
+
+            {/* Test Prep Column */}
             <div className="explore-item">
               <div className="course-header" onClick={() => toggleDetails("Test Prep")}>
                 <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/test_prep.png-f7c71f-128c.png" alt="Test Prep" />
@@ -144,30 +159,23 @@ const AuthPage = () => {
               </div>
               {showDetails["Test Prep"] && (
                 <div className="course-details">
-                <div className="course-details-grid">
-                  <div onClick={() => handleCourseClick("Algebra 1")}>Algebra 1</div>
-                    <div onClick={() => handleCourseClick("Statistics & probability")}>Statistics & probability</div>
-                    <div onClick={() => handleCourseClick("Geometry")}>Geometry</div>
-                    <div onClick={() => handleCourseClick("College algebra")}>College algebra</div>
-                    <div onClick={() => handleCourseClick("Algebra 2")}>Algebra 2</div>
-                    <div onClick={() => handleCourseClick("AP®/College Calculus AB")}>AP®/College Calculus AB</div>
-                    <div onClick={() => handleCourseClick("Integrated math 1")}>Integrated math 1</div>
-                    <div onClick={() => handleCourseClick("AP®/College Calculus BC")}>AP®/College Calculus BC</div>
-                    <div onClick={() => handleCourseClick("Integrated math 2")}>Integrated math 2</div>
-                    <div onClick={() => handleCourseClick("AP®/College Statistics")}>AP®/College Statistics</div>
-                    <div onClick={() => handleCourseClick("Integrated math 3")}>Integrated math 3</div>
-                    <div onClick={() => handleCourseClick("Multivariable calculus")}>Multivariable calculus</div>
-                    <div onClick={() => handleCourseClick("Algebra basics")}>Algebra basics</div>
-                    <div onClick={() => handleCourseClick("Differential equations")}>Differential equations</div>
-                    <div onClick={() => handleCourseClick("Trigonometry")}>Trigonometry</div>
-                    <div onClick={() => handleCourseClick("Linear algebra")}>Linear algebra</div>
-                    <div onClick={() => handleCourseClick("Precalculus")}>Precalculus</div>
-                    <div onClick={() => handleCourseClick("See all Math")}>See all Math</div>
+                  <div className="course-details-grid">
+                    {["Digital SAT", "MCAT", "LSAT", "GMAT", "See more"].map((course) => (
+                      <div
+                        key={course}
+                        onClick={() => handleCourseClick(course)}
+                        className={selectedCourse === course ? "selected-course" : ""}
+                      >
+                        {course}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
               )}
             </div>
           </div>
+
+          {/* Computing Column */}
           <div className="explore-column">
             <div className="explore-item">
               <div className="course-header" onClick={() => toggleDetails("Computing")}>
@@ -179,29 +187,29 @@ const AuthPage = () => {
               </div>
               {showDetails["Computing"] && (
                 <div className="course-details">
-                <div className="course-details-grid">
-                  <div onClick={() => handleCourseClick("Algebra 1")}>Algebra 1</div>
-                    <div onClick={() => handleCourseClick("Statistics & probability")}>Statistics & probability</div>
-                    <div onClick={() => handleCourseClick("Geometry")}>Geometry</div>
-                    <div onClick={() => handleCourseClick("College algebra")}>College algebra</div>
-                    <div onClick={() => handleCourseClick("Algebra 2")}>Algebra 2</div>
-                    <div onClick={() => handleCourseClick("AP®/College Calculus AB")}>AP®/College Calculus AB</div>
-                    <div onClick={() => handleCourseClick("Integrated math 1")}>Integrated math 1</div>
-                    <div onClick={() => handleCourseClick("AP®/College Calculus BC")}>AP®/College Calculus BC</div>
-                    <div onClick={() => handleCourseClick("Integrated math 2")}>Integrated math 2</div>
-                    <div onClick={() => handleCourseClick("AP®/College Statistics")}>AP®/College Statistics</div>
-                    <div onClick={() => handleCourseClick("Integrated math 3")}>Integrated math 3</div>
-                    <div onClick={() => handleCourseClick("Multivariable calculus")}>Multivariable calculus</div>
-                    <div onClick={() => handleCourseClick("Algebra basics")}>Algebra basics</div>
-                    <div onClick={() => handleCourseClick("Differential equations")}>Differential equations</div>
-                    <div onClick={() => handleCourseClick("Trigonometry")}>Trigonometry</div>
-                    <div onClick={() => handleCourseClick("Linear algebra")}>Linear algebra</div>
-                    <div onClick={() => handleCourseClick("Precalculus")}>Precalculus</div>
-                    <div onClick={() => handleCourseClick("See all Math")}>See all Math</div>
+                  <div className="course-details-grid">
+                    {[
+                      "Intro to CS - Python",
+                      "Computer programming",
+                      "AP®︎/College Computer Science Principles",
+                      "Pixar in a Box",
+                      "AP®︎/College Computer Science A",
+                      "See all Computing",
+                    ].map((course) => (
+                      <div
+                        key={course}
+                        onClick={() => handleCourseClick(course)}
+                        className={selectedCourse === course ? "selected-course" : ""}
+                      >
+                        {course}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
               )}
             </div>
+
+            {/* Arts & Humanities Column */}
             <div className="explore-item">
               <div className="course-header" onClick={() => toggleDetails("Arts & Humanities")}>
                 <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/arts_humanities.png-07c77b-128c.png" alt="Arts & Humanities" />
@@ -212,27 +220,18 @@ const AuthPage = () => {
               </div>
               {showDetails["Arts & Humanities"] && (
                 <div className="course-details">
-                <div className="course-details-grid">
-                  <div onClick={() => handleCourseClick("Algebra 1")}>Algebra 1</div>
-                    <div onClick={() => handleCourseClick("Statistics & probability")}>Statistics & probability</div>
-                    <div onClick={() => handleCourseClick("Geometry")}>Geometry</div>
-                    <div onClick={() => handleCourseClick("College algebra")}>College algebra</div>
-                    <div onClick={() => handleCourseClick("Algebra 2")}>Algebra 2</div>
-                    <div onClick={() => handleCourseClick("AP®/College Calculus AB")}>AP®/College Calculus AB</div>
-                    <div onClick={() => handleCourseClick("Integrated math 1")}>Integrated math 1</div>
-                    <div onClick={() => handleCourseClick("AP®/College Calculus BC")}>AP®/College Calculus BC</div>
-                    <div onClick={() => handleCourseClick("Integrated math 2")}>Integrated math 2</div>
-                    <div onClick={() => handleCourseClick("AP®/College Statistics")}>AP®/College Statistics</div>
-                    <div onClick={() => handleCourseClick("Integrated math 3")}>Integrated math 3</div>
-                    <div onClick={() => handleCourseClick("Multivariable calculus")}>Multivariable calculus</div>
-                    <div onClick={() => handleCourseClick("Algebra basics")}>Algebra basics</div>
-                    <div onClick={() => handleCourseClick("Differential equations")}>Differential equations</div>
-                    <div onClick={() => handleCourseClick("Trigonometry")}>Trigonometry</div>
-                    <div onClick={() => handleCourseClick("Linear algebra")}>Linear algebra</div>
-                    <div onClick={() => handleCourseClick("Precalculus")}>Precalculus</div>
-                    <div onClick={() => handleCourseClick("See all Math")}>See all Math</div>
+                  <div className="course-details-grid">
+                    {["History", "Climate Project", "Art History", "See all Arts & Humanities"].map((course) => (
+                      <div
+                        key={course}
+                        onClick={() => handleCourseClick(course)}
+                        className={selectedCourse === course ? "selected-course" : ""}
+                      >
+                        {course}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
               )}
             </div>
           </div>

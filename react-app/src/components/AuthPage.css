@@ -510,7 +510,7 @@ body {
   border: none;
   font-size: 16px;
   cursor: pointer;
-  color: #ffffff;
+  color: #333;
 }
 
 .course-details {
@@ -523,4 +523,13 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+}
+
+/* Selected Course Style */
+.selected-course {
+  margin: 10px 0;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  padding: 8px;
+  transition: all 0.2s ease;
 }
