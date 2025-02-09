@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./SignupPage.css"; // Import the CSS for the Signup Page
-
-// Import logos from the correct path
+import { useNavigate, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import "./SignupPage.css";
 import googleLogo from "./assets/images/google-logo.png";
 import cleverLogo from "./assets/images/clever-logo.jpg";
 import facebookLogo from "./assets/images/facebook-logo.png";
 import appleLogo from "./assets/images/apple-logo.png";
 import emailLogo from "./assets/images/email-logo.png";
+import logoImage from "./logo.png";
 
 const SignupPage = () => {
-  const [role, setRole] = useState("learner"); // Track the selected role (learner or teacher)
-  const [dob, setDob] = useState({ month: "", day: "", year: "" }); // Track date of birth for learners
-  const [email, setEmail] = useState(""); // Track learner's email
-  const [username, setUsername] = useState(""); // Track learner's username
-  const [password, setPassword] = useState(""); // Track learner's password
+  const [role, setRole] = useState("learner");
+  const [dob, setDob] = useState({ month: "", day: "", year: "" });
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleEmailSignup = () => {
-    // Handle email signup logic here
     console.log("Signing up with Email as:", role);
     if (role === "learner") {
       console.log("Date of Birth:", dob);
@@ -26,168 +26,323 @@ const SignupPage = () => {
       console.log("Username:", username);
       console.log("Password:", password);
     }
-    // Redirect to the AuthPage after signup
     navigate("/");
   };
 
   const handleProviderSignup = (provider) => {
-    // Handle provider signup logic here
     console.log("Signing up with:", provider);
-    // Redirect to the Teacher Dashboard after signup
     navigate("/teacher-dashboard");
   };
 
   return (
-    <div className="signup-page">
-      <h1>Sign up</h1>
-      <p>Join Pathshala for free as a</p>
-      <div className="role-buttons">
-        <button
-          className={role === "learner" ? "active" : ""}
-          onClick={() => setRole("learner")}
-        >
-          Learner
-        </button>
-        <button
-          className={role === "teacher" ? "active" : ""}
-          onClick={() => setRole("teacher")}
-        >
-          Teacher
-        </button>
-      </div>
-
-      {/* Learners Section */}
-      {role === "learner" && (
-        <div className="learner-section">
-          <h3>We're excited to get you started!</h3>
-
-          {/* Email Input */}
-          <div className="form-group">
-            <label htmlFor="email">Your Email</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="example@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          {/* Username Input */}
-          <div className="form-group">
-            <label htmlFor="username">Choose a Username</label>
-            <input
-              type="text"
-              id="username"
-              placeholder="Use letters and numbers only"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-
-          {/* Password Input */}
-          <div className="form-group">
-            <label htmlFor="password">Create a Password</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="At least 8 characters long"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          {/* Date of Birth Section */}
-          <div className="dob-section">
-            <h3>What is your date of birth?</h3>
-            <div className="dob-inputs">
-              <select
-                value={dob.month}
-                onChange={(e) => setDob({ ...dob, month: e.target.value })}
+    <div className="signup-container">
+      {/* Desktop Navbar */}
+      <nav className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block">
+        <div className="container-fluid">
+          <div className="d-flex align-items-center w-100">
+            <div className="d-flex align-items-center me-auto">
+              <button
+                className="btn btn-outline-success me-3"
+                onClick={() => navigate("/explore")}
               >
-                <option value="">Month</option>
-                <option value="01">January</option>
-                <option value="02">February</option>
-                {/* Add all months here */}
-              </select>
-              <input
-                type="number"
-                placeholder="Day"
-                value={dob.day}
-                onChange={(e) => setDob({ ...dob, day: e.target.value })}
+                Explore
+              </button>
+              <div className="input-group search-bar">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search here..."
+                />
+                <button className="btn btn-success" type="button">
+                  Search
+                </button>
+              </div>
+            </div>
+            <Link
+              to="/"
+              className="position-absolute top-50 start-50 translate-middle"
+            >
+              <img
+                src={logoImage}
+                alt="Pathshala Logo"
+                className="navbar-logo"
+                style={{ height: "40px" }}
               />
-              <input
-                type="number"
-                placeholder="Year"
-                value={dob.year}
-                onChange={(e) => setDob({ ...dob, year: e.target.value })}
-              />
+            </Link>
+            <div className="d-flex align-items-center ms-auto">
+              <button
+                className="btn btn-outline-light me-2"
+                onClick={() => navigate("/donate")}
+              >
+                Donate
+              </button>
+              <button
+                className="btn btn-outline-light me-2"
+                onClick={() => navigate("/login")}
+              >
+                Log in
+              </button>
+              <button
+                className="btn btn-success"
+                onClick={() => navigate("/signup")}
+              >
+                Sign up
+              </button>
             </div>
           </div>
-
-          {/* Submit Button for Learners */}
-          <button className="submit-button" onClick={handleEmailSignup}>
-            Submit
-          </button>
         </div>
-      )}
+      </nav>
 
-      {/* Provider Buttons (Only for Teachers) */}
-      {role === "teacher" && (
-        <div className="provider-buttons">
+      {/* Mobile Navbar */}
+      <nav className="navbar bg-dark fixed-top d-lg-none">
+        <div className="container-fluid">
           <button
-            className="provider-button google"
-            onClick={() => handleProviderSignup("Google")}
+            className="navbar-toggler text-white"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileMenu"
           >
-            <img src={googleLogo} alt="Google Logo" className="provider-logo" />
-            Continue with Google
+            ☰
           </button>
-          <button
-            className="provider-button clever"
-            onClick={() => handleProviderSignup("Clever")}
-          >
-            <img src={cleverLogo} alt="Clever Logo" className="provider-logo" />
-            Continue with Clever
-          </button>
-          <button
-            className="provider-button facebook"
-            onClick={() => handleProviderSignup("Facebook")}
-          >
+          <Link to="/" className="navbar-brand mx-auto">
             <img
-              src={facebookLogo}
-              alt="Facebook Logo"
-              className="provider-logo"
+              src={logoImage}
+              alt="Pathshala Logo"
+              className="navbar-logo"
+              style={{ height: "40px" }}
             />
-            Continue with Facebook
-          </button>
-          <button
-            className="provider-button apple"
-            onClick={() => handleProviderSignup("Apple")}
+          </Link>
+          <div
+            className="offcanvas offcanvas-start bg-dark text-white"
+            tabIndex="-1"
+            id="mobileMenu"
           >
-            <img src={appleLogo} alt="Apple Logo" className="provider-logo" />
-            Continue with Apple
-          </button>
-
-          {/* Sign up with Email Button for Teachers */}
-          <button
-            className="provider-button email-signup-button"
-            onClick={() => handleProviderSignup("Email")}
-          >
-            <img src={emailLogo} alt="Email Logo" className="provider-logo" />
-            Sign up with Email
-          </button>
+            <div className="offcanvas-header">
+              <h5 className="offcanvas-title">Menu</h5>
+              <button
+                type="button"
+                className="btn-close btn-close-white"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="offcanvas-body">
+              <div className="search-bar mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search here..."
+                />
+              </div>
+              <nav className="nav flex-column gap-2">
+                <button
+                  className="btn btn-outline-light"
+                  onClick={() => navigate("/explore")}
+                >
+                  Explore
+                </button>
+                <button
+                  className="btn btn-outline-light"
+                  onClick={() => navigate("/donate")}
+                >
+                  Donate
+                </button>
+                <button
+                  className="btn btn-outline-light"
+                  onClick={() => navigate("/login")}
+                >
+                  Log in
+                </button>
+                <button
+                  className="btn btn-success"
+                  onClick={() => navigate("/signup")}
+                >
+                  Sign up
+                </button>
+              </nav>
+            </div>
+          </div>
         </div>
-      )}
+      </nav>
 
-      <p className="login-link">
-        Already have an account? <a href="/login">Log in</a>
-      </p>
+      {/* Main Content */}
+      <div className="signup-content">
+        {/* Mobile Text Overlay */}
+        <div className="mobile-text-overlay d-lg-none">
+          <h2>Join Pathshala and learn with us</h2>
+          <p>Sign up to Pathshala to get started!</p>
+          <p>
+            By signing up to Pathshala, you agree to our{" "}
+            <a href="/terms">Terms of use</a> and{" "}
+            <a href="/privacy">Privacy Policy</a>.
+          </p>
+        </div>
 
-      <p className="terms">
-        By signing up for Pathshala, you agree to our{" "}
-        <a href="/terms">Terms of use</a> and{" "}
-        <a href="/privacy">Privacy Policy</a>.
-      </p>
+        {/* Image Section - Hidden on Mobile */}
+        <div className="signup-image-section d-none d-lg-flex">
+          <img
+            src="https://w0.peakpx.com/wallpaper/525/128/HD-wallpaper-enlightenment-acknowledgment-bulb-education-facts-future-iphone-science-scientific-technology.jpg"
+            alt="Education"
+            className="signup-image"
+          />
+          <div className="image-overlay">
+            <h2>Join Pathshala and learn with us</h2>
+            <p>Sign up to Pathshala to get started!</p>
+            <p>
+              By signing up to Pathshala, you agree to our{" "}
+              <a href="/terms">Terms of use</a> and{" "}
+              <a href="/privacy">Privacy Policy</a>.
+            </p>
+          </div>
+        </div>
+
+        {/* Form Section */}
+        <div className="signup-form-section">
+          <h1>Sign up</h1>
+          <p>Join Pathshala for free as a</p>
+          <div className="role-buttons">
+            <button
+              className={role === "learner" ? "active" : ""}
+              onClick={() => setRole("learner")}
+            >
+              Learner
+            </button>
+            <button
+              className={role === "teacher" ? "active" : ""}
+              onClick={() => setRole("teacher")}
+            >
+              Teacher
+            </button>
+          </div>
+
+          {/* Learners Section */}
+          {role === "learner" && (
+            <div className="signup-form">
+              <div className="form-group">
+                <label htmlFor="email">Your Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="example@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="username">Choose a Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Use letters and numbers only"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Create a Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="At least 8 characters long"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="dob-section">
+                <h3>What is your date of birth?</h3>
+                <div className="dob-inputs">
+                  <select
+                    value={dob.month}
+                    onChange={(e) => setDob({ ...dob, month: e.target.value })}
+                  >
+                    <option value="">Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    {/* Add all months here */}
+                  </select>
+                  <input
+                    type="number"
+                    placeholder="Day"
+                    value={dob.day}
+                    onChange={(e) => setDob({ ...dob, day: e.target.value })}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Year"
+                    value={dob.year}
+                    onChange={(e) => setDob({ ...dob, year: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <button className="submit-button" onClick={handleEmailSignup}>
+                Submit
+              </button>
+            </div>
+          )}
+
+          {/* Provider Buttons (Only for Teachers) */}
+          {role === "teacher" && (
+            <div className="provider-buttons">
+              <button
+                className="provider-button google"
+                onClick={() => handleProviderSignup("Google")}
+              >
+                <img src={googleLogo} alt="Google Logo" className="provider-logo" />
+                <span>Continue with Google</span>
+              </button>
+              <button
+                className="provider-button clever"
+                onClick={() => handleProviderSignup("Clever")}
+              >
+                <img src={cleverLogo} alt="Clever Logo" className="provider-logo" />
+                <span>Continue with Clever</span>
+              </button>
+              <button
+                className="provider-button facebook"
+                onClick={() => handleProviderSignup("Facebook")}
+              >
+                <img src={facebookLogo} alt="Facebook Logo" className="provider-logo" />
+                <span>Continue with Facebook</span>
+              </button>
+              <button
+                className="provider-button apple"
+                onClick={() => handleProviderSignup("Apple")}
+              >
+                <img src={appleLogo} alt="Apple Logo" className="provider-logo" />
+                <span>Continue with Apple</span>
+              </button>
+              <button
+                className="provider-button email"
+                onClick={() => handleProviderSignup("Email")}
+              >
+                <img src={emailLogo} alt="Email Logo" className="provider-logo" />
+                <span>Sign up with Email</span>
+              </button>
+            </div>
+          )}
+
+          <p className="login-link">
+            Already have an account? <a href="/login">Log in</a>
+          </p>
+
+          <p className="terms">
+            By signing up for Pathshala, you agree to our{" "}
+            <a href="/terms">Terms of use</a> and{" "}
+            <a href="/privacy">Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+
+      {/* Footer Section */}
+      <footer className="footer bg-dark text-white py-4">
+        <div className="container text-center">
+          <p className="mb-0">© 2025 Pathshala. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };

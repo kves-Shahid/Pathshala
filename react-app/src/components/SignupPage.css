@@ -1,164 +1,369 @@
-/* Signup Page Styling */
-.signup-page {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    text-align: center;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* SignupPage.css */
+/* Mobile First Approach */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-color: #f8f9fa;
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: #2c3e50;
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+.btn-outline-success {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.btn-outline-success:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-success {
+  background-color: #4CAF50;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #45a049;
+}
+
+/* Signup Container */
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile Text Overlay */
+.mobile-text-overlay {
+  background-color: #2c3e50;
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+  display: block;
+}
+
+.mobile-text-overlay h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.mobile-text-overlay p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #ecf0f1;
+}
+
+.mobile-text-overlay a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Image Section */
+.signup-image-section {
+  display: none;
+  position: relative;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.signup-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  color: white;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  text-align: center;
+}
+
+.image-overlay h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.image-overlay p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.image-overlay a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Form Section */
+.signup-form-section {
+  flex: 1;
+  padding: 2rem 1rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-form-section h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.signup-form-section p {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Role Selection */
+.role-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+}
+
+.role-buttons button {
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  color: #7f8c8d;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.role-buttons button.active {
+  border-color: #4CAF50;
+  background: #4CAF50;
+  color: white;
+}
+
+/* Signup Form */
+.signup-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Date of Birth Section */
+.dob-section {
+  margin-bottom: 1.5rem;
+}
+
+.dob-section h3 {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.dob-inputs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dob-inputs select,
+.dob-inputs input {
+  flex: 1;
+  padding: 0.6rem; /* Reduced padding */
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem; /* Reduced font size */
+  width: 100px; /* Fixed width for better alignment */
+}
+
+.dob-inputs select {
+  appearance: none; /* Remove default dropdown arrow */
+  background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")
+    no-repeat right 0.5rem center; /* Custom dropdown arrow */
+  background-size: 16px;
+  padding-right: 2rem; /* Add space for the custom arrow */
+}
+
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-button:hover {
+  background: #45a049;
+}
+
+/* Provider Buttons */
+.provider-buttons {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center buttons horizontally */
+  justify-content: center; /* Center buttons vertically */
+  margin: 2rem 0;
+}
+
+.provider-button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content inside button */
+  gap: 1rem;
+  font-weight: 500;
+  color: #7f8c8d;
+  transition: all 0.2s ease;
+}
+
+.provider-button:hover {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.provider-logo {
+  width: 20px;
+  height: 20px;
+}
+
+/* Links */
+.login-link,
+.terms {
+  text-align: center;
+  margin-top: 1rem;
+  color: #7f8c8d;
+}
+
+.login-link a,
+.terms a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover,
+.terms a:hover {
+  opacity: 0.8;
+}
+
+/* Desktop Styles */
+@media (min-width: 992px) {
+  .mobile-text-overlay {
+    display: none;
   }
-  
-  .signup-page h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
+
+  .signup-content {
+    flex-direction: row;
   }
-  
-  .signup-page p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 20px;
+
+  .signup-image-section {
+    display: flex;
+    flex: 1;
   }
-  
+
+  .signup-form-section {
+    flex: 1;
+    padding: 4rem 2rem;
+  }
+
   .role-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .role-buttons button {
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #f9f9f9;
-    color: #333;
+
+  .image-overlay h2 {
+    font-size: 2rem;
   }
-  
-  .role-buttons button.active {
-    background-color: #4CAF50;
-    color: white;
-    border-color: #4CAF50;
+
+  .image-overlay p {
+    font-size: 1rem;
   }
-  
-  /* Learners Section */
-  .learner-section {
-    text-align: left;
-    margin-bottom: 20px;
+}
+
+/* Small Screens */
+@media (max-width: 576px) {
+  .signup-form-section {
+    padding: 2rem 1rem;
   }
-  
-  .learner-section h3 {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 15px;
+
+  .signup-form-section h1 {
+    font-size: 1.5rem;
   }
-  
-  .form-group {
-    margin-bottom: 15px;
+
+  .provider-button span {
+    font-size: 0.9rem;
   }
-  
-  .form-group label {
-    display: block;
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .dob-section {
-    margin-bottom: 20px;
-  }
-  
-  .dob-section h3 {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .dob-inputs {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .dob-inputs select,
-  .dob-inputs input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    width: 100px;
-  }
-  
-  .provider-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .provider-button {
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #ffffff;
-    color: black;
-    border-color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .provider-logo {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-  
-  .login-link {
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .login-link a {
-    color: #4CAF50;
-    text-decoration: none;
-  }
-  
-  .terms {
-    font-size: 12px;
-    color: #777;
-  }
-  
-  .terms a {
-    color: #4CAF50;
-    text-decoration: none;
-  }
-  .submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049;
-  }
+}
