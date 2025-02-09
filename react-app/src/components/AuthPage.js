@@ -1,17 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./AuthPage.css";
+import logoImage from "./logo.png";
 import smilingImage from "./smiling.png";
-import iconImage from "./icon.png"; // Used in why-section
-import trustedImage from "./trusted.png"; // Used in why-section
-import empowerImage from "./empower.png"; // Used in why-section
-import laptopImage from "./laptop.png"; // Used in learners-section
-import collegeImage from "./college.png"; // Used in teachers-section
+import iconImage from "./icon.png";
+import trustedImage from "./trusted.png";
+import empowerImage from "./empower.png";
+import laptopImage from "./laptop.png";
+import collegeImage from "./college.png";
 
 const AuthPage = () => {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState({});
-  const [selectedCourse, setSelectedCourse] = useState(null); // Add this line
+  const navbarRef = useRef(null);
+  const [navHeight, setNavHeight] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (navbarRef.current) {
+        setNavHeight(navbarRef.current.offsetHeight);
+      }
+    };
+
+    handleResize();
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (navbarRef.current) resizeObserver.observe(navbarRef.current);
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const toggleDetails = (course) => {
     setShowDetails((prevState) => ({
@@ -20,64 +42,153 @@ const AuthPage = () => {
     }));
   };
 
-  const handleSignupRedirect = () => {
-    navigate("/signup");
-  };
-
-  const handleLoginRedirect = () => {
-    navigate("/login");
-  };
-
+  const handleSignupRedirect = () => navigate("/signup");
+  const handleLoginRedirect = () => navigate("/login");
   const handleDonateClick = (e) => {
     e.preventDefault();
     console.log("Donate clicked");
   };
-
   const handleExploreClick = (e) => {
     e.preventDefault();
     console.log("Explore clicked");
   };
-
   const handleCourseClick = (course) => {
-    setSelectedCourse(course); // Update the selected course
     navigate(`/course/${course}`);
   };
 
   return (
-    <div className="auth-page">
-      <header className="navbar">
-        <div className="navbar-left">
-          <a href="#explore" className="nav-link" onClick={handleExploreClick}>
-            Explore
-          </a>
-          <div className="search-bar">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search here..."
-            />
-            <button className="search-button">Search</button>
+    <div className="auth-page" style={{ paddingTop: `${navHeight}px` }}>
+      {/* Desktop Navbar */}
+      <nav
+        className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block"
+        ref={navbarRef}
+      >
+        <div className="container-fluid">
+          <div className="d-flex align-items-center w-100">
+            {/* Left Section */}
+            <div className="d-flex align-items-center me-auto">
+              <button
+                className="btn btn-outline-success me-3"
+                onClick={handleExploreClick}
+              >
+                Explore
+              </button>
+              <div className="input-group search-bar">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search here..."
+                />
+                <button className="btn btn-success" type="button">
+                  Search
+                </button>
+              </div>
+            </div>
+            <Link to="/" className="position-absolute top-50 start-50 translate-middle">
+              <img
+                src={logoImage}
+                alt="Pathshala Logo"
+                className="navbar-logo"
+                style={{ height: "40px" }}
+              />
+            </Link>
+
+            {/* Right Section */}
+            <div className="d-flex align-items-center ms-auto">
+              <button
+                className="btn btn-outline-light me-2"
+                onClick={handleDonateClick}
+              >
+                Donate
+              </button>
+              <button
+                className="btn btn-outline-light me-2"
+                onClick={handleLoginRedirect}
+              >
+                Log in
+              </button>
+              <button
+                className="btn btn-success"
+                onClick={handleSignupRedirect}
+              >
+                Sign up
+              </button>
+            </div>
           </div>
         </div>
-        <div className="navbar-center">
-          <Link to="/" className="logo-link">
-            <span className="logo-text">Pathshala</span>
-          </Link>
-        </div>
-        <div className="navbar-right">
-          <a href="#donate" className="nav-link" onClick={handleDonateClick}>
-            Donate
-          </a>
-          <button className="login-button" onClick={handleLoginRedirect}>
-            Log in
-          </button>
-          <button className="signup-button" onClick={handleSignupRedirect}>
-            Sign up
-          </button>
-        </div>
-      </header>
+      </nav>
 
-      <main className="hero-section">
+      {/* Mobile Offcanvas Sidebar */}
+      <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
+        <div className="container-fluid">
+          <button
+            className="navbar-toggler text-white"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileMenu"
+          >
+            ☰
+          </button>
+
+          <Link to="/" className="navbar-brand">
+            <img src={logoImage} alt="Pathshala Logo" className="navbar-logo" />
+          </Link>
+
+          <div
+            className="offcanvas offcanvas-start bg-dark text-white"
+            tabIndex="-1"
+            id="mobileMenu"
+          >
+            <div className="offcanvas-header">
+              <h5 className="offcanvas-title">Menu</h5>
+              <button
+                type="button"
+                className="btn-close btn-close-white"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="offcanvas-body">
+              <div className="search-bar mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search here..."
+                />
+              </div>
+
+              <nav className="nav flex-column gap-2">
+                <button
+                  className="btn btn-outline-light"
+                  onClick={handleExploreClick}
+                >
+                  Explore
+                </button>
+                <button
+                  className="btn btn-outline-light"
+                  onClick={handleDonateClick}
+                >
+                  Donate
+                </button>
+                <button
+                  className="btn btn-outline-light"
+                  onClick={handleLoginRedirect}
+                >
+                  Log in
+                </button>
+                <button
+                  className="btn btn-success"
+                  onClick={handleSignupRedirect}
+                >
+                  Sign up
+                </button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main className="hero-section mt-4">
         <div className="hero-text">
           <h1>For every student, every classroom. Real results.</h1>
           <p>
@@ -98,15 +209,19 @@ const AuthPage = () => {
         </div>
       </main>
 
-      {/* Updated Explore Our Courses Section */}
       <section className="explore-section">
         <h2>Courses</h2>
         <div className="explore-grid">
-          {/* Math Column */}
           <div className="explore-column">
             <div className="explore-item">
-              <div className="course-header" onClick={() => toggleDetails("Math: High School & College")}>
-                <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/math.png-444b34-128c.png" alt="Math" />
+              <div
+                className="course-header"
+                onClick={() => toggleDetails("Math: High School & College")}
+              >
+                <img
+                  src="https://cdn.kastatic.org/genfiles/topic-icons/icons/math.png-444b34-128c.png"
+                  alt="Math"
+                />
                 <span>Math: High School & College</span>
                 <button className="toggle-button">
                   {showDetails["Math: High School & College"] ? "▲" : "▼"}
@@ -138,7 +253,6 @@ const AuthPage = () => {
                       <div
                         key={course}
                         onClick={() => handleCourseClick(course)}
-                        className={selectedCourse === course ? "selected-course" : ""}
                       >
                         {course}
                       </div>
@@ -148,10 +262,15 @@ const AuthPage = () => {
               )}
             </div>
 
-            {/* Test Prep Column */}
             <div className="explore-item">
-              <div className="course-header" onClick={() => toggleDetails("Test Prep")}>
-                <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/test_prep.png-f7c71f-128c.png" alt="Test Prep" />
+              <div
+                className="course-header"
+                onClick={() => toggleDetails("Test Prep")}
+              >
+                <img
+                  src="https://cdn.kastatic.org/genfiles/topic-icons/icons/test_prep.png-f7c71f-128c.png"
+                  alt="Test Prep"
+                />
                 <span>Test Prep</span>
                 <button className="toggle-button">
                   {showDetails["Test Prep"] ? "▲" : "▼"}
@@ -160,26 +279,32 @@ const AuthPage = () => {
               {showDetails["Test Prep"] && (
                 <div className="course-details">
                   <div className="course-details-grid">
-                    {["Digital SAT", "MCAT", "LSAT", "GMAT", "See more"].map((course) => (
-                      <div
-                        key={course}
-                        onClick={() => handleCourseClick(course)}
-                        className={selectedCourse === course ? "selected-course" : ""}
-                      >
-                        {course}
-                      </div>
-                    ))}
+                    {["Digital SAT", "MCAT", "LSAT", "GMAT", "See more"].map(
+                      (course) => (
+                        <div
+                          key={course}
+                          onClick={() => handleCourseClick(course)}
+                        >
+                          {course}
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Computing Column */}
           <div className="explore-column">
             <div className="explore-item">
-              <div className="course-header" onClick={() => toggleDetails("Computing")}>
-                <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/computing_orange.png-653676-128c.png" alt="Computing" />
+              <div
+                className="course-header"
+                onClick={() => toggleDetails("Computing")}
+              >
+                <img
+                  src="https://cdn.kastatic.org/genfiles/topic-icons/icons/computing_orange.png-653676-128c.png"
+                  alt="Computing"
+                />
                 <span>Computing</span>
                 <button className="toggle-button">
                   {showDetails["Computing"] ? "▲" : "▼"}
@@ -199,7 +324,6 @@ const AuthPage = () => {
                       <div
                         key={course}
                         onClick={() => handleCourseClick(course)}
-                        className={selectedCourse === course ? "selected-course" : ""}
                       >
                         {course}
                       </div>
@@ -209,10 +333,15 @@ const AuthPage = () => {
               )}
             </div>
 
-            {/* Arts & Humanities Column */}
             <div className="explore-item">
-              <div className="course-header" onClick={() => toggleDetails("Arts & Humanities")}>
-                <img src="https://cdn.kastatic.org/genfiles/topic-icons/icons/arts_humanities.png-07c77b-128c.png" alt="Arts & Humanities" />
+              <div
+                className="course-header"
+                onClick={() => toggleDetails("Arts & Humanities")}
+              >
+                <img
+                  src="https://cdn.kastatic.org/genfiles/topic-icons/icons/arts_humanities.png-07c77b-128c.png"
+                  alt="Arts & Humanities"
+                />
                 <span>Arts & Humanities</span>
                 <button className="toggle-button">
                   {showDetails["Arts & Humanities"] ? "▲" : "▼"}
@@ -221,11 +350,15 @@ const AuthPage = () => {
               {showDetails["Arts & Humanities"] && (
                 <div className="course-details">
                   <div className="course-details-grid">
-                    {["History", "Climate Project", "Art History", "See all Arts & Humanities"].map((course) => (
+                    {[
+                      "History",
+                      "Climate Project",
+                      "Art History",
+                      "See all Arts & Humanities",
+                    ].map((course) => (
                       <div
                         key={course}
                         onClick={() => handleCourseClick(course)}
-                        className={selectedCourse === course ? "selected-course" : ""}
                       >
                         {course}
                       </div>
@@ -238,20 +371,19 @@ const AuthPage = () => {
         </div>
       </section>
 
-      {/* Why Pathshala Works Section */}
       <section className="why-section">
         <h2>Why Pathshala works</h2>
         <div className="why-content">
           <div className="why-item">
-            <img src={iconImage} alt="Personalized Learning" /> {/* iconImage used here */}
+            <img src={iconImage} alt="Personalized Learning" />
             <h3>Personalized learning</h3>
             <p>
-              Students practice at their own pace, first filling in gaps in their
-              understanding and then accelerating their learning.
+              Students practice at their own pace, first filling in gaps in
+              their understanding and then accelerating their learning.
             </p>
           </div>
           <div className="why-item">
-            <img src={trustedImage} alt="Trusted Content" /> {/* trustedImage used here */}
+            <img src={trustedImage} alt="Trusted Content" />
             <h3>Trusted content</h3>
             <p>
               Created by experts, Pathshala's library of trusted practice and
@@ -260,7 +392,7 @@ const AuthPage = () => {
             </p>
           </div>
           <div className="why-item">
-            <img src={empowerImage} alt="Tools to Empower Teachers" /> {/* empowerImage used here */}
+            <img src={empowerImage} alt="Tools to Empower Teachers" />
             <h3>Tools to empower teachers</h3>
             <p>
               With Pathshala, teachers can identify gaps in their students'
@@ -271,7 +403,6 @@ const AuthPage = () => {
         </div>
       </section>
 
-      {/* Teachers Section */}
       <section className="teachers-section">
         <div className="teachers-content">
           <div className="teachers-text">
@@ -286,12 +417,11 @@ const AuthPage = () => {
             </button>
           </div>
           <div className="teachers-photo">
-            <img src={collegeImage} alt="College" /> {/* collegeImage used here */}
+            <img src={collegeImage} alt="College" />
           </div>
         </div>
       </section>
 
-      {/* Learners and Students Section */}
       <section className="learners-section">
         <div className="learners-content">
           <div className="learners-text">
@@ -303,12 +433,11 @@ const AuthPage = () => {
             </button>
           </div>
           <div className="learners-photo">
-            <img src={laptopImage} alt="Laptop" /> {/* laptopImage used here */}
+            <img src={laptopImage} alt="Laptop" />
           </div>
         </div>
       </section>
 
-      {/* New Image Section */}
       <section className="image-section">
         <h2>Join Pathshala Today</h2>
         <div className="image-buttons">
@@ -324,39 +453,86 @@ const AuthPage = () => {
         </div>
       </section>
 
-      {/* About Us Section */}
-      <section className="about-us-section">
-        <h2>About Us</h2>
-        <p>
-          Our mission is simple: to break down barriers to education and
-          provide opportunities for all. Join us on this journey to make a
-          lasting impact in the world of learning.
-        </p>
-      </section>
-
-      {/* Contact Section */}
-      <section className="contact">
-        <h2>Contact</h2>
-        <div className="contact-links">
-          <a href="#help-center" className="nav-link">
-            Help Centre
-          </a>
-          <a href="#support-community" className="nav-link">
-            Support Community
-          </a>
-          <a href="#share-story" className="nav-link">
-            Share Your Story
-          </a>
-          <a href="#press" className="nav-link">
-            Press
-          </a>
+      {/* Footer Section */}
+      <footer className="footer bg-dark text-white py-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4 mb-4">
+              <div className="card bg-dark border-0">
+                <div className="card-body">
+                  <h5 className="card-title">About Us</h5>
+                  <p className="card-text">
+                    Our mission is simple: to break down barriers to education and provide
+                    opportunities for all. Join us on this journey to make a lasting
+                    impact in the world of learning.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 mb-4">
+              <div className="card bg-dark border-0">
+                <div className="card-body">
+                  <h5 className="card-title">Contact</h5>
+                  <ul className="list-unstyled">
+                    <li>
+                      <Link to="/help-center" className="text-white text-decoration-none">
+                        Help Centre
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/support-community" className="text-white text-decoration-none">
+                        Support Community
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/share-story" className="text-white text-decoration-none">
+                        Share Your Story
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/press" className="text-white text-decoration-none">
+                        Press
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 mb-4">
+              <div className="card bg-dark border-0">
+                <div className="card-body">
+                  <h5 className="card-title">Follow Us</h5>
+                  <ul className="list-unstyled">
+                    <li>
+                      <a href="https://facebook.com" className="text-white text-decoration-none">
+                        Facebook
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://twitter.com" className="text-white text-decoration-none">
+                        Twitter
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://instagram.com" className="text-white text-decoration-none">
+                        Instagram
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://linkedin.com" className="text-white text-decoration-none">
+                        LinkedIn
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-4">
+            <p className="mb-0">© 2025 Pathshala. All rights reserved.</p>
+          </div>
         </div>
-      </section>
-
-      {/* Bottom Bar */}
-      <div className="bottom-bar">
-        <p>© 2025 Pathshala. All rights reserved.</p>
-      </div>
+      </footer>
     </div>
   );
 };
