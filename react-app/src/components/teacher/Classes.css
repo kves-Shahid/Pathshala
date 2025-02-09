@@ -7,8 +7,13 @@
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-/* Navbar for Classes Page */
-.classes-navbar {
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,188 +21,31 @@
   background-color: #333;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
 }
 
-/* Hamburger Icon for Sidebar Toggle */
-.sidebar-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px;
+.navbar-logo {
+  height: 40px; /* Adjust as needed */
+  width: auto;
 }
 
-.sidebar-toggle .line {
-  width: 24px;
-  height: 2px;
-  background-color: white;
-}
-
-/* Explore Link and Search Bar */
-.navbar-left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.navbar-left .nav-link {
-  color: white;
-  text-decoration: none;
-}
-
-.navbar-left .nav-link:hover {
-  text-decoration: underline;
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-}
-
-.search-bar .search-input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-
-.search-bar .search-button {
-  padding: 8px 12px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.search-bar .search-button:hover {
-  background-color: #45a049;
-}
-
-/* Logo in the Center */
-.navbar-center .logo-link {
-  text-decoration: none; /* Remove underline from the link */
-  color: white; /* Ensure the text color matches the navbar */
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.navbar-center .logo-link:hover {
-  text-decoration: underline; /* Add underline on hover */
-}
-
-/* Donate and Logout on the Right */
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.navbar-right .nav-link {
-  color: white;
-  text-decoration: none;
-}
-
-.navbar-right .nav-link:hover {
-  text-decoration: underline;
-}
-
-.navbar-right .logout-button {
-  padding: 8px 16px;
-  background-color: #45a049;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.navbar-right .logout-button:hover {
-  background-color: #3d8b40;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 250px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  position: fixed;
-  left: -250px; /* Initially hidden */
-  top: 60px; /* Below the navbar */
-  transition: left 0.3s ease;
-  z-index: 999;
-  height: calc(100vh - 80px); /* Full height minus navbar and padding */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Align items to the top */
-}
-
-.sidebar.open {
-  left: 0; /* Visible when open */
-}
-
-.sidebar h2 {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 15px;
-  text-align: center; /* Center the "Menu" heading */
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  flex: 1; /* Take up remaining space */
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Space between items */
-}
-
-.sidebar ul li {
-  margin-bottom: 10px;
-}
-
-.sidebar ul li a {
-  display: block; /* Make the link fill the box */
-  padding: 10px 0; /* Add padding for spacing */
-  color: #333;
-  text-decoration: none;
-  border-bottom: 2px solid #333; /* Underline the text */
-  text-align: left; /* Align text to the left */
-  transition: color 0.3s ease;
-}
-
-.sidebar ul li a:hover {
-  color: #45a049; /* Change text color on hover */
-}
-
-/* Welcome Section (Under Navbar) */
+/* Welcome Section */
 .welcome-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #444; /* Same as hover-header background */
+  background-color: #333; /* Same as navbar */
   color: white;
   margin-top: 60px; /* To account for the fixed navbar */
 }
 
-.welcome-section .welcome-text {
+.welcome-text {
   margin: 0;
   font-size: 18px;
 }
 
 .add-school-link {
-  color: #4caf50; /* Same as add-university-link color */
+  color: #4caf50;
   text-decoration: none;
   font-weight: 500;
 }
@@ -206,56 +54,16 @@
   text-decoration: underline;
 }
 
-/* Hover Header */
-.hover-header {
-  position: fixed;
-  top: 60px; /* Adjust based on navbar height */
-  left: 0;
-  right: 0;
-  background-color: #444;
-  color: white;
-  padding: 10px 20px;
-  display: none;
-  z-index: 999;
-  transition: opacity 0.3s ease;
-}
-
-.hover-header.visible {
-  display: block;
-  opacity: 1;
-}
-
-.hover-header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.add-university-link {
-  color: #4caf50;
-  text-decoration: none;
-}
-
-.add-university-link:hover {
-  text-decoration: underline;
-}
-
 /* Main Content */
 .classes-content {
-  margin-top: 60px; /* To account for the fixed navbar */
-  margin-left: auto; /* Center the content when sidebar is closed */
-  margin-right: auto; /* Center the content when sidebar is closed */
-  transition: margin-left 0.3s ease;
+  margin-top: 60px; /* Adjusted for fixed navbar */
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
-  max-width: 1200px; /* Adjust as needed */
+  max-width: 1200px;
   padding: 20px;
   display: flex;
   gap: 20px;
-}
-
-.classes-content.sidebar-open {
-  margin-left: 250px; /* Adjust for open sidebar */
-  margin-right: 0; /* Reset margin-right when sidebar is open */
 }
 
 .main-sections {
@@ -291,7 +99,7 @@
 
 .create-class-button {
   margin-top: 10px;
-  background-color: #45a049; /* Updated color */
+  background-color: #45a049;
   color: white;
   border: none;
   border-radius: 4px;
@@ -300,35 +108,7 @@
 }
 
 .create-class-button:hover {
-  background-color: #3d8b40; /* Darker shade for hover */
-}
-
-/* Get Started Button */
-.btn-primary {
-  background-color: #45a049; /* Updated color */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background-color: #3d8b40; /* Darker shade for hover */
-}
-
-/* Show/Hide Button */
-.btn-info {
-  background-color: #45a049; /* Ensure the button is green */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-.btn-info:hover {
-  background-color: #3d8b40; /* Darker shade for hover */
+  background-color: #3d8b40;
 }
 
 /* Help and Tips Section */
@@ -383,31 +163,6 @@
   text-decoration: underline;
 }
 
-/* Row and Column Styles (if not using Bootstrap) */
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -10px;
-}
-
-.col-md-4 {
-  flex: 0 0 33.3333%;
-  max-width: 33.3333%;
-  padding: 10px;
-}
-
-/* Visually Hidden Text */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
 /* About Us Section */
 .about-us-section {
   width: 100%;
@@ -415,7 +170,7 @@
   background-color: #333;
   color: #ffffff;
   text-align: center;
-  margin-top: 40px; /* Add gap above About Us */
+  margin-top: 40px;
 }
 
 .about-us-section h2 {
@@ -452,7 +207,6 @@
 .contact-links a {
   color: #ffffff;
   text-decoration: none;
-  font-size: 16px;
 }
 
 .contact-links a:hover {
@@ -471,4 +225,15 @@
 .bottom-bar p {
   margin: 0;
   font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .classes-content {
+    flex-direction: column; /* Stack sections vertically on smaller screens */
+  }
+
+  .help-section {
+    width: 100%; /* Make help section full width on smaller screens */
+  }
 }
