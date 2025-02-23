@@ -36,3 +36,65 @@
     transform: rotate(360deg);
   }
 }
+
+ /* Dark Mode Styles */
+.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark .settings-container {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.dark .settings-section {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.dark .settings-title,
+.dark .profile-name,
+.dark .section-title,
+.dark .settings-label {
+  color: #ffffff;
+}
+
+.dark .edit-button {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.dark .edit-button:hover {
+  background-color: #45a049;
+}
+
+.dark .language-select {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border-color: #555;
+}
+
+.dark .logout-button {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+.dark .logout-button:hover {
+  background-color: #d32f2f;
+}
+
+.dark .slider {
+  background-color: #555;
+}
+
+.dark input:checked + .slider {
+  background-color: #4caf50;
+}
+
+.dark .app-version {
+  color: #888;
+}
+
+

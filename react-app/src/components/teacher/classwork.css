@@ -1,0 +1,163 @@
+.classwork-page {
+  padding-top: 56px; /* Height of navbar */
+  position: relative;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 56px);
+  position: fixed;
+  top: 56px;
+  left: -250px; /* Hidden by default */
+  background-color: #343a40;
+  z-index: 998;
+  transition: transform 0.3s ease;
+}
+
+.sidebar.show {
+  transform: translateX(250px); /* Show sidebar */
+}
+
+/* Main Content Area */
+.classwork-content {
+  padding: 20px;
+  margin: 110px auto 0; /* Center content */
+  max-width: 1200px;
+  width: 90%; /* Added for better control */
+  transition: all 0.3s ease;
+}
+
+/* Top Bar Adjustments */
+.top-bar {
+  background-color: #f8f9fa;
+  padding: 0 20px;
+  height: 50px;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 997;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Empty State Centering */
+.empty-state {
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+/* Modal Overrides */
+.create-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .classwork-content {
+    margin-top: 56px;
+    padding: 15px;
+  }
+
+  .top-bar {
+    left: 0;
+    display: none; /* Hidden on mobile */
+  }
+
+  .sidebar {
+    width: 280px;
+    padding: 15px;
+  }
+
+  .sidebar .nav-link {
+    padding: 12px 15px;
+    font-size: 1.1rem;
+  }
+
+  .sidebar .btn {
+    margin: 10px 0;
+  }
+  
+  .scrollable-content {
+    max-height: calc(100vh - 150px);
+  }
+}
+
+@media (min-width: 993px) {
+  .sidebar {
+    transform: translateX(-250px) !important;
+  }
+
+  .classwork-content {
+    margin-left: auto !important; /* Ensures centering */
+  }
+}
+
+/* Button and Interactive Elements */
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+/* Navigation Links */
+.nav-link {
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.nav-link.active {
+  color: #0d6efd !important;
+  font-weight: 600;
+}
+
+.nav-link.text-white:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* New container for better alignment */
+.content-container {
+  max-width: 800px; /* Adjust as needed */
+  margin: 0 auto;
+}
+
+.btn-outline-secondary.active {
+  background-color: greenyellow;
+  color: white;
+  border-color: greenyellow;
+}

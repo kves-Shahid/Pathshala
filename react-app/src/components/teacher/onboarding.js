@@ -3,19 +3,29 @@ import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import logoImage from "../logo.png";
-import "./teacher.css";
+import "./onboarding.css";
 
-const Teacher = () => {
+const Onboarding = () => {
   const navigate = useNavigate();
-  const email = "kazishahedpoco@example.com"; // Simulated email for demonstration
 
   const handleDonateClick = (e) => {
     e.preventDefault();
-    navigate("/donate"); // Navigate to the Donate page
+    navigate("/donate");
   };
 
+  const handleCreateClass = () => {
+    navigate("/dashboard"); // Navigate to the Dashboard page
+  };
+
+  // Simulated list of already created classes
+  const classes = [
+    { id: 1, name: "Mathematics 101" },
+    { id: 2, name: "Science 101" },
+    { id: 3, name: "History 101" },
+  ];
+
   return (
-    <div className="teacher-dashboard">
+    <div className="onboarding-dashboard">
       {/* Desktop Navbar */}
       <nav className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block">
         <div className="container-fluid">
@@ -68,7 +78,7 @@ const Teacher = () => {
             className="navbar-toggler text-white"
             type="button"
             data-bs-toggle="offcanvas"
-            data-bs-target="#teacherMobileMenu"
+            data-bs-target="#onboardingMobileMenu"
             aria-label="Toggle navigation"
           >
             <span className="visually-hidden">Toggle navigation</span>☰
@@ -79,7 +89,7 @@ const Teacher = () => {
           <div
             className="offcanvas offcanvas-start bg-dark text-white"
             tabIndex="-1"
-            id="teacherMobileMenu"
+            id="onboardingMobileMenu"
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title">Menu</h5>
@@ -121,42 +131,29 @@ const Teacher = () => {
 
       {/* Welcome Section (Under Navbar) */}
       <div className="welcome-section">
-        <p className="welcome-text">Welcome, {email}</p>
-        <a href="#add-school" className="add-school-link">
-          Add your University
-        </a>
+        <p className="welcome-text">Welcome, Teacher</p>
+        <button
+          className="btn btn-success"
+          onClick={handleCreateClass} // Navigate to Dashboard to create a class
+        >
+          Create a Class
+        </button>
       </div>
 
-      <main className="teacher-content">
-        {/* Dashboard Cards */}
-        <div className="dashboard-cards row justify-content-center">
-          <div className="col-md-4 mb-4">
-            <div
-              className="dashboard-card"
-              onClick={() => navigate("/teacher/classes")}
-            >
-              <h3>Classes</h3>
-              <p>View and manage your classes</p>
+      <main className="onboarding-content">
+        {/* List of Already Created Classes */}
+        <div className="class-list row justify-content-center">
+          {classes.map((cls) => (
+            <div className="col-md-4 mb-4" key={cls.id}>
+              <div
+                className="class-card"
+                onClick={() => navigate(`/teacher/classes/${cls.id}`)} // Navigate to Dash page
+              >
+                <h3>{cls.name}</h3>
+                <p>Click to view class details</p>
+              </div>
             </div>
-          </div>
-          <div className="col-md-4 mb-4">
-            <div
-              className="dashboard-card"
-              onClick={() => navigate("/teacher/students")}
-            >
-              <h3>Students</h3>
-              <p>Track student progress</p>
-            </div>
-          </div>
-          <div className="col-md-4 mb-4">
-            <div
-              className="dashboard-card"
-              onClick={() => navigate("/teacher/resources")}
-            >
-              <h3>Resources</h3>
-              <p>Teaching materials</p>
-            </div>
-          </div>
+          ))}
         </div>
       </main>
 
@@ -164,7 +161,6 @@ const Teacher = () => {
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">
-            {/* Footer content matching auth page */}
             <div className="col-md-4 mb-4">
               <div className="card bg-dark border-0">
                 <div className="card-body">
@@ -172,7 +168,7 @@ const Teacher = () => {
                   <p className="card-text">
                     Our mission is simple: to break down barriers to education
                     and provide opportunities for all. Join us on this journey
-                    to make a lasting impact in the world of learning
+                    to make a lasting impact in the world of learning.
                   </p>
                 </div>
               </div>
@@ -269,4 +265,4 @@ const Teacher = () => {
   );
 };
 
-export default Teacher;
+export default Onboarding;

@@ -1,0 +1,88 @@
+.press-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+  }
+  
+  .press-content {
+    flex: 1;
+    padding: 20px;
+    margin-top: 80px; /* Adjusted to account for navbar height */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .press-content h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .press-section {
+    margin-bottom: 40px;
+  }
+  
+  .news-item {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .news-item h3 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .news-item p {
+    color: #666;
+  }
+  
+  .contact-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 30px;
+  }
+  
+  /* Ensure navbar does not overlap content */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  /* Adjust padding for larger screens */
+  @media (min-width: 992px) {
+    .press-content {
+      padding-top: 80px; /* Adjust based on navbar height */
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .press-content h1 {
+      font-size: 2rem;
+    }
+    
+    .news-item {
+      padding: 15px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .press-content h1 {
+      font-size: 1.5rem;
+    }
+    
+    .contact-section h2 {
+      font-size: 1.2rem;
+    }
+  }

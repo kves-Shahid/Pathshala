@@ -1,0 +1,69 @@
+.donate-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+  }
+  
+  .donate-content {
+    flex: 1;
+    padding: 20px;
+    margin-top: 80px; /* Adjusted to account for navbar height */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .donate-content h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .donate-section {
+    margin-bottom: 40px;
+  }
+  
+  .donate-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .donate-section p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .donation-options {
+    text-align: center;
+  }
+  
+  /* Ensure navbar does not overlap content */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  /* Adjust padding for larger screens */
+  @media (min-width: 992px) {
+    .donate-content {
+      padding-top: 80px; /* Adjust based on navbar height */
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .donate-content h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .donate-content h1 {
+      font-size: 1.5rem;
+    }
+  }

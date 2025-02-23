@@ -46,7 +46,7 @@ const AuthPage = () => {
   const handleLoginRedirect = () => navigate("/login");
   const handleDonateClick = (e) => {
     e.preventDefault();
-    console.log("Donate clicked");
+    navigate("/donate"); // Navigate to the Donate page
   };
   const handleExploreClick = (e) => {
     e.preventDefault();
@@ -84,7 +84,10 @@ const AuthPage = () => {
                 </button>
               </div>
             </div>
-            <Link to="/" className="position-absolute top-50 start-50 translate-middle">
+            <Link
+              to="/"
+              className="position-absolute top-50 start-50 translate-middle"
+            >
               <img
                 src={logoImage}
                 alt="Pathshala Logo"
@@ -462,9 +465,9 @@ const AuthPage = () => {
                 <div className="card-body">
                   <h5 className="card-title">About Us</h5>
                   <p className="card-text">
-                    Our mission is simple: to break down barriers to education and provide
-                    opportunities for all. Join us on this journey to make a lasting
-                    impact in the world of learning.
+                    Our mission is simple: to break down barriers to education
+                    and provide opportunities for all. Join us on this journey
+                    to make a lasting impact in the world of learning.
                   </p>
                 </div>
               </div>
@@ -475,22 +478,32 @@ const AuthPage = () => {
                   <h5 className="card-title">Contact</h5>
                   <ul className="list-unstyled">
                     <li>
-                      <Link to="/help-center" className="text-white text-decoration-none">
+                      <Link
+                        to="/help-centre"
+                        className="text-white text-decoration-none"
+                      >
                         Help Centre
                       </Link>
                     </li>
+                    <Link
+                      to="/support-community"
+                      className="text-white text-decoration-none"
+                    >
+                      Support Community
+                    </Link>
                     <li>
-                      <Link to="/support-community" className="text-white text-decoration-none">
-                        Support Community
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/share-story" className="text-white text-decoration-none">
+                      <Link
+                        to="/share-story"
+                        className="text-white text-decoration-none"
+                      >
                         Share Your Story
                       </Link>
                     </li>
                     <li>
-                      <Link to="/press" className="text-white text-decoration-none">
+                      <Link
+                        to="/press"
+                        className="text-white text-decoration-none"
+                      >
                         Press
                       </Link>
                     </li>
@@ -504,22 +517,34 @@ const AuthPage = () => {
                   <h5 className="card-title">Follow Us</h5>
                   <ul className="list-unstyled">
                     <li>
-                      <a href="https://facebook.com" className="text-white text-decoration-none">
+                      <a
+                        href="https://facebook.com"
+                        className="text-white text-decoration-none"
+                      >
                         Facebook
                       </a>
                     </li>
                     <li>
-                      <a href="https://twitter.com" className="text-white text-decoration-none">
+                      <a
+                        href="https://twitter.com"
+                        className="text-white text-decoration-none"
+                      >
                         Twitter
                       </a>
                     </li>
                     <li>
-                      <a href="https://instagram.com" className="text-white text-decoration-none">
+                      <a
+                        href="https://instagram.com"
+                        className="text-white text-decoration-none"
+                      >
                         Instagram
                       </a>
                     </li>
                     <li>
-                      <a href="https://linkedin.com" className="text-white text-decoration-none">
+                      <a
+                        href="https://linkedin.com"
+                        className="text-white text-decoration-none"
+                      >
                         LinkedIn
                       </a>
                     </li>

@@ -18,7 +18,7 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleEmailSignup = () => {
+  const handleSignupWithEmail = () => {
     console.log("Signing up with Email as:", role);
     if (role === "learner") {
       console.log("Date of Birth:", dob);
@@ -29,7 +29,7 @@ const SignupPage = () => {
     navigate("/");
   };
 
-  const handleProviderSignup = (provider) => {
+  const handleSignupWithProvider = (provider) => {
     console.log("Signing up with:", provider);
     navigate("/teacher-dashboard");
   };
@@ -72,7 +72,7 @@ const SignupPage = () => {
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
-                onClick={() => navigate("/donate")}
+                onClick={() => navigate("/donate")} // Donate button
               >
                 Donate
               </button>
@@ -143,7 +143,7 @@ const SignupPage = () => {
                 </button>
                 <button
                   className="btn btn-outline-light"
-                  onClick={() => navigate("/donate")}
+                  onClick={() => navigate("/donate")} // Donate button
                 >
                   Donate
                 </button>
@@ -167,35 +167,6 @@ const SignupPage = () => {
 
       {/* Main Content */}
       <div className="signup-content">
-        {/* Mobile Text Overlay */}
-        <div className="mobile-text-overlay d-lg-none">
-          <h2>Join Pathshala and learn with us</h2>
-          <p>Sign up to Pathshala to get started!</p>
-          <p>
-            By signing up to Pathshala, you agree to our{" "}
-            <a href="/terms">Terms of use</a> and{" "}
-            <a href="/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-
-        {/* Image Section - Hidden on Mobile */}
-        <div className="signup-image-section d-none d-lg-flex">
-          <img
-            src="https://w0.peakpx.com/wallpaper/525/128/HD-wallpaper-enlightenment-acknowledgment-bulb-education-facts-future-iphone-science-scientific-technology.jpg"
-            alt="Education"
-            className="signup-image"
-          />
-          <div className="image-overlay">
-            <h2>Join Pathshala and learn with us</h2>
-            <p>Sign up to Pathshala to get started!</p>
-            <p>
-              By signing up to Pathshala, you agree to our{" "}
-              <a href="/terms">Terms of use</a> and{" "}
-              <a href="/privacy">Privacy Policy</a>.
-            </p>
-          </div>
-        </div>
-
         {/* Form Section */}
         <div className="signup-form-section">
           <h1>Sign up</h1>
@@ -278,7 +249,7 @@ const SignupPage = () => {
                 </div>
               </div>
 
-              <button className="submit-button" onClick={handleEmailSignup}>
+              <button className="submit-button" onClick={handleSignupWithEmail}>
                 Submit
               </button>
             </div>
@@ -289,37 +260,57 @@ const SignupPage = () => {
             <div className="provider-buttons">
               <button
                 className="provider-button google"
-                onClick={() => handleProviderSignup("Google")}
+                onClick={() => handleSignupWithProvider("Google")}
               >
-                <img src={googleLogo} alt="Google Logo" className="provider-logo" />
+                <img
+                  src={googleLogo}
+                  alt="Google Logo"
+                  className="provider-logo"
+                />
                 <span>Continue with Google</span>
               </button>
               <button
                 className="provider-button clever"
-                onClick={() => handleProviderSignup("Clever")}
+                onClick={() => handleSignupWithProvider("Clever")}
               >
-                <img src={cleverLogo} alt="Clever Logo" className="provider-logo" />
+                <img
+                  src={cleverLogo}
+                  alt="Clever Logo"
+                  className="provider-logo"
+                />
                 <span>Continue with Clever</span>
               </button>
               <button
                 className="provider-button facebook"
-                onClick={() => handleProviderSignup("Facebook")}
+                onClick={() => handleSignupWithProvider("Facebook")}
               >
-                <img src={facebookLogo} alt="Facebook Logo" className="provider-logo" />
+                <img
+                  src={facebookLogo}
+                  alt="Facebook Logo"
+                  className="provider-logo"
+                />
                 <span>Continue with Facebook</span>
               </button>
               <button
                 className="provider-button apple"
-                onClick={() => handleProviderSignup("Apple")}
+                onClick={() => handleSignupWithProvider("Apple")}
               >
-                <img src={appleLogo} alt="Apple Logo" className="provider-logo" />
+                <img
+                  src={appleLogo}
+                  alt="Apple Logo"
+                  className="provider-logo"
+                />
                 <span>Continue with Apple</span>
               </button>
               <button
                 className="provider-button email"
-                onClick={() => handleProviderSignup("Email")}
+                onClick={() => handleSignupWithProvider("Email")}
               >
-                <img src={emailLogo} alt="Email Logo" className="provider-logo" />
+                <img
+                  src={emailLogo}
+                  alt="Email Logo"
+                  className="provider-logo"
+                />
                 <span>Sign up with Email</span>
               </button>
             </div>

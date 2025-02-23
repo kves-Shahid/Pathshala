@@ -1,0 +1,62 @@
+/* Support Page Styles */
+.support-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+  }
+  
+  .support-content {
+    flex: 1;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .support-content h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .support-content p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .support-content h1 {
+      font-size: 2rem;
+    }
+  
+    .support-content p {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .support-content h1 {
+      font-size: 1.5rem;
+    }
+  
+    .support-content p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Ensure navbar does not overlap content */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  /* Adjust padding for larger screens */
+  @media (min-width: 992px) {
+    .support-content {
+      padding-top: 80px; /* Adjust based on navbar height */
+    }
+  }

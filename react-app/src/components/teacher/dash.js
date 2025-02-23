@@ -1,49 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useParams, Link, NavLink } from "react-router-dom"; // Import NavLink
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoImage from "../logo.png";
-import "./dashboard.css";
+import "./dash.css";
 import { Pencil } from "react-bootstrap-icons";
 
-const Dashboard = () => {
+const Dash = () => {
   const navigate = useNavigate();
-  const [showPopup, setShowPopup] = useState(true);
-  const [showCreateClassPopup, setShowCreateClassPopup] = useState(false);
-  const [className, setClassName] = useState("");
-  const [section, setSection] = useState("");
-  const [subject, setSubject] = useState("");
-  const [room, setRoom] = useState("");
+  const { id } = useParams(); // Get the class ID from the URL
   const [showSidebar, setShowSidebar] = useState(false);
   const [announcements, setAnnouncements] = useState([]);
   const [newAnnouncement, setNewAnnouncement] = useState("");
   const [file, setFile] = useState(null); // State to store the uploaded file
 
-  const handleAgree = () => {
-    setShowPopup(false);
-    setShowCreateClassPopup(true);
+  // Fetch the class details based on the ID (you can replace this with actual data fetching logic)
+  const classDetails = {
+    id: id,
+    name: "Mathematics 101", // Replace with dynamic data
+    section: "Section A",
+    subject: "Mathematics",
+    room: "Room 101",
   };
 
   const handleDonateClick = (e) => {
     e.preventDefault();
     navigate("/donate");
-  };
-
-  const handleCreateClass = () => {
-    const newClass = {
-      id: Date.now(), // Unique ID for the class
-      name: className,
-      section,
-      subject,
-      room,
-    };
-
-    // Save the new class to local storage
-    const existingClasses = JSON.parse(localStorage.getItem("classes")) || [];
-    const updatedClasses = [...existingClasses, newClass];
-    localStorage.setItem("classes", JSON.stringify(updatedClasses));
-
-    // Redirect back to the Onboarding page
-    navigate("/teacher/onboarding");
   };
 
   const handleAddAnnouncement = () => {
@@ -65,8 +46,6 @@ const Dashboard = () => {
       setFile(selectedFile);
     }
   };
-
-  const isCreateButtonDisabled = !className.trim();
 
   useEffect(() => {
     const handleResize = () => {
@@ -131,27 +110,39 @@ const Dashboard = () => {
         </div>
       </nav>
 
-      {/* Top Bar - Only for larger screens */}
+      {/* Top Bar - Updated Stream link */}
       <div className="top-bar d-none d-lg-block">
         <div className="d-flex align-items-center">
           <nav className="nav">
-            <Link to="/teacher/dash" className="nav-link">
+            <NavLink
+              to={`/class/${id}`} // Dynamic path with class ID
+              className="nav-link"
+              activeClassName="active"
+            >
               Stream
-            </Link>
-            <Link to="/teacher/classwork" className="nav-link">
+            </NavLink>
+            <NavLink
+              to="/teacher/classwork"
+              className="nav-link"
+              activeClassName="active"
+            >
               Classwork
-            </Link>
-            <Link to="/teacher/students" className="nav-link">
+            </NavLink>
+            <NavLink
+              to="/teacher/people"
+              className="nav-link"
+              activeClassName="active"
+            >
               People
-            </Link>
-            <Link to="/teacher/marks" className="nav-link">
+            </NavLink>
+            <NavLink to="/marks" className="nav-link" activeClassName="active">
               Marks
-            </Link>
+            </NavLink>
           </nav>
         </div>
       </div>
 
-      {/* Sidebar - Included directly in the Dashboard component */}
+      {/* Sidebar - Included directly in the Dash component */}
       <div
         className={`sidebar bg-dark text-white ${
           showSidebar ? "show" : "hide"
@@ -165,16 +156,27 @@ const Dashboard = () => {
             <Link to="/home" className="nav-link text-white">
               Home
             </Link>
-            <Link to="/teacher/dash" className="nav-link text-white">
+            <NavLink
+              to={`/class/${id}`} // Dynamic path with class ID
+              className="nav-link text-white"
+              activeClassName="active"
+            >
               Stream
-            </Link>
-            <Link to="/teacher/classwork" className="nav-link text-white">
+            </NavLink>
+            <NavLink
+              to={`/class/${id}/classwork`}
+              className={({ isActive }) =>
+                `nav-link text-white ${isActive ? "active-sidebar" : ""}`
+              }
+            >
               Classwork
-            </Link>
-            <Link to="/teacher/students" className="nav-link text-white">
+            </NavLink>
+            <Link to="/teacher/people" className="nav-link text-white">
+              {" "}
+              {/* Updated */}
               People
             </Link>
-            <Link to="/teacher/marks" className="nav-link text-white">
+            <Link to="/marks" className="nav-link text-white">
               Marks
             </Link>
             <hr className="text-white" />
@@ -208,7 +210,7 @@ const Dashboard = () => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <h2>Classroom</h2>
+              <h2>{classDetails.name}</h2>
               {/* Customize Section - Moved to the top */}
               <div className="card mb-4">
                 <div className="card-body">
@@ -259,7 +261,13 @@ const Dashboard = () => {
                 <div className="card-body">
                   <h5 className="card-title">Classwork</h5>
                   <p className="card-text">Manage assignments and materials</p>
-                  <button className="btn btn-success">View assignments</button>
+                  {/* Updated Classwork Button */}
+                  <button
+                    className="btn btn-success"
+                    onClick={() => navigate("/teacher/classwork")}
+                  >
+                    View Classwork
+                  </button>
                 </div>
               </div>
             </div>
@@ -270,7 +278,13 @@ const Dashboard = () => {
                 <div className="card-body">
                   <h5 className="card-title">People</h5>
                   <p className="card-text">Manage students and co-teachers</p>
-                  <button className="btn btn-success">View people</button>
+                  {/* Updated People Button */}
+                  <button
+                    className="btn btn-success"
+                    onClick={() => navigate("/teacher/people")} // Add navigation
+                  >
+                    View people
+                  </button>
                 </div>
               </div>
             </div>
@@ -364,106 +378,112 @@ const Dashboard = () => {
         </div>
       </main>
 
-      {/* Popup Modals */}
-      {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-content">
-            <h2>Using Classroom at a school/university with students?</h2>
-            <p>
-              If so, your school must sign up for a Google Workspace for
-              Education account before you can use Classroom. Learn more.
-            </p>
-            <p>
-              Google Workspace for Education lets schools/universities decide
-              which Google services their students can use, and provides
-              additional privacy and security protection that is important in a
-              school or university setting. Students cannot use Google Classroom
-              in a school or university with their personal accounts.
-            </p>
-            <div className="popup-actions">
-              <button
-                className="btn btn-secondary"
-                onClick={() => setShowPopup(false)}
-              >
-                Go back
-              </button>
-              <button className="btn btn-primary" onClick={handleAgree}>
-                I agree
-              </button>
+      {/* Footer */}
+      <footer className="footer bg-dark text-white py-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4 mb-4">
+              <div className="card bg-dark border-0">
+                <div className="card-body">
+                  <h5 className="card-title">About Us</h5>
+                  <p className="card-text">
+                    Our mission is simple: to break down barriers to education
+                    and provide opportunities for all. Join us on this journey
+                    to make a lasting impact in the world of learning.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 mb-4">
+              <div className="card bg-dark border-0">
+                <div className="card-body">
+                  <h5 className="card-title">Contact</h5>
+                  <ul className="list-unstyled">
+                    <li>
+                      <Link
+                        to="/help-centre"
+                        className="text-white text-decoration-none"
+                      >
+                        Help Centre
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/support-community"
+                        className="text-white text-decoration-none"
+                      >
+                        Support Community
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/share-story"
+                        className="text-white text-decoration-none"
+                      >
+                        Share Your Story
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/press"
+                        className="text-white text-decoration-none"
+                      >
+                        Press
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 mb-4">
+              <div className="card bg-dark border-0">
+                <div className="card-body">
+                  <h5 className="card-title">Follow Us</h5>
+                  <ul className="list-unstyled">
+                    <li>
+                      <a
+                        href="https://facebook.com"
+                        className="text-white text-decoration-none"
+                      >
+                        Facebook
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://twitter.com"
+                        className="text-white text-decoration-none"
+                      >
+                        Twitter
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://instagram.com"
+                        className="text-white text-decoration-none"
+                      >
+                        Instagram
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://linkedin.com"
+                        className="text-white text-decoration-none"
+                      >
+                        LinkedIn
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {showCreateClassPopup && (
-        <div className="popup-overlay">
-          <div className="popup-content">
-            <h2>Create Class</h2>
-            <form>
-              <div className="form-group">
-                <label>Class Name (required)</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter class name"
-                  value={className}
-                  onChange={(e) => setClassName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Section</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter section"
-                  value={section}
-                  onChange={(e) => setSection(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label>Subject</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter subject"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label>Room</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter room"
-                  value={room}
-                  onChange={(e) => setRoom(e.target.value)}
-                />
-              </div>
-              <div className="popup-actions">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => setShowCreateClassPopup(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleCreateClass}
-                  disabled={isCreateButtonDisabled}
-                >
-                  Create
-                </button>
-              </div>
-            </form>
+          <div className="text-center mt-4">
+            <p>© 2025 Pathshala. All rights reserved.</p>
           </div>
         </div>
-      )}
+      </footer>
     </div>
   );
 };
 
-export default Dashboard;
+export default Dash;

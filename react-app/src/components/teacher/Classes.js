@@ -10,14 +10,9 @@ const Classes = () => {
   const email = "kazishahedpoco@example.com"; // Simulated email for demonstration
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleLogout = () => {
-    console.log("Logging out...");
-    navigate("/");
-  };
-
   const handleDonateClick = (e) => {
     e.preventDefault();
-    console.log("Donate clicked");
+    navigate("/donate"); // Navigate to the Donate page
   };
 
   const handleSearch = (e) => {
@@ -31,6 +26,14 @@ const Classes = () => {
 
   const handleCreateClass = () => {
     navigate("/dashboard"); // Redirect to the Dashboard page
+  };
+
+  const handleOnboardingClick = () => {
+    navigate("/teacher/onboarding"); // Navigate to the Onboarding page
+  };
+
+  const handleShowClick = () => {
+    navigate("/auth"); // Navigate to the AuthPage
   };
 
   return (
@@ -84,8 +87,12 @@ const Classes = () => {
               >
                 Donate
               </button>
-              <button className="btn btn-outline-light" onClick={handleLogout}>
-                Log out
+              {/* Settings Button */}
+              <button
+                className="btn btn-outline-light me-2"
+                onClick={() => navigate("/settings")}
+              >
+                Settings
               </button>
             </div>
           </div>
@@ -113,11 +120,18 @@ const Classes = () => {
         <div className="offcanvas-body">
           <nav className="nav flex-column gap-2">
             <button className="btn btn-outline-light">Explore</button>
-            <button className="btn btn-outline-light" onClick={handleDonateClick}>
+            <button
+              className="btn btn-outline-light"
+              onClick={handleDonateClick}
+            >
               Donate
             </button>
-            <button className="btn btn-outline-light" onClick={handleLogout}>
-              Log out
+            {/* Settings Button in Mobile Menu */}
+            <button
+              className="btn btn-outline-light"
+              onClick={() => navigate("/settings")}
+            >
+              Settings
             </button>
           </nav>
         </div>
@@ -140,7 +154,10 @@ const Classes = () => {
               Get a live view into your students' progress, targeted assignment
               recommendations, and so much more!
             </p>
-            <button className="create-class-button btn btn-success" onClick={handleCreateClass}>
+            <button
+              className="create-class-button btn btn-success"
+              onClick={handleCreateClass}
+            >
               Create a Class
             </button>
           </section>
@@ -151,37 +168,64 @@ const Classes = () => {
               Hi, {email}! Continue your Pathshala for Educators onboarding
               here.
             </p>
-            <button className="btn btn-success">Get Started</button>
+            <button
+              className="btn btn-success"
+              onClick={handleOnboardingClick} // Updated to navigate to Onboarding
+            >
+              Get Started
+            </button>
           </section>
 
           <section className="khan-section">
             <h2>Getting to Pathshala</h2>
-            <button className="btn btn-success">Show</button>
+            <button className="btn btn-success" onClick={handleShowClick}>
+              Show
+            </button>
           </section>
         </div>
 
         <div className="help-section">
           <h2>Help and Tips</h2>
           <div className="help-tips">
-            <a href="#making-assignments" className="help-tip">
+            <a
+              href="https://help.blackboard.com/Learn/Instructor/Original/Assignments/Create_and_Edit_Assignments"
+              className="help-tip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <h3>Making Assignments</h3>
               <p>Create assignments and mastery goals for your students.</p>
             </a>
-            <a href="#reporting-options" className="help-tip">
+            <a
+              href="https://www.essentialed.com/educators/help/article/what-types-of-reports-can-i-use-for-my-classes-and-students"
+              className="help-tip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <h3>Reporting Options</h3>
               <p>Explore tools to track student performance.</p>
             </a>
-            <a href="#courses-with-mastery" className="help-tip">
+            <a
+              href="https://www.udemy.com/topic/focus-mastery/?srsltid=AfmBOoq_htKcDskc19Rt6V0QrPEeva5V4WJ4KF0MQTOqDM2SesCYjE0z"
+              className="help-tip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <h3>Courses with Mastery</h3>
               <p>Discover which courses have Mastery enabled.</p>
             </a>
-            <a href="#learnstorm-tracker" className="help-tip">
+            <a
+              href="https://www.khanacademy.org/khan-for-educators/k4e-us-demo/xb78db74671c953a7:using-course-mastery-on-khan-academy-gr/xb78db74671c953a7:using-khan-academy-s-activity/a/celebrate-class-progress-with-the-learnstorm-tracker"
+              className="help-tip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <h3>LearnStorm Tracker</h3>
               <p>Engage your classroom with this tool.</p>
             </a>
           </div>
           <p className="help-center-link">
-            Need more help? Visit our <a href="/help">Help Center</a>.
+            Need more help? Visit our <Link to="/help-centre">Help Center</Link>.
           </p>
         </div>
       </main>
@@ -209,7 +253,7 @@ const Classes = () => {
                   <ul className="list-unstyled">
                     <li>
                       <Link
-                        to="/help-center"
+                        to="/help-centre"
                         className="text-white text-decoration-none"
                       >
                         Help Centre

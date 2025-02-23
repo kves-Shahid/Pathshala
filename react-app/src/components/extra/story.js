@@ -1,36 +1,75 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import "./story.css";
 import logoImage from "../logo.png";
-import "./teacher.css";
 
-const Teacher = () => {
+const Story = () => {
   const navigate = useNavigate();
-  const email = "kazishahedpoco@example.com"; // Simulated email for demonstration
+  const navbarRef = useRef(null);
+  const [navHeight, setNavHeight] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (navbarRef.current) {
+        setNavHeight(navbarRef.current.offsetHeight);
+      }
+    };
+
+    handleResize();
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (navbarRef.current) resizeObserver.observe(navbarRef.current);
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleDonateClick = (e) => {
     e.preventDefault();
     navigate("/donate"); // Navigate to the Donate page
   };
 
+  const handleLoginRedirect = () => navigate("/login");
+  const handleSignupRedirect = () => navigate("/signup");
+  const handleExploreClick = (e) => {
+    e.preventDefault();
+    console.log("Explore clicked");
+  };
+
   return (
-    <div className="teacher-dashboard">
+    <div className="story-page" style={{ paddingTop: `${navHeight}px` }}>
       {/* Desktop Navbar */}
-      <nav className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block">
+      <nav
+        className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block"
+        ref={navbarRef}
+      >
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
+            {/* Left Section */}
             <div className="d-flex align-items-center me-auto">
-              <button className="btn btn-outline-success me-3">Explore</button>
+              <button
+                className="btn btn-outline-success me-3"
+                onClick={handleExploreClick}
+              >
+                Explore
+              </button>
               <div className="input-group search-bar">
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Search here..."
                 />
-                <button className="btn btn-success">Search</button>
+                <button className="btn btn-success" type="button">
+                  Search
+                </button>
               </div>
             </div>
+
+            {/* Centered Logo */}
             <Link
               to="/"
               className="position-absolute top-50 start-50 translate-middle"
@@ -42,6 +81,8 @@ const Teacher = () => {
                 style={{ height: "40px" }}
               />
             </Link>
+
+            {/* Right Section */}
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
@@ -49,12 +90,17 @@ const Teacher = () => {
               >
                 Donate
               </button>
-              {/* Settings Button */}
               <button
                 className="btn btn-outline-light me-2"
-                onClick={() => navigate("/settings")}
+                onClick={handleLoginRedirect}
               >
-                Settings
+                Log in
+              </button>
+              <button
+                className="btn btn-success"
+                onClick={handleSignupRedirect}
+              >
+                Sign up
               </button>
             </div>
           </div>
@@ -62,24 +108,25 @@ const Teacher = () => {
       </nav>
 
       {/* Mobile Navbar */}
-      <nav className="navbar bg-dark fixed-top d-lg-none">
+      <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
         <div className="container-fluid">
           <button
             className="navbar-toggler text-white"
             type="button"
             data-bs-toggle="offcanvas"
-            data-bs-target="#teacherMobileMenu"
-            aria-label="Toggle navigation"
+            data-bs-target="#mobileMenu"
           >
-            <span className="visually-hidden">Toggle navigation</span>☰
+            ☰
           </button>
+
           <Link to="/" className="navbar-brand">
             <img src={logoImage} alt="Pathshala Logo" className="navbar-logo" />
           </Link>
+
           <div
             className="offcanvas offcanvas-start bg-dark text-white"
             tabIndex="-1"
-            id="teacherMobileMenu"
+            id="mobileMenu"
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title">Menu</h5>
@@ -98,20 +145,31 @@ const Teacher = () => {
                   placeholder="Search here..."
                 />
               </div>
+
               <nav className="nav flex-column gap-2">
-                <button className="btn btn-outline-light">Explore</button>
                 <button
-                  className="btn btn-outline-light"
+                  className="btn btn-outline-light text-start"
+                  onClick={handleExploreClick}
+                >
+                  Explore
+                </button>
+                <button
+                  className="btn btn-outline-light text-start"
                   onClick={handleDonateClick}
                 >
                   Donate
                 </button>
-                {/* Settings Button in Mobile Menu */}
                 <button
-                  className="btn btn-outline-light"
-                  onClick={() => navigate("/settings")}
+                  className="btn btn-outline-light text-start"
+                  onClick={handleLoginRedirect}
                 >
-                  Settings
+                  Log in
+                </button>
+                <button
+                  className="btn btn-success text-start"
+                  onClick={handleSignupRedirect}
+                >
+                  Sign up
                 </button>
               </nav>
             </div>
@@ -119,52 +177,42 @@ const Teacher = () => {
         </div>
       </nav>
 
-      {/* Welcome Section (Under Navbar) */}
-      <div className="welcome-section">
-        <p className="welcome-text">Welcome, {email}</p>
-        <a href="#add-school" className="add-school-link">
-          Add your University
-        </a>
-      </div>
-
-      <main className="teacher-content">
-        {/* Dashboard Cards */}
-        <div className="dashboard-cards row justify-content-center">
-          <div className="col-md-4 mb-4">
-            <div
-              className="dashboard-card"
-              onClick={() => navigate("/teacher/classes")}
-            >
-              <h3>Classes</h3>
-              <p>View and manage your classes</p>
-            </div>
+      {/* Main Content */}
+      <main className="story-content">
+        <h1>Share Your Story</h1>
+        <div className="story-section">
+          <h2>Tell Us Your Experience</h2>
+          <div className="form-group">
+            <label htmlFor="name">Your Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              placeholder="Enter your name"
+            />
           </div>
-          <div className="col-md-4 mb-4">
-            <div
-              className="dashboard-card"
-              onClick={() => navigate("/teacher/students")}
-            >
-              <h3>Students</h3>
-              <p>Track student progress</p>
-            </div>
+          <div className="form-group">
+            <label htmlFor="story">Your Story</label>
+            <textarea
+              className="form-control"
+              id="story"
+              rows="5"
+              placeholder="Share your story with us..."
+            ></textarea>
           </div>
-          <div className="col-md-4 mb-4">
-            <div
-              className="dashboard-card"
-              onClick={() => navigate("/teacher/resources")}
-            >
-              <h3>Resources</h3>
-              <p>Teaching materials</p>
-            </div>
-          </div>
+          <button
+            className="btn btn-success"
+            onClick={() => alert("Thank you for sharing your story!")}
+          >
+            Submit
+          </button>
         </div>
       </main>
 
-      {/* Footer */}
+      {/* Footer Section */}
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">
-            {/* Footer content matching auth page */}
             <div className="col-md-4 mb-4">
               <div className="card bg-dark border-0">
                 <div className="card-body">
@@ -172,7 +220,7 @@ const Teacher = () => {
                   <p className="card-text">
                     Our mission is simple: to break down barriers to education
                     and provide opportunities for all. Join us on this journey
-                    to make a lasting impact in the world of learning
+                    to make a lasting impact in the world of learning.
                   </p>
                 </div>
               </div>
@@ -261,7 +309,7 @@ const Teacher = () => {
             </div>
           </div>
           <div className="text-center mt-4">
-            <p>© 2025 Pathshala. All rights reserved.</p>
+            <p className="mb-0">© 2025 Pathshala. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -269,4 +317,4 @@ const Teacher = () => {
   );
 };
 
-export default Teacher;
+export default Story;

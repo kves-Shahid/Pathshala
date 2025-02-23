@@ -1,0 +1,52 @@
+.resources-page {
+    padding-top: 56px; /* Adjust based on navbar height */
+  }
+  
+  .resources-content {
+    padding: 20px;
+  }
+  
+  .resources-list {
+    margin-top: 20px;
+  }
+  
+  .resource-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .scrollable-content {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  /* Mobile Sidebar Styles */
+  .offcanvas-start {
+    width: 250px;
+    background-color: #333;
+  }
+  
+  .btn-close-white {
+    filter: invert(1);
+  }
+  
+  .search-bar.mb-3 {
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-brand {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+    .navbar-right {
+      display: none; /* Hide desktop buttons on mobile */
+    }
+  }

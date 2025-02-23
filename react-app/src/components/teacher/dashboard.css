@@ -1,208 +1,227 @@
 /* Dashboard Styles */
 .dashboard {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f9f9f9;
-  }
-  
-  /* Navbar Styles */
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000; /* Ensure navbar is above everything */
-    background-color: #343a40; /* Dark background for navbar */
-  }
-  
-  /* Top Bar Styles */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ensure navbar is above everything */
+  background-color: #343a40; /* Dark background for navbar */
+}
+
+/* Top Bar Styles - Only for larger screens */
+.top-bar {
+  position: fixed;
+  top: 60px; /* Adjusted for navbar height */
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: #ffffff; /* Light background for top bar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Ensure top bar is below navbar but above content */
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.top-bar .nav {
+  display: flex;
+  gap: 20px;
+}
+
+.top-bar .nav-link {
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.top-bar .nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 60px;
+  left: 0; /* Set to 0, rely on transform for visibility */
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 998;
+  background-color: #343a40;
+  transform: translateX(-250px); /* Initially hidden */
+}
+
+.sidebar.show {
+  transform: translateX(0); /* Move sidebar into view */
+}
+
+.sidebar.hide {
+  transform: translateX(-250px); /* Move sidebar out of view */
+}
+
+/* Sidebar Links */
+.sidebar .nav-link {
+  color: white !important; /* Ensure text is white */
+}
+
+.sidebar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Slight hover effect */
+}
+
+/* Main Content Styles */
+.dashboard-content {
+  margin-top: 110px; /* Adjusted for fixed navbar and top bar */
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Adjust main content when sidebar is open */
+.dashboard-content.sidebar-open {
+  margin-left: 250px; /* Push content to the right when sidebar is open */
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
   .top-bar {
-    position: fixed;
-    top: 60px; /* Adjusted for navbar height */
-    left: 0;
-    right: 0;
-    height: 50px;
-    background-color: #ffffff; /* Light background for top bar */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 999; /* Ensure top bar is below navbar but above content */
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-  }
-  
-  .top-bar .nav {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .top-bar .nav-link {
-    color: #000;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .top-bar .nav-link:hover {
-    text-decoration: underline;
-  }
-  
-  /* Sidebar Styles */
-  .sidebar {
-    width: 100%;
-    height: 250px; /* Adjusted height for sidebar */
-    position: fixed;
-    top: -250px; /* Initially hidden above the top bar */
-    left: 0;
-    overflow-y: auto;
-    transition: transform 0.3s ease;
-    z-index: 998; /* Ensure sidebar is below top bar but above content */
-    background-color: #343a40; /* Dark background for sidebar */
-  }
-  
-  .sidebar.show {
-    transform: translateY(250px); /* Slide down from the top */
-  }
-  
-  .sidebar.hide {
-    transform: translateY(-250px); /* Slide up to hide */
-  }
-  
-  /* Main Content Styles */
-  .dashboard-content {
-    margin-top: 110px; /* Adjusted for fixed navbar and top bar */
-    padding: 20px;
-    transition: margin-left 0.3s ease;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 992px) {
-    .sidebar {
-      transform: translateY(-250px);
-    }
-  
-    .sidebar.show {
-      transform: translateY(250px);
-    }
-  
-    .dashboard-content {
-      margin-left: 0;
-      width: 100%;
-    }
-  }
-  
-  /* Popup Overlay */
-  .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .popup-content h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
-  
-  .popup-content p {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .popup-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .popup-actions .btn {
-    padding: 10px 20px;
-  }
-  
-  .popup-actions .btn-primary {
-    background-color: #28a745;
-    border: none;
-  }
-  
-  .popup-actions .btn-primary:hover {
-    background-color: #218838;
+    display: none; /* Hide top bar on smaller screens */
   }
 
- /* Custom Button Styles */
+  .sidebar {
+    top: 60px; /* Adjusted to start below the navbar */
+    height: calc(100vh - 60px); /* Adjusted height */
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .dashboard-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .dashboard-content.sidebar-open {
+    margin-left: 0; /* Reset margin when sidebar is open on mobile */
+  }
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+}
+
+.popup-content h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.popup-content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.popup-actions .btn {
+  padding: 10px 20px;
+}
+
+.popup-actions .btn-primary {
+  background-color: #28a745;
+  border: none;
+}
+
+.popup-actions .btn-primary:hover {
+  background-color: #218838;
+}
+
+/* Card Styles */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Add margin between cards */
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.card-text {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+/* Blank Box Styles */
+.blank-box {
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 16px;
+  height: 150px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+}
+
+/* Button Styles */
 .btn-success {
-    background-color: #28a745;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-  }
-  
-  .btn-success:hover {
-    background-color: #218838;
-  }
-  
-  /* Card Styles */
-  .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  .card-title {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-  
-  .card-text {
-    font-size: 16px;
-    margin-bottom: 15px;
-  }
-  
-  /* Blank Box Styles */
-  .blank-box {
-    background-color: #f9f9f9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-    font-size: 16px;
-  }
-  
-  /* Pencil Icon Button */
-  .btn-outline-success {
-    border: 1px solid #28a745;
-    color: #28a745;
-  }
-  
-  .btn-outline-success:hover {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  /* Blank Box Styles */
-  .blank-box {
-    background-color: #f9f9f9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-    font-size: 16px;
-  }
+  background-color: #28a745;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-outline-success {
+  border: 1px solid #28a745;
+  color: #28a745;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: white;
+}

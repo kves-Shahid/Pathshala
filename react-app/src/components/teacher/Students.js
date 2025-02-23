@@ -1,19 +1,37 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams, NavLink } from "react-router-dom"; // Import useParams and NavLink
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoImage from "../logo.png";
 import "./dashboard.css";
 
 const Students = () => {
-  const [showClassCodePopup, setShowClassCodePopup] = useState(false); // Popup for class code
-  const [classCode, setClassCode] = useState(""); // State to store class code
-  const [showSidebar, setShowSidebar] = useState(false); // State for sidebar
+  const navigate = useNavigate(); // Initialize useNavigate
+  const { id } = useParams(); // Get the class ID from the URL
+  const [showClassCodePopup, setShowClassCodePopup] = useState(false);
+  const [classCode, setClassCode] = useState("");
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const handleClassCodeSubmit = (e) => {
     e.preventDefault();
     console.log("Class code submitted:", classCode);
-    setShowClassCodePopup(false); // Close the popup after submission
+    setShowClassCodePopup(false);
   };
+
+  const handleDonateClick = (e) => {
+    e.preventDefault();
+    navigate("/donate"); // Navigate to the Donate page
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 992) {
+        setShowSidebar(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="dashboard">
@@ -21,6 +39,13 @@ const Students = () => {
       <nav className="navbar navbar-expand-lg bg-dark fixed-top">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
+            <button
+              className="btn btn-outline-secondary me-3 d-lg-none"
+              type="button"
+              onClick={() => setShowSidebar(!showSidebar)}
+            >
+              ☰
+            </button>
             <div className="d-flex align-items-center me-auto">
               <div className="input-group search-bar d-none d-lg-flex">
                 <input
@@ -42,91 +67,125 @@ const Students = () => {
               />
             </Link>
             <div className="d-flex align-items-center ms-auto">
-              <button className="btn btn-outline-light me-2">Donate</button>
-              <button className="btn btn-outline-light">Log out</button>
+              <button
+                className="btn btn-outline-light me-2"
+                onClick={handleDonateClick} // Connect to handleDonateClick
+              >
+                Donate
+              </button>
+              {/* Settings Button */}
+              <button
+                className="btn btn-outline-light me-2"
+                onClick={() => navigate("/settings")}
+              >
+                Settings
+              </button>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Top Bar */}
-      <div className="top-bar">
+      {/* Top Bar - Updated Stream link */}
+      <div className="top-bar d-none d-lg-block">
         <div className="d-flex align-items-center">
-          <button
-            className="btn btn-outline-secondary me-3"
-            type="button"
-            onClick={() => setShowSidebar(!showSidebar)}
-          >
-            ☰
-          </button>
           <nav className="nav">
-            <Link to="/stream" className="nav-link">
+            <NavLink
+              to={`/class/${id}`} // Dynamic path with class ID
+              className="nav-link"
+              activeClassName="active"
+            >
               Stream
-            </Link>
-            <Link to="/classwork" className="nav-link">
+            </NavLink>
+            <NavLink
+              to="/teacher/classwork"
+              className="nav-link"
+              activeClassName="active"
+            >
               Classwork
-            </Link>
-            <Link to="/people" className="nav-link">
+            </NavLink>
+            <NavLink
+              to="/teacher/students"
+              className="nav-link"
+              activeClassName="active"
+            >
               People
-            </Link>
-            <Link to="/marks" className="nav-link">
+            </NavLink>
+            <NavLink to="/teacher/marks" className="nav-link" activeClassName="active">
               Marks
-            </Link>
+            </NavLink>
           </nav>
         </div>
       </div>
 
-      {/* Sidebar - Slides out from the top bar */}
+      {/* Sidebar - Slides out from the left side on smaller screens */}
       <div
-        className={`sidebar bg-dark text-white ${showSidebar ? 'show' : 'hide'}`}
+        className={`sidebar bg-dark text-white ${
+          showSidebar ? "show" : "hide"
+        }`}
       >
         <div className="sidebar-header">
-          <h5>Classroom</h5>
-          <button
-            type="button"
-            className="btn-close btn-close-white d-lg-none"
-            onClick={() => setShowSidebar(false)}
-            aria-label="Close"
-          ></button>
+          <h5>Students</h5>
         </div>
         <div className="sidebar-body">
           <nav className="nav flex-column">
             <Link to="/home" className="nav-link text-white">
               Home
             </Link>
-            <Link to="/stream" className="nav-link text-white">
+            <NavLink
+              to={`/class/${id}`} // Dynamic path with class ID
+              className="nav-link text-white"
+              activeClassName="active"
+            >
               Stream
-            </Link>
-            <Link to="/classwork" className="nav-link text-white">
+            </NavLink>
+            <NavLink
+              to="/teacher/classwork"
+              className="nav-link text-white"
+              activeClassName="active"
+            >
               Classwork
-            </Link>
-            <Link to="/people" className="nav-link text-white">
+            </NavLink>
+            <NavLink
+              to="/teacher/students"
+              className="nav-link text-white"
+              activeClassName="active"
+            >
               People
-            </Link>
-            <Link to="/marks" className="nav-link text-white">
+            </NavLink>
+            <NavLink
+              to="/teacher/marks"
+              className="nav-link text-white"
+              activeClassName="active"
+            >
               Marks
-            </Link>
+            </NavLink>
             <hr className="text-white" />
-            <h6 className="text-white">Teaching</h6>
+            <h6 className="text-white">Stream</h6>
             <Link to="/to-review" className="nav-link text-white">
               To Review
             </Link>
             <hr className="text-white" />
-            <h6 className="text-white">Archived Classes</h6>
+            <h6 className="text-white">Classwork</h6>
             <Link to="/settings" className="nav-link text-white">
               Settings
+            </Link>
+            <hr className="text-white" />
+            <h6 className="text-white">People</h6>
+            <Link to="/to-people" className="nav-link text-white">
+              To Review
             </Link>
           </nav>
         </div>
       </div>
 
       {/* Main Content */}
-      <main className="dashboard-content">
+      <main
+        className={`dashboard-content ${showSidebar ? "sidebar-open" : ""}`}
+      >
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
               <h1>Students</h1>
-              <p>Track your students' progress and performance here.</p>
             </div>
           </div>
           <div className="row">
@@ -146,7 +205,7 @@ const Students = () => {
                   <button
                     className="btn btn-success"
                     onClick={() => {
-                      console.log("Button clicked"); // Debugging
+                      console.log("Button clicked");
                       setShowClassCodePopup(true);
                     }}
                   >

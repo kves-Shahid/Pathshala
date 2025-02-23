@@ -21,18 +21,18 @@ const LoginPage = () => {
     role === "learner" ? navigate("/learner") : navigate("/teacher-dashboard");
   };
 
-  const handleProviderAction = (provider) => {
+  const handleLoginProviderAction = (provider) => {
     console.log("Provider login:", provider);
     role === "learner" ? navigate("/learner") : navigate("/teacher-dashboard");
   };
 
-  const handleSignupAction = () => navigate("/signup");
-  const handleForgotPassword = () => navigate("/forget-password");
-  const handleDonateClick = (e) => {
+  const handleLoginSignupAction = () => navigate("/signup");
+  const handleLoginForgotPassword = () => navigate("/forget-password");
+  const handleLoginDonateClick = (e) => {
     e.preventDefault();
-    console.log("Donate clicked");
+    navigate("/donate");
   };
-  const handleExploreClick = (e) => {
+  const handleLoginExploreClick = (e) => {
     e.preventDefault();
     console.log("Explore clicked");
   };
@@ -46,7 +46,7 @@ const LoginPage = () => {
             <div className="d-flex align-items-center me-auto">
               <button
                 className="btn btn-outline-success me-3"
-                onClick={handleExploreClick}
+                onClick={handleLoginExploreClick}
               >
                 Explore
               </button>
@@ -75,7 +75,7 @@ const LoginPage = () => {
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
-                onClick={handleDonateClick}
+                onClick={handleLoginDonateClick}
               >
                 Donate
               </button>
@@ -85,7 +85,10 @@ const LoginPage = () => {
               >
                 Log in
               </button>
-              <button className="btn btn-success" onClick={handleSignupAction}>
+              <button
+                className="btn btn-success"
+                onClick={handleLoginSignupAction}
+              >
                 Sign up
               </button>
             </div>
@@ -137,13 +140,13 @@ const LoginPage = () => {
               <nav className="nav flex-column gap-2">
                 <button
                   className="btn btn-outline-light"
-                  onClick={handleExploreClick}
+                  onClick={handleLoginExploreClick}
                 >
                   Explore
                 </button>
                 <button
                   className="btn btn-outline-light"
-                  onClick={handleDonateClick}
+                  onClick={handleLoginDonateClick}
                 >
                   Donate
                 </button>
@@ -155,7 +158,7 @@ const LoginPage = () => {
                 </button>
                 <button
                   className="btn btn-success"
-                  onClick={handleSignupAction}
+                  onClick={handleLoginSignupAction}
                 >
                   Sign up
                 </button>
@@ -167,48 +170,19 @@ const LoginPage = () => {
 
       {/* Main Content */}
       <div className="login-content">
-        {/* Mobile Text Overlay */}
-        <div className="mobile-text-overlay d-lg-none">
-          <h2>Join Pathshala and learn with us</h2>
-          <p>Log in to Pathshala to get started!</p>
-          <p>
-            By logging in to Pathshala, you agree to our{" "}
-            <a href="/terms">Terms of use</a> and{" "}
-            <a href="/privacy">Privacy Policy</a>.
-          </p>
-        </div>
-
-        {/* Image Section - Hidden on Mobile */}
-        <div className="login-image-section d-none d-lg-flex">
-          <img
-            src="https://w0.peakpx.com/wallpaper/525/128/HD-wallpaper-enlightenment-acknowledgment-bulb-education-facts-future-iphone-science-scientific-technology.jpg"
-            alt="Education"
-            className="login-image"
-          />
-          <div className="image-overlay">
-            <h2>Join Pathshala and learn with us</h2>
-            <p>Log in to Pathshala to get started!</p>
-            <p>
-              By logging in to Pathshala, you agree to our{" "}
-              <a href="/terms">Terms of use</a> and{" "}
-              <a href="/privacy">Privacy Policy</a>.
-            </p>
-          </div>
-        </div>
-
         {/* Form Section */}
         <div className="login-form-section">
           <h1>Log in</h1>
           <p>Join Pathshala for free as a</p>
-          <div className="role-buttons">
+          <div className="login-role-buttons">
             <button
-              className={role === "learner" ? "active" : ""}
+              className={role === "learner" ? "login-active" : ""}
               onClick={() => setRole("learner")}
             >
               Learner
             </button>
             <button
-              className={role === "teacher" ? "active" : ""}
+              className={role === "teacher" ? "login-active" : ""}
               onClick={() => setRole("teacher")}
             >
               Teacher
@@ -216,7 +190,7 @@ const LoginPage = () => {
           </div>
 
           <div className="login-form">
-            <div className="form-group">
+            <div className="login-form-group">
               <label htmlFor="email">Email or username *</label>
               <input
                 type="text"
@@ -226,7 +200,7 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="form-group">
+            <div className="login-form-group">
               <label htmlFor="password">Password *</label>
               <input
                 type="password"
@@ -239,12 +213,15 @@ const LoginPage = () => {
             <button className="login-page-button" onClick={handleLoginAction}>
               Log in
             </button>
-            <p className="forgot-password">
-              <button onClick={handleForgotPassword}>Forgot password?</button>
+            <p className="login-forgot-password">
+              <button onClick={handleLoginForgotPassword}>
+                Forgot password?
+              </button>
             </p>
           </div>
 
-          <div className="provider-buttons">
+          {/* Social Login Buttons */}
+          <div className="login-provider-buttons">
             {[
               { name: "Google", logo: googleLogo },
               { name: "Clever", logo: cleverLogo },
@@ -253,22 +230,23 @@ const LoginPage = () => {
             ].map(({ name, logo }) => (
               <button
                 key={name}
-                className={`provider-button ${name.toLowerCase()}`}
-                onClick={() => handleProviderAction(name)}
+                className={`login-provider-button ${name.toLowerCase()}`}
+                onClick={() => handleLoginProviderAction(name)}
               >
                 <img
                   src={logo}
                   alt={`${name} Logo`}
-                  className="provider-logo"
+                  className="login-provider-logo"
                 />
                 <span>Continue with {name}</span>
               </button>
             ))}
           </div>
 
-          <p className="signup-link">
+          {/* Sign Up Link */}
+          <p className="login-signup-link">
             Don't have an account?{" "}
-            <button onClick={handleSignupAction}>Sign up</button>
+            <button onClick={handleLoginSignupAction}>Sign up</button>
           </p>
         </div>
       </div>
