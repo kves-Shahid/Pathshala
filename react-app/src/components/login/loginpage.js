@@ -3,10 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./loginpage.css";
-import googleLogo from "../assets/images/google-logo.png";
-import cleverLogo from "../assets/images/clever-logo.jpg";
-import facebookLogo from "../assets/images/facebook-logo.png";
-import appleLogo from "../assets/images/apple-logo.png";
+import googleLogo from "../assets/images/google-logo.png"; // Keep only Google logo
 import logoImage from "../logo.png";
 
 const LoginPage = () => {
@@ -220,27 +217,19 @@ const LoginPage = () => {
             </p>
           </div>
 
-          {/* Social Login Buttons */}
+          {/* Social Login Buttons - Only Google */}
           <div className="login-provider-buttons">
-            {[
-              { name: "Google", logo: googleLogo },
-              { name: "Clever", logo: cleverLogo },
-              { name: "Facebook", logo: facebookLogo },
-              { name: "Apple", logo: appleLogo },
-            ].map(({ name, logo }) => (
-              <button
-                key={name}
-                className={`login-provider-button ${name.toLowerCase()}`}
-                onClick={() => handleLoginProviderAction(name)}
-              >
-                <img
-                  src={logo}
-                  alt={`${name} Logo`}
-                  className="login-provider-logo"
-                />
-                <span>Continue with {name}</span>
-              </button>
-            ))}
+            <button
+              className="login-provider-button google"
+              onClick={() => handleLoginProviderAction("Google")}
+            >
+              <img
+                src={googleLogo}
+                alt="Google Logo"
+                className="login-provider-logo"
+              />
+              <span>Continue with Google</span>
+            </button>
           </div>
 
           {/* Sign Up Link */}

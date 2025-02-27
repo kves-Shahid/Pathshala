@@ -3,35 +3,39 @@ import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./SignupPage.css";
-import googleLogo from "./assets/images/google-logo.png";
-import cleverLogo from "./assets/images/clever-logo.jpg";
-import facebookLogo from "./assets/images/facebook-logo.png";
-import appleLogo from "./assets/images/apple-logo.png";
-import emailLogo from "./assets/images/email-logo.png";
+import googleLogo from "./assets/images/google-logo.png"; // Import Google logo
 import logoImage from "./logo.png";
 
 const SignupPage = () => {
   const [role, setRole] = useState("learner");
-  const [dob, setDob] = useState({ month: "", day: "", year: "" });
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSignupWithEmail = () => {
     console.log("Signing up with Email as:", role);
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    // Redirect based on role
     if (role === "learner") {
-      console.log("Date of Birth:", dob);
-      console.log("Email:", email);
-      console.log("Username:", username);
-      console.log("Password:", password);
+      navigate("/learner"); // Redirect to Learner Dashboard
+    } else if (role === "teacher") {
+      navigate("/teacher-dashboard"); // Redirect to Teacher Dashboard
     }
-    navigate("/");
   };
 
-  const handleSignupWithProvider = (provider) => {
-    console.log("Signing up with:", provider);
-    navigate("/teacher-dashboard");
+  const handleSignupWithGoogle = () => {
+    console.log("Signing up with Google as:", role);
+
+    // Redirect based on role
+    if (role === "learner") {
+      navigate("/learner"); // Redirect to Learner Dashboard
+    } else if (role === "teacher") {
+      navigate("/teacher-dashboard"); // Redirect to Teacher Dashboard
+    }
   };
 
   return (
@@ -72,7 +76,7 @@ const SignupPage = () => {
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
-                onClick={() => navigate("/donate")} // Donate button
+                onClick={() => navigate("/donate")}
               >
                 Donate
               </button>
@@ -143,7 +147,7 @@ const SignupPage = () => {
                 </button>
                 <button
                   className="btn btn-outline-light"
-                  onClick={() => navigate("/donate")} // Donate button
+                  onClick={() => navigate("/donate")}
                 >
                   Donate
                 </button>
@@ -186,9 +190,35 @@ const SignupPage = () => {
             </button>
           </div>
 
+          {/* Sign up with Google Button */}
+          <div className="provider-buttons">
+            <button
+              className="provider-button google"
+              onClick={handleSignupWithGoogle}
+            >
+              <img
+                src={googleLogo}
+                alt="Google Logo"
+                className="provider-logo"
+              />
+              <span>Sign up with Google</span>
+            </button>
+          </div>
+
           {/* Learners Section */}
           {role === "learner" && (
             <div className="signup-form">
+              <div className="form-group">
+                <label htmlFor="name">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
               <div className="form-group">
                 <label htmlFor="email">Your Email</label>
                 <input
@@ -197,17 +227,6 @@ const SignupPage = () => {
                   placeholder="example@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="username">Choose a Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  placeholder="Use letters and numbers only"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
 
@@ -222,96 +241,50 @@ const SignupPage = () => {
                 />
               </div>
 
-              <div className="dob-section">
-                <h3>What is your date of birth?</h3>
-                <div className="dob-inputs">
-                  <select
-                    value={dob.month}
-                    onChange={(e) => setDob({ ...dob, month: e.target.value })}
-                  >
-                    <option value="">Month</option>
-                    <option value="01">January</option>
-                    <option value="02">February</option>
-                    {/* Add all months here */}
-                  </select>
-                  <input
-                    type="number"
-                    placeholder="Day"
-                    value={dob.day}
-                    onChange={(e) => setDob({ ...dob, day: e.target.value })}
-                  />
-                  <input
-                    type="number"
-                    placeholder="Year"
-                    value={dob.year}
-                    onChange={(e) => setDob({ ...dob, year: e.target.value })}
-                  />
-                </div>
-              </div>
-
               <button className="submit-button" onClick={handleSignupWithEmail}>
-                Submit
+                Sign Up
               </button>
             </div>
           )}
 
-          {/* Provider Buttons (Only for Teachers) */}
+          {/* Teacher Section */}
           {role === "teacher" && (
-            <div className="provider-buttons">
-              <button
-                className="provider-button google"
-                onClick={() => handleSignupWithProvider("Google")}
-              >
-                <img
-                  src={googleLogo}
-                  alt="Google Logo"
-                  className="provider-logo"
+            <div className="signup-form">
+              <div className="form-group">
+                <label htmlFor="name">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
-                <span>Continue with Google</span>
-              </button>
-              <button
-                className="provider-button clever"
-                onClick={() => handleSignupWithProvider("Clever")}
-              >
-                <img
-                  src={cleverLogo}
-                  alt="Clever Logo"
-                  className="provider-logo"
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Your Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="example@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <span>Continue with Clever</span>
-              </button>
-              <button
-                className="provider-button facebook"
-                onClick={() => handleSignupWithProvider("Facebook")}
-              >
-                <img
-                  src={facebookLogo}
-                  alt="Facebook Logo"
-                  className="provider-logo"
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Create a Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="At least 8 characters long"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <span>Continue with Facebook</span>
-              </button>
-              <button
-                className="provider-button apple"
-                onClick={() => handleSignupWithProvider("Apple")}
-              >
-                <img
-                  src={appleLogo}
-                  alt="Apple Logo"
-                  className="provider-logo"
-                />
-                <span>Continue with Apple</span>
-              </button>
-              <button
-                className="provider-button email"
-                onClick={() => handleSignupWithProvider("Email")}
-              >
-                <img
-                  src={emailLogo}
-                  alt="Email Logo"
-                  className="provider-logo"
-                />
-                <span>Sign up with Email</span>
+              </div>
+
+              <button className="submit-button" onClick={handleSignupWithEmail}>
+                Sign Up
               </button>
             </div>
           )}
