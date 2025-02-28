@@ -1,21 +1,42 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { message } from "antd";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./loginpage.css";
-import googleLogo from "../assets/images/google-logo.png"; // Keep only Google logo
+import googleLogo from "../assets/images/google-logo.png";
 import logoImage from "../logo.png";
 
 const LoginPage = () => {
   const [role, setRole] = useState("learner");
-  const [email, setEmail] = useState("");
+  const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const navbarRef = useRef(null);
 
-  const handleLoginAction = () => {
-    console.log("Logging in as:", role, "Email:", email, "Password:", password);
-    role === "learner" ? navigate("/learner") : navigate("/teacher-dashboard");
+  const handleLoginAction = async () => {
+    try {
+      const endpoint = role === "teacher" 
+        ? "/api/v1/user/login" 
+        : "/api/v1/learner/login";
+
+      const res = await axios.post(`http://localhost:8080${endpoint}`, {
+        email: loginId,
+        password,
+      });
+
+      if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
+        message.success(res.data.message);
+        role === "teacher" 
+          ? navigate("/teacher-dashboard") 
+          : navigate("/learner"); // Redirect to the learner.js page
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      message.error(error.response?.data?.message || "Login failed. Please try again.");
+    }
   };
 
   const handleLoginProviderAction = (provider) => {
@@ -94,7 +115,7 @@ const LoginPage = () => {
       </nav>
 
       {/* Mobile Navbar */}
-      <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
+      <nav className="navbar bg-dark fixed-top d-lg-none">
         <div className="container-fluid">
           <button
             className="navbar-toggler text-white"
@@ -188,13 +209,13 @@ const LoginPage = () => {
 
           <div className="login-form">
             <div className="login-form-group">
-              <label htmlFor="email">Email or username *</label>
+              <label htmlFor="loginId">Email or Username *</label>
               <input
                 type="text"
-                id="email"
+                id="loginId"
                 placeholder="Enter your email or username"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={loginId}
+                onChange={(e) => setLoginId(e.target.value)}
               />
             </div>
             <div className="login-form-group">

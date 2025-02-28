@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import logoImage from "../logo.png";
@@ -7,12 +8,55 @@ import "./teacher.css";
 
 const Teacher = () => {
   const navigate = useNavigate();
-  const email = "kazishahedpoco@example.com"; // Simulated email for demonstration
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Validate token on component mount
+  useEffect(() => {
+    const validateToken = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // Redirect to login if no token
+        return;
+      }
+
+      try {
+        console.log("Validating token:", token); // Debugging
+        const response = await axios.get("/api/v1/user/validate-token", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Token validation response:", response.data); // Debugging
+
+        if (response.data.success) {
+          setLoading(false); // Token is valid
+        } else {
+          throw new Error("Invalid token");
+        }
+      } catch (error) {
+        console.error("Error validating token:", error);
+        setError("Invalid or expired token. Please log in again.");
+        if (error.response?.status === 401) {
+          localStorage.removeItem("token"); // Clear invalid token
+          navigate("/login"); // Redirect to login if token is invalid
+        }
+      }
+    };
+
+    validateToken();
+  }, [navigate]);
 
   const handleDonateClick = (e) => {
     e.preventDefault();
     navigate("/donate"); // Navigate to the Donate page
   };
+
+  if (loading) {
+    return <div className="text-center mt-5">Loading...</div>; // Show loading state
+  }
+
+  if (error) {
+    return <div className="text-center mt-5 text-danger">{error}</div>; // Show error message
+  }
 
   return (
     <div className="teacher-dashboard">
@@ -121,7 +165,7 @@ const Teacher = () => {
 
       {/* Welcome Section (Under Navbar) */}
       <div className="welcome-section">
-        <p className="welcome-text">Welcome, {email}</p>
+        <p className="welcome-text">Welcome, Teacher</p>
         <a href="#add-school" className="add-school-link">
           Add your University
         </a>
