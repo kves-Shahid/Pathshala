@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./learner.css";
@@ -9,6 +10,37 @@ const Learner = () => {
   const navigate = useNavigate();
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [classCode, setClassCode] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Validate token on component mount
+  useEffect(() => {
+    const validateToken = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // Redirect to login if no token
+        return;
+      }
+
+      try {
+        const response = await axios.get("/api/v1/learner/validate-token", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.data.success) {
+          setLoading(false); // Token is valid
+        } else {
+          throw new Error("Invalid token");
+        }
+      } catch (error) {
+        console.error("Error validating token:", error);
+        setError("Invalid or expired token. Please log in again.");
+        localStorage.removeItem("token"); // Clear invalid token
+        navigate("/login"); // Redirect to login if token is invalid
+      }
+    };
+
+    validateToken();
+  }, [navigate]);
 
   const handleDonateClick = (e) => {
     e.preventDefault();
@@ -24,6 +56,14 @@ const Learner = () => {
     setShowJoinModal(false); // Close the modal
     navigate("/stream"); // Redirect to the Stream page
   };
+
+  if (loading) {
+    return <div className="text-center mt-5">Loading...</div>; // Show loading state
+  }
+
+  if (error) {
+    return <div className="text-center mt-5 text-danger">{error}</div>; // Show error message
+  }
 
   return (
     <div className="learner-dashboard">
@@ -65,7 +105,7 @@ const Learner = () => {
             </Link>
 
             {/* Right Section */}
-            <div className="d-flex align-items-center ms-4"> {/* Changed ms-auto to ms-4 */}
+            <div className="d-flex align-items-center ms-4">
               <button
                 className="btn btn-outline-light me-2"
                 onClick={handleDonateClick}

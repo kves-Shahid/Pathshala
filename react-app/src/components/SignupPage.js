@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { message } from "antd";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./SignupPage.css";
-import googleLogo from "./assets/images/google-logo.png"; // Import Google logo
+import googleLogo from "./assets/images/google-logo.png";
 import logoImage from "./logo.png";
 
 const SignupPage = () => {
@@ -13,29 +15,32 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignupWithEmail = () => {
-    console.log("Signing up with Email as:", role);
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const handleSignupWithEmail = async () => {
+    try {
+      const endpoint = role === "teacher" 
+        ? "/api/v1/user/register" 
+        : "/api/v1/learner/register";
 
-    // Redirect based on role
-    if (role === "learner") {
-      navigate("/learner"); // Redirect to Learner Dashboard
-    } else if (role === "teacher") {
-      navigate("/teacher-dashboard"); // Redirect to Teacher Dashboard
+      const res = await axios.post(`http://localhost:8080${endpoint}`, {
+        name,
+        email,
+        password,
+      });
+
+      if (res.data.success) {
+        message.success(res.data.message);
+        navigate("/login");
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      message.error(error.response?.data?.message || "Registration failed. Please try again.");
     }
   };
 
   const handleSignupWithGoogle = () => {
     console.log("Signing up with Google as:", role);
-
-    // Redirect based on role
-    if (role === "learner") {
-      navigate("/learner"); // Redirect to Learner Dashboard
-    } else if (role === "teacher") {
-      navigate("/teacher-dashboard"); // Redirect to Teacher Dashboard
-    }
+    role === "learner" ? navigate("/learner") : navigate("/teacher-dashboard");
   };
 
   return (
@@ -290,13 +295,13 @@ const SignupPage = () => {
           )}
 
           <p className="login-link">
-            Already have an account? <a href="/login">Log in</a>
+            Already have an account? <Link to="/login">Log in</Link>
           </p>
 
           <p className="terms">
             By signing up for Pathshala, you agree to our{" "}
-            <a href="/terms">Terms of use</a> and{" "}
-            <a href="/privacy">Privacy Policy</a>.
+            <Link to="/terms">Terms of use</Link> and{" "}
+            <Link to="/privacy">Privacy Policy</Link>.
           </p>
         </div>
       </div>
