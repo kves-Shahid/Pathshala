@@ -1,14 +1,34 @@
 .classwork-page {
-  padding-top: 56px; /* Height of navbar */
+  padding-top: 106px; /* Increased to accommodate both navbar and top bar */
   position: relative;
+}
+
+/* Navbar Styles */
+.navbar {
+  height: 56px; /* Standard navbar height */
+}
+
+/* Top Bar Adjustments */
+.top-bar {
+  background-color: #f8f9fa;
+  padding: 0 20px;
+  height: 50px; /* Increased height */
+  position: fixed;
+  top: 56px; /* Positioned below the navbar */
+  left: 0;
+  right: 0;
+  z-index: 997;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
 }
 
 /* Sidebar Styles */
 .sidebar {
   width: 250px;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 106px); /* Adjusted height */
   position: fixed;
-  top: 56px;
+  top: 106px; /* Positioned below the top bar */
   left: -250px; /* Hidden by default */
   background-color: #343a40;
   z-index: 998;
@@ -26,21 +46,6 @@
   max-width: 1200px;
   width: 90%; /* Added for better control */
   transition: all 0.3s ease;
-}
-
-/* Top Bar Adjustments */
-.top-bar {
-  background-color: #f8f9fa;
-  padding: 0 20px;
-  height: 50px;
-  position: fixed;
-  top: 56px;
-  left: 0;
-  right: 0;
-  z-index: 997;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
 }
 
 /* Empty State Centering */
@@ -78,7 +83,7 @@
 /* Responsive Design */
 @media (max-width: 992px) {
   .classwork-content {
-    margin-top: 56px;
+    margin-top: 106px; /* Adjusted margin */
     padding: 15px;
   }
 

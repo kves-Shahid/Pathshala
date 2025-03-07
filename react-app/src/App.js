@@ -20,7 +20,6 @@ import Story from "./components/extra/story";
 import Donate from "./components/extra/donate";
 import Onboarding from "./components/teacher/onboarding";
 import Dash from "./components/teacher/dash";
-import Stream from "./components/learner/stream";
 import LearnerDashboard from "./components/learner/learner_dashboard";
 import Settings from "./components/settings/settings"; // Import the Settings component
 import "./App.css";
@@ -52,7 +51,6 @@ function App() {
             <Route path="/teacher/classes/:id" element={<Dash />} />
             <Route path="/teacher/people" element={<Students />} />
             <Route path="/class/:id" element={<Dash />} />
-            <Route path="/stream" element={<Stream />} />
             <Route path="/learner_dashboard/:id" element={<LearnerDashboard />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
