@@ -1,4 +1,4 @@
-/* Dashboard Styles */
+
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -6,7 +6,7 @@
   background-color: #f9f9f9;
 }
 
-/* Navbar Styles */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -16,7 +16,6 @@
   background-color: #343a40;
 }
 
-/* Top Bar Styles - Only for larger screens */
 .top-bar {
   position: fixed;
   top: 60px;
@@ -46,7 +45,6 @@
   text-decoration: underline;
 }
 
-/* Sidebar Styles */
 .sidebar {
   width: 250px;
   height: 100vh;
@@ -67,7 +65,6 @@
   transform: translateX(-250px);
 }
 
-/* Sidebar Links */
 .sidebar .nav-link {
   color: white !important;
 }
@@ -76,19 +73,19 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Main Content Styles */
+
 .dashboard-content {
   margin-top: 60px;
   padding: 20px;
   transition: margin-left 0.3s ease;
 }
 
-/* Adjust main content when sidebar is open */
+
 .dashboard-content.sidebar-open {
   margin-left: 250px;
 }
 
-/* Responsive Design */
+
 @media (max-width: 992px) {
   .top-bar {
     display: none;
@@ -113,7 +110,7 @@
   }
 }
 
-/* Popup Overlay */
+
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -166,7 +163,7 @@
   background-color: #218838;
 }
 
-/* Card Styles */
+
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -188,7 +185,7 @@
   margin-bottom: 15px;
 }
 
-/* Blank Box Styles */
+
 .blank-box {
   background-color: #f9f9f9;
   display: flex;
@@ -201,7 +198,7 @@
   border-radius: 8px;
 }
 
-/* Button Styles */
+
 .btn-success {
   background-color: #28a745;
   border: none;

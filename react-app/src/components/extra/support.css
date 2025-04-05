@@ -1,62 +1,125 @@
-/* Support Page Styles */
+
 .support-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+}
+
+.support-content {
+  flex: 1;
+  padding: 0;
+  margin-top: 0;
+}
+
+.search-background {
+  background-size: cover;
+  background-position: center;
+  padding: 100px 20px;
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin-top: 0;
+}
+
+.search-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.search-background h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.search-bar-main {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.community-content {
+  margin-top: 40px;
+  text-align: left;
+  padding: 20px;
+}
+
+.latest-news {
+  margin-top: 20px;
+}
+
+.news-item {
+  margin-bottom: 20px;
+}
+
+.news-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.news-item a:hover {
+  text-decoration: underline;
+}
+
+.upload-section {
+  margin-top: 40px;
+}
+
+.upload-section input,
+.upload-section textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.upload-section button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.upload-section button:hover {
+  background-color: #218838;
+}
+
+
+@media (max-width: 768px) {
+  .search-background h1 {
+    font-size: 2rem;
   }
-  
-  .support-content {
-    flex: 1;
-    padding: 20px;
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .support-content h1 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
+
   .support-content p {
-    font-size: 1.2rem;
-    color: #555;
+    font-size: 1rem;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .support-content h1 {
-      font-size: 2rem;
-    }
-  
-    .support-content p {
-      font-size: 1rem;
-    }
+}
+
+@media (max-width: 576px) {
+  .search-background h1 {
+    font-size: 1.5rem;
   }
-  
-  @media (max-width: 576px) {
-    .support-content h1 {
-      font-size: 1.5rem;
-    }
-  
-    .support-content p {
-      font-size: 0.9rem;
-    }
+
+  .support-content p {
+    font-size: 0.9rem;
   }
-  
-  /* Ensure navbar does not overlap content */
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
+}
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+
+@media (min-width: 992px) {
+  .support-content {
+    padding-top: 80px; 
   }
-  
-  /* Adjust padding for larger screens */
-  @media (min-width: 992px) {
-    .support-content {
-      padding-top: 80px; /* Adjust based on navbar height */
-    }
-  }
+}

@@ -1,21 +1,45 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { message } from "antd";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./loginpage.css";
-import googleLogo from "../assets/images/google-logo.png"; // Keep only Google logo
+import googleLogo from "../assets/images/google-logo.png";
 import logoImage from "../logo.png";
 
 const LoginPage = () => {
   const [role, setRole] = useState("learner");
-  const [email, setEmail] = useState("");
+  const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const navbarRef = useRef(null);
 
-  const handleLoginAction = () => {
-    console.log("Logging in as:", role, "Email:", email, "Password:", password);
-    role === "learner" ? navigate("/learner") : navigate("/teacher-dashboard");
+  const handleLoginAction = async () => {
+    try {
+      const endpoint =
+        role === "teacher" ? "/api/v1/user/login" : "/api/v1/learner/login";
+
+      const res = await axios.post(`http://localhost:8080${endpoint}`, {
+        email: loginId,
+        password,
+      });
+
+      if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", res.data.role); 
+        message.success(res.data.message);
+        role === "teacher"
+          ? navigate("/teacher-dashboard")
+          : navigate("/learner");
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      message.error(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
+    }
   };
 
   const handleLoginProviderAction = (provider) => {
@@ -36,7 +60,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      {/* Desktop Navbar */}
+      
       <nav className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
@@ -93,8 +117,8 @@ const LoginPage = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
-      <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
+     
+      <nav className="navbar bg-dark fixed-top d-lg-none">
         <div className="container-fluid">
           <button
             className="navbar-toggler text-white"
@@ -165,9 +189,9 @@ const LoginPage = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
+     
       <div className="login-content">
-        {/* Form Section */}
+        
         <div className="login-form-section">
           <h1>Log in</h1>
           <p>Join Pathshala for free as a</p>
@@ -188,13 +212,13 @@ const LoginPage = () => {
 
           <div className="login-form">
             <div className="login-form-group">
-              <label htmlFor="email">Email or username *</label>
+              <label htmlFor="loginId">Email or Username *</label>
               <input
                 type="text"
-                id="email"
+                id="loginId"
                 placeholder="Enter your email or username"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={loginId}
+                onChange={(e) => setLoginId(e.target.value)}
               />
             </div>
             <div className="login-form-group">
@@ -217,7 +241,7 @@ const LoginPage = () => {
             </p>
           </div>
 
-          {/* Social Login Buttons - Only Google */}
+         
           <div className="login-provider-buttons">
             <button
               className="login-provider-button google"
@@ -232,7 +256,7 @@ const LoginPage = () => {
             </button>
           </div>
 
-          {/* Sign Up Link */}
+          
           <p className="login-signup-link">
             Don't have an account?{" "}
             <button onClick={handleLoginSignupAction}>Sign up</button>
@@ -240,7 +264,7 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Footer Section */}
+      
       <footer className="footer bg-dark text-white py-4">
         <div className="container text-center">
           <p className="mb-0">© 2025 Pathshala. All rights reserved.</p>

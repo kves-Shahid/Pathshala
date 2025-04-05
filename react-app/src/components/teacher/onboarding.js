@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
 import logoImage from "../logo.png";
 import "./onboarding.css";
 
 const Onboarding = () => {
   const navigate = useNavigate();
+  const [classes, setClasses] = useState([]);
+
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await fetch("/api/v1/user/classes", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const data = await response.json();
+        if (data.success) {
+          setClasses(data.classes);
+        }
+      } catch (error) {
+        console.error("Error fetching classes:", error);
+      }
+    };
+    fetchClasses();
+  }, []);
 
   const handleDonateClick = (e) => {
     e.preventDefault();
@@ -14,19 +33,12 @@ const Onboarding = () => {
   };
 
   const handleCreateClass = () => {
-    navigate("/dashboard"); // Navigate to the Dashboard page
+    navigate("/dashboard");
   };
-
-  // Simulated list of already created classes
-  const classes = [
-    { id: 1, name: "Mathematics 101" },
-    { id: 2, name: "Science 101" },
-    { id: 3, name: "History 101" },
-  ];
 
   return (
     <div className="onboarding-dashboard">
-      {/* Desktop Navbar */}
+     
       <nav className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
@@ -59,7 +71,6 @@ const Onboarding = () => {
               >
                 Donate
               </button>
-              {/* Settings Button */}
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -71,7 +82,7 @@ const Onboarding = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
+    
       <nav className="navbar bg-dark fixed-top d-lg-none">
         <div className="container-fluid">
           <button
@@ -116,7 +127,6 @@ const Onboarding = () => {
                 >
                   Donate
                 </button>
-                {/* Settings Button in Mobile Menu */}
                 <button
                   className="btn btn-outline-light"
                   onClick={() => navigate("/settings")}
@@ -129,27 +139,30 @@ const Onboarding = () => {
         </div>
       </nav>
 
-      {/* Welcome Section (Under Navbar) */}
+      
       <div className="welcome-section">
         <p className="welcome-text">Welcome, Teacher</p>
         <button
           className="btn btn-success"
-          onClick={handleCreateClass} // Navigate to Dashboard to create a class
+          onClick={handleCreateClass}
         >
           Create a Class
         </button>
       </div>
 
+     
       <main className="onboarding-content">
-        {/* List of Already Created Classes */}
         <div className="class-list row justify-content-center">
           {classes.map((cls) => (
-            <div className="col-md-4 mb-4" key={cls.id}>
+            <div className="col-md-4 mb-4" key={cls._id}>
               <div
                 className="class-card"
-                onClick={() => navigate(`/teacher/classes/${cls.id}`)} // Navigate to Dash page
+                onClick={() => navigate(`/teacher/classes/${cls._id}`)}
               >
-                <h3>{cls.name}</h3>
+                <h3>{cls.className}</h3>
+                <p>Section: {cls.section}</p>
+                <p>Code: {cls.code}</p>
+                <p>Class ID: {cls._id}</p> 
                 <p>Click to view class details</p>
               </div>
             </div>
@@ -157,7 +170,7 @@ const Onboarding = () => {
         </div>
       </main>
 
-      {/* Footer */}
+ 
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

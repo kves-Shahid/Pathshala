@@ -1,5 +1,5 @@
 .resources-page {
-    padding-top: 56px; /* Adjust based on navbar height */
+    padding-top: 56px; 
   }
   
   .resources-content {
@@ -25,7 +25,7 @@
     padding: 10px;
   }
   
-  /* Mobile Sidebar Styles */
+ 
   .offcanvas-start {
     width: 250px;
     background-color: #333;
@@ -47,6 +47,6 @@
     }
   
     .navbar-right {
-      display: none; /* Hide desktop buttons on mobile */
+      display: none; 
     }
   }

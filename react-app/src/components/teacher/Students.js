@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams, NavLink } from "react-router-dom"; // Import useParams and NavLink
+import { Link, useNavigate, useParams, NavLink } from "react-router-dom"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoImage from "../logo.png";
 import "./dashboard.css";
 
 const Students = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
-  const { id } = useParams(); // Get the class ID from the URL
+  const navigate = useNavigate(); 
+  const { id } = useParams(); 
   const [showClassCodePopup, setShowClassCodePopup] = useState(false);
   const [classCode, setClassCode] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
@@ -19,7 +19,7 @@ const Students = () => {
 
   const handleDonateClick = (e) => {
     e.preventDefault();
-    navigate("/donate"); // Navigate to the Donate page
+    navigate("/donate");
   };
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Students = () => {
 
   return (
     <div className="dashboard">
-      {/* Navbar */}
+      
       <nav className="navbar navbar-expand-lg bg-dark fixed-top">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
@@ -69,11 +69,11 @@ const Students = () => {
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
-                onClick={handleDonateClick} // Connect to handleDonateClick
+                onClick={handleDonateClick} 
               >
                 Donate
               </button>
-              {/* Settings Button */}
+            
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -85,12 +85,12 @@ const Students = () => {
         </div>
       </nav>
 
-      {/* Top Bar - Updated Stream link */}
+      
       <div className="top-bar d-none d-lg-block">
         <div className="d-flex align-items-center">
           <nav className="nav">
             <NavLink
-              to={`/class/${id}`} // Dynamic path with class ID
+              to={`/class/${id}`} 
               className="nav-link"
               activeClassName="active"
             >
@@ -117,7 +117,7 @@ const Students = () => {
         </div>
       </div>
 
-      {/* Sidebar - Slides out from the left side on smaller screens */}
+      
       <div
         className={`sidebar bg-dark text-white ${
           showSidebar ? "show" : "hide"
@@ -132,7 +132,7 @@ const Students = () => {
               Home
             </Link>
             <NavLink
-              to={`/class/${id}`} // Dynamic path with class ID
+              to={`/class/${id}`} 
               className="nav-link text-white"
               activeClassName="active"
             >
@@ -178,7 +178,7 @@ const Students = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+     
       <main
         className={`dashboard-content ${showSidebar ? "sidebar-open" : ""}`}
       >
@@ -218,7 +218,7 @@ const Students = () => {
         </div>
       </main>
 
-      {/* Popup for Class Code */}
+      
       {showClassCodePopup && (
         <div className="popup-overlay">
           <div className="popup-content">

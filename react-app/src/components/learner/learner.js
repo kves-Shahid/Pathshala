@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./learner.css";
@@ -9,29 +10,95 @@ const Learner = () => {
   const navigate = useNavigate();
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [classCode, setClassCode] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [enrolledClasses, setEnrolledClasses] = useState([]);
+
 
   const handleDonateClick = (e) => {
     e.preventDefault();
     navigate("/donate");
   };
 
+  useEffect(() => {
+    const validateToken = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      try {
+        const response = await axios.get("/api/v1/learner/validate-token", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.data.success) {
+          setLoading(false);
+          fetchEnrolledClasses();
+        } else {
+          throw new Error("Invalid token");
+        }
+      } catch (error) {
+        console.error("Error validating token:", error);
+        setError("Invalid or expired token. Please log in again.");
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    };
+
+    const fetchEnrolledClasses = async () => {
+      try {
+        const response = await axios.get("/api/v1/learner/enrolled-classes", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        if (response.data.success) {
+          setEnrolledClasses(response.data.classes);
+        }
+      } catch (error) {
+        console.error("Error fetching enrolled classes:", error);
+      }
+    };
+
+    validateToken();
+  }, [navigate]);
+
   const handleJoinClass = () => {
     setShowJoinModal(true);
   };
 
-  const handleJoin = () => {
-    console.log("Joining class with code:", classCode);
-    setShowJoinModal(false); // Close the modal
-    navigate("/stream"); // Redirect to the Stream page
+  const handleJoin = async () => {
+    try {
+      const response = await axios.post(
+        "/api/v1/learner/join-class",
+        { code: classCode },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      if (response.data.success) {
+        setShowJoinModal(false);
+        setEnrolledClasses([...enrolledClasses, response.data.classId]);
+      }
+    } catch (error) {
+      console.error("Error joining class:", error);
+    }
   };
+
+  if (loading) {
+    return <div className="text-center mt-5">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center mt-5 text-danger">{error}</div>;
+  }
 
   return (
     <div className="learner-dashboard">
-      {/* Desktop Navbar */}
+    
       <nav className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
-            {/* Left Section */}
+          
             <div className="d-flex align-items-center me-auto">
               <button
                 className="btn btn-outline-success me-3"
@@ -51,7 +118,7 @@ const Learner = () => {
               </div>
             </div>
 
-            {/* Centered Logo */}
+           
             <Link
               to="/"
               className="position-absolute top-50 start-50 translate-middle"
@@ -64,15 +131,21 @@ const Learner = () => {
               />
             </Link>
 
-            {/* Right Section */}
-            <div className="d-flex align-items-center ms-4"> {/* Changed ms-auto to ms-4 */}
+            
+            <div className="d-flex align-items-center ms-4">
+              <button
+                className="btn btn-outline-light me-2"
+                onClick={handleJoinClass}
+              >
+                Join Class
+              </button>
               <button
                 className="btn btn-outline-light me-2"
                 onClick={handleDonateClick}
               >
                 Donate
               </button>
-              {/* Settings Button */}
+              
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -84,7 +157,7 @@ const Learner = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar with Sidebar */}
+    
       <nav className="navbar bg-dark fixed-top d-lg-none">
         <div className="container-fluid">
           <button
@@ -115,7 +188,7 @@ const Learner = () => {
               ></button>
             </div>
             <div className="offcanvas-body">
-              {/* Search Bar */}
+             
               <div className="search-bar mb-3">
                 <input
                   type="text"
@@ -124,7 +197,7 @@ const Learner = () => {
                 />
               </div>
 
-              {/* Sidebar Menu */}
+              
               <nav className="nav flex-column gap-2">
                 <button
                   className="btn btn-outline-light text-start"
@@ -134,11 +207,17 @@ const Learner = () => {
                 </button>
                 <button
                   className="btn btn-outline-light text-start"
+                  onClick={handleJoinClass}
+                >
+                  Join Class
+                </button>
+                <button
+                  className="btn btn-outline-light text-start"
                   onClick={handleDonateClick}
                 >
                   Donate
                 </button>
-                {/* Settings Button */}
+                
                 <button
                   className="btn btn-outline-light text-start"
                   onClick={() => navigate("/settings")}
@@ -151,7 +230,7 @@ const Learner = () => {
         </div>
       </nav>
 
-      {/* Welcome Section */}
+      
       <div className="welcome-section">
         <p className="welcome-text">Welcome, Learner!</p>
         <a href="#start-learning" className="start-learning-link">
@@ -159,25 +238,29 @@ const Learner = () => {
         </a>
       </div>
 
-      {/* Main Content */}
+      
       <main className="learner-content">
-        <h1>Welcome, Learner!</h1>
-        <p>
-          Here, you can explore courses, track your progress, and level up your
-          skills.
-        </p>
-
-        {/* Centered Join Class Button */}
-        <div className="text-center mt-5">
-          <button
-            className="btn btn-success btn-lg"
-            onClick={handleJoinClass}
-          >
-            Join a Class
-          </button>
+        <h1>Your Classes</h1>
+        <div className="class-list row justify-content-center">
+          {enrolledClasses.map((cls) => (
+            <div className="col-md-6 mb-4" key={cls._id}>
+              <div
+                className="class-card"
+                onClick={() => navigate(`/learner_dashboard/${cls._id}`)}
+              >
+                <h3>{cls.className}</h3>
+                <p>
+                  <strong>Section:</strong> {cls.section}
+                </p>
+                <p>
+                  <strong>Instructor:</strong> {cls.teacherId.name}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Join Class Modal */}
+       
         {showJoinModal && (
           <div className="modal-backdrop">
             <div className="modal-content">
@@ -194,17 +277,15 @@ const Learner = () => {
                 To sign in with a class code:
                 <ul>
                   <li>Use an authorised account</li>
-                  <li>Use a class code with 5-7 letters or numbers, and no spaces or symbols</li>
+                  <li>
+                    Use a class code with 5-7 letters or numbers, and no spaces
+                    or symbols
+                  </li>
                 </ul>
               </p>
               <div className="d-flex justify-content-between align-items-center">
-                <Link
-                  to="/help-centre"
-                  className="text-decoration-none"
-                >
-                  <button className="btn btn-link">
-                    Help Centre
-                  </button>
+                <Link to="/help-centre" className="text-decoration-none">
+                  <button className="btn btn-link">Help Centre</button>
                 </Link>
                 <div>
                   <button
@@ -227,7 +308,7 @@ const Learner = () => {
         )}
       </main>
 
-      {/* Footer Section */}
+      
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

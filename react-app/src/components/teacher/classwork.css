@@ -1,40 +1,20 @@
 .classwork-page {
-  padding-top: 56px; /* Height of navbar */
+  padding-top: 106px; 
   position: relative;
 }
 
-/* Sidebar Styles */
-.sidebar {
-  width: 250px;
-  height: calc(100vh - 56px);
-  position: fixed;
-  top: 56px;
-  left: -250px; /* Hidden by default */
-  background-color: #343a40;
-  z-index: 998;
-  transition: transform 0.3s ease;
+
+.navbar {
+  height: 56px; 
 }
 
-.sidebar.show {
-  transform: translateX(250px); /* Show sidebar */
-}
 
-/* Main Content Area */
-.classwork-content {
-  padding: 20px;
-  margin: 110px auto 0; /* Center content */
-  max-width: 1200px;
-  width: 90%; /* Added for better control */
-  transition: all 0.3s ease;
-}
-
-/* Top Bar Adjustments */
 .top-bar {
   background-color: #f8f9fa;
   padding: 0 20px;
-  height: 50px;
+  height: 50px; 
   position: fixed;
-  top: 56px;
+  top: 56px; 
   left: 0;
   right: 0;
   z-index: 997;
@@ -43,7 +23,32 @@
   border-bottom: 1px solid #ddd;
 }
 
-/* Empty State Centering */
+
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 106px); 
+  position: fixed;
+  top: 106px; 
+  left: -250px; 
+  background-color: #343a40;
+  z-index: 998;
+  transition: transform 0.3s ease;
+}
+
+.sidebar.show {
+  transform: translateX(250px); 
+}
+
+
+.classwork-content {
+  padding: 20px;
+  margin: 110px auto 0; 
+  max-width: 1200px;
+  width: 90%; 
+  transition: all 0.3s ease;
+}
+
+
 .empty-state {
   border: 2px dashed #ddd;
   border-radius: 8px;
@@ -53,7 +58,7 @@
   margin: 2rem auto;
 }
 
-/* Modal Overrides */
+
 .create-modal {
   position: fixed;
   top: 0;
@@ -75,16 +80,16 @@
   max-width: 500px;
 }
 
-/* Responsive Design */
+
 @media (max-width: 992px) {
   .classwork-content {
-    margin-top: 56px;
+    margin-top: 106px; 
     padding: 15px;
   }
 
   .top-bar {
     left: 0;
-    display: none; /* Hidden on mobile */
+    display: none; 
   }
 
   .sidebar {
@@ -112,11 +117,11 @@
   }
 
   .classwork-content {
-    margin-left: auto !important; /* Ensures centering */
+    margin-left: auto !important; 
   }
 }
 
-/* Button and Interactive Elements */
+
 .option-btn {
   display: flex;
   align-items: center;
@@ -135,7 +140,7 @@
   transform: translateY(-2px);
 }
 
-/* Navigation Links */
+
 .nav-link {
   color: #333;
   transition: color 0.2s ease;
@@ -150,9 +155,9 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* New container for better alignment */
+
 .content-container {
-  max-width: 800px; /* Adjust as needed */
+  max-width: 800px; 
   margin: 0 auto;
 }
 

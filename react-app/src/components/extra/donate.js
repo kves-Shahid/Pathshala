@@ -42,14 +42,13 @@ const Donate = () => {
 
   return (
     <div className="donate-page" style={{ paddingTop: `${navHeight}px` }}>
-      {/* Desktop Navbar */}
+     
       <nav
         className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block"
         ref={navbarRef}
       >
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
-            {/* Left Section */}
             <div className="d-flex align-items-center me-auto">
               <button
                 className="btn btn-outline-success me-3"
@@ -69,7 +68,7 @@ const Donate = () => {
               </div>
             </div>
 
-            {/* Centered Logo */}
+           
             <Link
               to="/"
               className="position-absolute top-50 start-50 translate-middle"
@@ -82,7 +81,7 @@ const Donate = () => {
               />
             </Link>
 
-            {/* Right Section */}
+            
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
@@ -107,7 +106,7 @@ const Donate = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
+     
       <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
         <div className="container-fluid">
           <button
@@ -177,7 +176,7 @@ const Donate = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
+     
       <main className="donate-content">
         <h1>Donate</h1>
         <div className="donate-section">
@@ -198,7 +197,7 @@ const Donate = () => {
         </div>
       </main>
 
-      {/* Footer Section */}
+    
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

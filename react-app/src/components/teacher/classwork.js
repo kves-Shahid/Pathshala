@@ -1,22 +1,46 @@
-import React, { useState } from "react";
-import { Link, useNavigate, useParams, NavLink } from "react-router-dom"; // Import NavLink and useParams
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./classwork.css";
 import logoImage from "../logo.png";
+import { createMaterial, fetchMaterials } from "../../utils/api";
 
 const Classwork = () => {
-  const { id } = useParams(); // Get the class ID from the URL
+  const { id } = useParams(); 
+  console.log("Class ID:", id);
+
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
   const [attachmentType, setAttachmentType] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
   const [assignments, setAssignments] = useState([]);
   const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Modal handlers
+
+  useEffect(() => {
+    const fetchClassMaterials = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetchMaterials(id); 
+        setAssignments(response.materials);
+      } catch (error) {
+        setError("Failed to fetch materials. Please try again.");
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchClassMaterials();
+  }, [id]); 
+ 
   const handleCreateClick = () => setShowCreateModal(true);
+
   const handleCloseModal = () => {
     setShowCreateModal(false);
     setActiveModal(null);
@@ -29,30 +53,63 @@ const Classwork = () => {
     setShowCreateModal(false);
   };
 
-  // Assignment handlers
-  const handleAddAssignment = (assignment) => {
-    setAssignments([...assignments, assignment]);
-    handleCloseModal();
-  };
 
-  // Attachment handlers
-  const handleAttachmentClick = (type) => {
-    setAttachmentType(type);
-    if (type === "upload") {
-      const fileUploadInput = document.getElementById("file-upload");
-      if (fileUploadInput) {
-        fileUploadInput.click();
-      } else {
-        console.error("File upload input element not found!");
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const allowedTypes = ["image/jpeg", "image/png", "application/pdf", "video/mp4"];
+      const maxSize = 50 * 1024 * 1024; 
+
+      if (!allowedTypes.includes(selectedFile.type)) {
+        setError("Invalid file type. Please upload a JPEG, PNG, PDF, or MP4 file.");
+        return;
       }
+
+      if (selectedFile.size > maxSize) {
+        setError("File size exceeds the limit of 50MB.");
+        return;
+      }
+
+      setFile(selectedFile);
+      setError(null);
     }
   };
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+
+  const handleAddAssignment = async () => {
+    const title = document.querySelector('.modal-body input[type="text"]').value;
+    const instructions = document.querySelector('.modal-body textarea')?.value || "";
+
+    if (!title) {
+      setError("Title is required.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", instructions);
+    formData.append("type", activeModal);
+    formData.append("classId", id); 
+
+    if (file) {
+      formData.append("files", file);
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await createMaterial(formData);
+      setAssignments([...assignments, response.newMaterial]);
+      handleCloseModal();
+    } catch (error) {
+      setError("Failed to create material. Please try again.");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // Backdrop click handler
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) handleCloseModal();
   };
@@ -63,7 +120,7 @@ const Classwork = () => {
 
   return (
     <div className="classwork-page">
-      {/* Navbar */}
+    
       <nav className="navbar navbar-expand-lg bg-dark fixed-top">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
@@ -101,7 +158,6 @@ const Classwork = () => {
               >
                 Donate
               </button>
-              {/* Settings Button */}
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -113,12 +169,11 @@ const Classwork = () => {
         </div>
       </nav>
 
-      {/* Top Bar */}
       <div className="top-bar d-none d-lg-block">
         <div className="d-flex align-items-center">
           <nav className="nav">
             <NavLink
-              to={`/class/${id}`} // Dynamic path with class ID
+              to={`/class/${id}`}
               className="nav-link"
               activeClassName="active"
             >
@@ -145,7 +200,7 @@ const Classwork = () => {
         </div>
       </div>
 
-      {/* Sidebar */}
+     
       <div
         className={`sidebar bg-dark text-white ${
           showSidebar ? "show" : "hide"
@@ -178,7 +233,6 @@ const Classwork = () => {
               >
                 Donate
               </button>
-              {/* Settings Button in Mobile Menu */}
               <button
                 className="btn btn-outline-light w-100"
                 onClick={() => navigate("/settings")}
@@ -190,7 +244,7 @@ const Classwork = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      
       <main className="classwork-content">
         <div className="content-container">
           <div className="d-flex justify-content-between align-items-center mb-4">
@@ -199,41 +253,46 @@ const Classwork = () => {
               Create
             </button>
           </div>
-          <div className="scrollable-content">
-            {assignments.length === 0 ? (
-              <div className="empty-state text-center">
-                <p className="text-muted">
-                  This is where you'll assign work. You can add assignments and
-                  other work for the class, then organize it into topics.
-                </p>
+          {error && <div className="alert alert-danger">{error}</div>}
+          {isLoading ? (
+            <div className="text-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
-            ) : (
-              assignments.map((assignment, index) => (
-                <div key={index} className="assignment-item mb-3">
-                  <h4>{assignment.title}</h4>
-                  <p>{assignment.instructions}</p>
-                  {assignment.dueDate && <p>Due Date: {assignment.dueDate}</p>}
-                  {assignment.attachment && (
-                    <div className="attachment">
-                      <a
-                        href={assignment.attachment.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {assignment.attachment.type === "video"
-                          ? "Watch Video"
-                          : "View File"}
-                      </a>
-                    </div>
-                  )}
+            </div>
+          ) : (
+            <div className="scrollable-content">
+              {assignments.length === 0 ? (
+                <div className="empty-state text-center">
+                  <p className="text-muted">
+                    This is where you'll assign work. You can add assignments and
+                    other work for the class, then organize it into topics.
+                  </p>
                 </div>
-              ))
-            )}
-          </div>
+              ) : (
+                assignments.map((assignment, index) => (
+                  <div key={index} className="assignment-item mb-3">
+                    <h4>{assignment.title}</h4>
+                    <p>{assignment.description}</p>
+                    {assignment.files && assignment.files.map((file, fileIndex) => (
+                      <div key={fileIndex} className="attachment">
+                        <a
+                          href={file.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {file.type === "video" ? "Watch Video" : "View File"}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                ))
+              )}
+            </div>
+          )}
         </div>
       </main>
 
-      {/* Create Modal */}
       {showCreateModal && (
         <div className="create-modal" onClick={handleBackdropClick}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -273,7 +332,7 @@ const Classwork = () => {
         </div>
       )}
 
-      {/* Dynamic Content Modal */}
+    
       {activeModal && (
         <div className="create-modal" onClick={handleBackdropClick}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -283,13 +342,11 @@ const Classwork = () => {
               </h5>
             </div>
             <div className="modal-body">
-              {/* Common Fields */}
               <div className="mb-3">
                 <label className="form-label">Title</label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required />
               </div>
 
-              {/* Type-specific Fields */}
               {activeModal === "assignment" && (
                 <>
                   <div className="mb-3">
@@ -309,123 +366,49 @@ const Classwork = () => {
                           className={`btn btn-outline-secondary ${
                             attachmentType === type ? "active" : ""
                           }`}
-                          onClick={() => handleAttachmentClick(type)}
+                          onClick={() => setAttachmentType(type)}
                         >
                           {type.charAt(0).toUpperCase() + type.slice(1)}
                         </button>
                       ))}
                     </div>
 
-                    {attachmentType && (
+                    {attachmentType === "upload" && (
                       <div className="mt-3">
-                        {attachmentType === "upload" ? (
-                          <input
-                            type="file"
-                            id="file-upload"
-                            style={{ display: "none" }}
-                            onChange={handleFileChange}
-                          />
-                        ) : (
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder={`Enter ${attachmentType} ${
-                              attachmentType === "upload" ? "file" : "link"
-                            }`}
-                          />
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-
-              {activeModal === "quiz" && (
-                <>
-                  <div className="mb-3">
-                    <label className="form-label">Quiz Questions</label>
-                    <textarea className="form-control" rows="5" />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Due Date</label>
-                    <input type="date" className="form-control" />
-                  </div>
-                </>
-              )}
-
-              {activeModal === "material" && (
-                <>
-                  <div className="mb-3">
-                    <label className="form-label">Material Content</label>
-                    <textarea className="form-control" rows="5" />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Attach</label>
-                    <div className="d-flex gap-2 flex-wrap">
-                      {["drive", "youtube", "upload", "link"].map((type) => (
+                        <input
+                          type="file"
+                          id="file-upload"
+                          style={{ display: "none" }}
+                          onChange={handleFileChange}
+                        />
                         <button
-                          key={type}
-                          className={`btn btn-outline-secondary ${
-                            attachmentType === type ? "active" : ""
-                          }`}
-                          onClick={() => handleAttachmentClick(type)}
+                          className="btn btn-outline-secondary w-100"
+                          onClick={() => document.getElementById("file-upload").click()}
                         >
-                          {type.charAt(0).toUpperCase() + type.slice(1)}
+                          Upload File
                         </button>
-                      ))}
-                    </div>
+                      </div>
+                    )}
 
-                    {attachmentType && (
+                    {attachmentType && attachmentType !== "upload" && (
                       <div className="mt-3">
-                        {attachmentType === "upload" ? (
-                          <input
-                            type="file"
-                            id="file-upload"
-                            style={{ display: "none" }}
-                            onChange={handleFileChange}
-                          />
-                        ) : (
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder={`Enter ${attachmentType} ${
-                              attachmentType === "upload" ? "file" : "link"
-                            }`}
-                          />
-                        )}
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder={`Enter ${attachmentType} link`}
+                        />
                       </div>
                     )}
                   </div>
                 </>
-              )}
-
-              {activeModal === "reuse" && (
-                <div className="mb-3">
-                  <label className="form-label">Select Post to Reuse</label>
-                  <select className="form-select">
-                    <option>Previous Assignment</option>
-                    <option>Previous Quiz</option>
-                    <option>Previous Material</option>
-                  </select>
-                </div>
               )}
 
               <button
                 className="btn btn-success w-100 mt-3"
-                onClick={() =>
-                  handleAddAssignment({
-                    title: "New " + activeModal,
-                    type: activeModal,
-                    dueDate: document.querySelector(
-                      '.modal-body input[type="date"]'
-                    ).value,
-                    attachment: file
-                      ? { url: URL.createObjectURL(file), type: "file" }
-                      : null,
-                  })
-                }
+                onClick={handleAddAssignment}
+                disabled={isLoading}
               >
-                Create {activeModal.replace("-", " ")}
+                {isLoading ? "Creating..." : `Create ${activeModal.replace("-", " ")}`}
               </button>
             </div>
           </div>

@@ -9,6 +9,8 @@ const Press = () => {
   const navigate = useNavigate();
   const navbarRef = useRef(null);
   const [navHeight, setNavHeight] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupContent, setPopupContent] = useState({ type: "", description: "" });
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,7 +32,7 @@ const Press = () => {
 
   const handleDonateClick = (e) => {
     e.preventDefault();
-    navigate("/donate"); // Navigate to the Donate page
+    navigate("/donate"); 
   };
 
   const handleLoginRedirect = () => navigate("/login");
@@ -40,16 +42,44 @@ const Press = () => {
     console.log("Explore clicked");
   };
 
+  const handlePressRequest = async (type, description) => {
+    setPopupContent({ type, description });
+    setShowPopup(true);
+  };
+
+  const handleSubmit = async (email) => {
+    if (!email) {
+      alert("Email is required!");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/v1/press/press-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, type: popupContent.type, message: popupContent.description }),
+      });
+
+      const data = await response.json();
+      alert(data.message); 
+    } catch (error) {
+      console.error("Error submitting press request:", error);
+      alert("Failed to submit request. Please try again.");
+    } finally {
+      setShowPopup(false);
+    }
+  };
+
   return (
     <div className="press-page" style={{ paddingTop: `${navHeight}px` }}>
-      {/* Desktop Navbar */}
+    
       <nav
         className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block"
         ref={navbarRef}
       >
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
-            {/* Left Section */}
+            
             <div className="d-flex align-items-center me-auto">
               <button
                 className="btn btn-outline-success me-3"
@@ -69,7 +99,7 @@ const Press = () => {
               </div>
             </div>
 
-            {/* Centered Logo */}
+           
             <Link
               to="/"
               className="position-absolute top-50 start-50 translate-middle"
@@ -82,7 +112,7 @@ const Press = () => {
               />
             </Link>
 
-            {/* Right Section */}
+          
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
@@ -107,7 +137,6 @@ const Press = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
       <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
         <div className="container-fluid">
           <button
@@ -177,16 +206,32 @@ const Press = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
+      
       <main className="press-content">
         <h1>Press</h1>
         <div className="press-section">
           <h2>Latest News</h2>
-          <div className="news-item">
+          <div
+            className="news-item clickable"
+            onClick={() =>
+              handlePressRequest(
+                "news",
+                "Request for news update: Pathshala Launches New Learning Platform"
+              )
+            }
+          >
             <h3>Pathshala Launches New Learning Platform</h3>
             <p>Read about our latest innovations in education technology...</p>
           </div>
-          <div className="news-item">
+          <div
+            className="news-item clickable"
+            onClick={() =>
+              handlePressRequest(
+                "interview",
+                "Request for interview details: Interview with Our Founder"
+              )
+            }
+          >
             <h3>Interview with Our Founder</h3>
             <p>Learn more about the vision behind Pathshala...</p>
           </div>
@@ -195,15 +240,20 @@ const Press = () => {
         <div className="contact-section">
           <h2>Contact Us for Press Inquiries</h2>
           <button
-            className="btn btn-success" // Updated to btn-success for green color
-            onClick={() => navigate("/contact")}
+            className="btn btn-success"
+            onClick={() =>
+              handlePressRequest(
+                "press_contact",
+                "Contact press team for inquiries"
+              )
+            }
           >
             Contact Press Team
           </button>
         </div>
       </main>
 
-      {/* Footer Section */}
+     
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">
@@ -307,6 +357,31 @@ const Press = () => {
           </div>
         </div>
       </footer>
+
+      
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h3>Enter Your Email</h3>
+            <input
+              type="email"
+              placeholder="Your email address"
+              id="emailInput"
+            />
+            <div className="popup-buttons">
+              <button onClick={() => setShowPopup(false)}>Cancel</button>
+              <button
+                onClick={() => {
+                  const email = document.getElementById("emailInput").value;
+                  handleSubmit(email);
+                }}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min"; // Ensure Bootstrap JS is imported
+import "bootstrap/dist/js/bootstrap.bundle.min"; 
 import logoImage from "../logo.png";
 import "./Resources.css";
 
@@ -27,17 +27,17 @@ const Resources = () => {
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      console.log("Search Query:", searchQuery); // Replace with your search logic
+      console.log("Search Query:", searchQuery); 
     }
   };
 
   return (
     <div className="resources-page">
-      {/* Navbar */}
+     
       <nav className="navbar navbar-expand-lg bg-dark fixed-top">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
-            {/* Sidebar Toggle Button (Mobile) */}
+           
             <button
               className="btn btn-outline-secondary me-3 d-lg-none"
               type="button"
@@ -48,7 +48,7 @@ const Resources = () => {
               ☰
             </button>
 
-            {/* Search Bar (Desktop) */}
+            
             <div className="d-flex align-items-center me-auto">
               <div className="input-group search-bar d-none d-lg-flex">
                 <input
@@ -65,7 +65,7 @@ const Resources = () => {
               </div>
             </div>
 
-            {/* Logo */}
+            
             <Link to="/" className="navbar-brand mx-auto">
               <img
                 src={logoImage}
@@ -75,7 +75,7 @@ const Resources = () => {
               />
             </Link>
 
-            {/* Donate and Settings Buttons (Desktop) */}
+            
             <div className="d-flex align-items-center ms-auto d-none d-lg-flex">
               <button
                 className="btn btn-outline-light me-2"
@@ -83,7 +83,7 @@ const Resources = () => {
               >
                 Donate
               </button>
-              {/* Settings Button */}
+              
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -95,7 +95,7 @@ const Resources = () => {
         </div>
       </nav>
 
-      {/* Mobile Offcanvas Sidebar */}
+      
       <div
         className="offcanvas offcanvas-start bg-dark text-white"
         tabIndex="-1"
@@ -114,7 +114,7 @@ const Resources = () => {
           ></button>
         </div>
         <div className="offcanvas-body">
-          {/* Search Bar (Mobile) */}
+          
           <div className="search-bar mb-3">
             <input
               type="text"
@@ -126,7 +126,7 @@ const Resources = () => {
             />
           </div>
 
-          {/* Sidebar Navigation Links */}
+          
           <nav className="nav flex-column gap-2">
             <button className="btn btn-outline-light">Explore</button>
             <button
@@ -135,7 +135,7 @@ const Resources = () => {
             >
               Donate
             </button>
-            {/* Settings Button in Mobile Menu */}
+          
             <button
               className="btn btn-outline-light"
               onClick={() => navigate("/settings")}
@@ -146,7 +146,6 @@ const Resources = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <main className="resources-content">
         <div className="container-fluid">
           <div className="row">
@@ -154,7 +153,6 @@ const Resources = () => {
               <h1>Resources</h1>
               <p>Access teaching resources and materials here.</p>
 
-              {/* Class Code Input */}
               <div className="mb-4">
                 <label htmlFor="classCode" className="form-label">
                   Enter Class Code
@@ -169,7 +167,7 @@ const Resources = () => {
                 />
               </div>
 
-              {/* Add Resource Section */}
+              
               <div className="mb-4">
                 <h3>Add Resource</h3>
                 <textarea
@@ -188,7 +186,7 @@ const Resources = () => {
                 </button>
               </div>
 
-              {/* Resources List */}
+              
               <div className="resources-list">
                 <h3>Resources</h3>
                 <div
@@ -213,7 +211,7 @@ const Resources = () => {
         </div>
       </main>
 
-      {/* Footer */}
+      
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

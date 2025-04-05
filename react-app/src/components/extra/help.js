@@ -30,7 +30,7 @@ const HelpCenter = () => {
 
   const handleDonateClick = (e) => {
     e.preventDefault();
-    navigate("/donate"); // Navigate to the Donate page
+    navigate("/donate");
   };
 
   const handleLoginRedirect = () => navigate("/login");
@@ -42,14 +42,14 @@ const HelpCenter = () => {
 
   return (
     <div className="help-page" style={{ paddingTop: `${navHeight}px` }}>
-      {/* Desktop Navbar */}
+     
       <nav
         className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block"
         ref={navbarRef}
       >
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
-            {/* Left Section */}
+          
             <div className="d-flex align-items-center me-auto">
               <button
                 className="btn btn-outline-success me-3"
@@ -69,7 +69,7 @@ const HelpCenter = () => {
               </div>
             </div>
 
-            {/* Centered Logo */}
+            
             <Link
               to="/"
               className="position-absolute top-50 start-50 translate-middle"
@@ -82,7 +82,7 @@ const HelpCenter = () => {
               />
             </Link>
 
-            {/* Right Section */}
+            
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
@@ -107,7 +107,7 @@ const HelpCenter = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
+     
       <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
         <div className="container-fluid">
           <button
@@ -177,7 +177,7 @@ const HelpCenter = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
+      
       <main className="help-content">
         <h1>Help Center</h1>
         <div className="help-section">
@@ -195,7 +195,7 @@ const HelpCenter = () => {
         <div className="contact-section">
           <h2>Still need help?</h2>
           <button
-            className="btn btn-light-green" // Custom light green button
+            className="btn btn-light-green" 
             onClick={() => navigate("/support-community")}
           >
             Visit Support Community
@@ -203,7 +203,7 @@ const HelpCenter = () => {
         </div>
       </main>
 
-      {/* Footer Section */}
+     
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

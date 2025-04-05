@@ -1,4 +1,4 @@
-/* Onboarding Dashboard Styles */
+
 .onboarding-dashboard {
     min-height: 100vh;
     display: flex;
@@ -8,10 +8,10 @@
   .onboarding-content {
     flex: 1;
     padding: 20px;
-    margin-top: 80px; /* Adjusted for fixed navbar */
+    margin-top: 80px; 
   }
   
-  /* Welcome Section */
+
   .welcome-section {
     display: flex;
     justify-content: space-between;
@@ -19,7 +19,7 @@
     padding: 20px;
     background-color: #444;
     color: white;
-    margin-top: 60px; /* To account for the fixed navbar */
+    margin-top: 60px; 
   }
   
   .welcome-text {
@@ -27,7 +27,7 @@
     font-size: 18px;
   }
   
-  /* Class List */
+ 
   .class-list {
     margin-top: 20px;
   }
@@ -51,7 +51,7 @@
     margin-bottom: 15px;
   }
   
-  /* Responsive Design */
+ 
   @media (max-width: 768px) {
     .onboarding-content {
       margin-top: 60px;

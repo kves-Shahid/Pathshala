@@ -2,47 +2,47 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import logoImage from "../logo.png"; // Updated import path
-import "./Classes.css"; // Import the CSS for the Classes component
+import logoImage from "../logo.png"; 
+import "./Classes.css"; 
 
 const Classes = () => {
   const navigate = useNavigate();
-  const email = "kazishahedpoco@example.com"; // Simulated email for demonstration
+  const email = "kazishahedpoco@example.com";
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleDonateClick = (e) => {
     e.preventDefault();
-    navigate("/donate"); // Navigate to the Donate page
+    navigate("/donate"); 
   };
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       console.log("Searching for:", searchQuery);
-      // Implement your search logic here
+    
       alert(`Searching for: ${searchQuery}`);
     }
   };
 
   const handleCreateClass = () => {
-    navigate("/dashboard"); // Redirect to the Dashboard page
+    navigate("/dashboard"); 
   };
 
   const handleOnboardingClick = () => {
-    navigate("/teacher/onboarding"); // Navigate to the Onboarding page
+    navigate("/teacher/onboarding");
   };
 
   const handleShowClick = () => {
-    navigate("/auth"); // Navigate to the AuthPage
+    navigate("/auth"); 
   };
 
   return (
     <div className="classes-dashboard">
-      {/* Navbar */}
+   
       <nav className="navbar navbar-expand-lg bg-dark fixed-top">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
-            {/* Left Section */}
+          
             <div className="d-flex align-items-center me-auto">
               <button
                 className="btn btn-outline-success me-3 d-lg-none"
@@ -53,7 +53,7 @@ const Classes = () => {
               >
                 ☰
               </button>
-              {/* Search Bar (Visible only on larger screens) */}
+             
               <div className="input-group search-bar d-none d-lg-flex">
                 <input
                   type="text"
@@ -69,7 +69,7 @@ const Classes = () => {
               </div>
             </div>
 
-            {/* Centered Logo */}
+            
             <Link to="/" className="navbar-brand mx-auto">
               <img
                 src={logoImage}
@@ -79,7 +79,7 @@ const Classes = () => {
               />
             </Link>
 
-            {/* Right Section */}
+           
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
@@ -87,7 +87,7 @@ const Classes = () => {
               >
                 Donate
               </button>
-              {/* Settings Button */}
+              
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -99,7 +99,7 @@ const Classes = () => {
         </div>
       </nav>
 
-      {/* Mobile Offcanvas Sidebar */}
+      
       <div
         className="offcanvas offcanvas-start bg-dark text-white"
         tabIndex="-1"
@@ -126,7 +126,7 @@ const Classes = () => {
             >
               Donate
             </button>
-            {/* Settings Button in Mobile Menu */}
+           
             <button
               className="btn btn-outline-light"
               onClick={() => navigate("/settings")}
@@ -137,7 +137,7 @@ const Classes = () => {
         </div>
       </div>
 
-      {/* Welcome Section (Under Navbar) */}
+      
       <div className="welcome-section">
         <p className="welcome-text">Welcome, {email}</p>
         <a href="#add-school" className="add-school-link">
@@ -145,7 +145,7 @@ const Classes = () => {
         </a>
       </div>
 
-      {/* Main Content */}
+      
       <main className="classes-content">
         <div className="main-sections">
           <section className="classes-section">
@@ -170,7 +170,7 @@ const Classes = () => {
             </p>
             <button
               className="btn btn-success"
-              onClick={handleOnboardingClick} // Updated to navigate to Onboarding
+              onClick={handleOnboardingClick} 
             >
               Get Started
             </button>
@@ -230,7 +230,7 @@ const Classes = () => {
         </div>
       </main>
 
-      {/* Footer */}
+      
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

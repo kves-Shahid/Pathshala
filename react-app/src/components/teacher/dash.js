@@ -1,66 +1,74 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, Link, NavLink } from "react-router-dom"; // Import NavLink
+import { useNavigate, useParams, Link, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoImage from "../logo.png";
 import "./dash.css";
 import { Pencil } from "react-bootstrap-icons";
+import { createMaterial, fetchMaterials } from "../../utils/api";
 
 const Dash = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); // Get the class ID from the URL
+  const { id } = useParams();
   const [showSidebar, setShowSidebar] = useState(false);
-  const [announcements, setAnnouncements] = useState([]);
+  const [materials, setMaterials] = useState([]);
   const [newAnnouncement, setNewAnnouncement] = useState("");
-  const [file, setFile] = useState(null); // State to store the uploaded file
+  const [file, setFile] = useState(null);
+  const [classDetails, setClassDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // Fetch the class details based on the ID (you can replace this with actual data fetching logic)
-  const classDetails = {
-    id: id,
-    name: "Mathematics 101", // Replace with dynamic data
-    section: "Section A",
-    subject: "Mathematics",
-    room: "Room 101",
-  };
-
-  const handleDonateClick = (e) => {
-    e.preventDefault();
-    navigate("/donate");
-  };
-
-  const handleAddAnnouncement = () => {
-    if (newAnnouncement.trim() || file) {
-      const announcement = {
-        text: newAnnouncement,
-        file: file ? URL.createObjectURL(file) : null, // Generate Blob URL for the file
-        fileType: file ? file.type : null, // Store file type (e.g., video/mp4, audio/mp3, text/plain)
-      };
-      setAnnouncements([...announcements, announcement]);
-      setNewAnnouncement("");
-      setFile(null); // Clear the file input after posting
-    }
-  };
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-    }
-  };
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 992) {
-        setShowSidebar(false);
+    const fetchData = async () => {
+      try {
+     
+        const classResponse = await fetch(`/api/v1/user/classes/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        const classData = await classResponse.json();
+        if (classData.success) setClassDetails(classData.class);
+
+      
+        const materialsData = await fetchMaterials(id);
+        setMaterials(materialsData.materials);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
+    fetchData();
+  }, [id]);
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  
+  const handleAddAnnouncement = async () => {
+    if (!newAnnouncement.trim() && !file) return;
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("title", "Announcement");
+    formData.append("description", newAnnouncement);
+    formData.append("type", "announcement");
+    formData.append("classId", id);
+    if (file) formData.append("files", file);
+
+    try {
+      const response = await createMaterial(formData);
+      setMaterials([response.newMaterial, ...materials]);
+      setNewAnnouncement("");
+      setFile(null);
+    } catch (error) {
+      console.error("Upload failed:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   return (
     <div className="dashboard">
-      {/* Navbar */}
+      
       <nav className="navbar navbar-expand-lg bg-dark fixed-top">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
@@ -94,11 +102,10 @@ const Dash = () => {
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
-                onClick={handleDonateClick}
+                onClick={() => navigate("/donate")}
               >
                 Donate
               </button>
-              {/* Settings Button */}
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -110,12 +117,12 @@ const Dash = () => {
         </div>
       </nav>
 
-      {/* Top Bar - Updated Stream link */}
+     
       <div className="top-bar d-none d-lg-block">
         <div className="d-flex align-items-center">
           <nav className="nav">
             <NavLink
-              to={`/class/${id}`} // Dynamic path with class ID
+              to={`/class/${id}`}
               className="nav-link"
               activeClassName="active"
             >
@@ -142,12 +149,7 @@ const Dash = () => {
         </div>
       </div>
 
-      {/* Sidebar - Included directly in the Dash component */}
-      <div
-        className={`sidebar bg-dark text-white ${
-          showSidebar ? "show" : "hide"
-        }`}
-      >
+      <div className={`sidebar bg-dark text-white ${showSidebar ? "show" : "hide"}`}>
         <div className="sidebar-header">
           <h5>Classroom</h5>
         </div>
@@ -157,7 +159,7 @@ const Dash = () => {
               Home
             </Link>
             <NavLink
-              to={`/class/${id}`} // Dynamic path with class ID
+              to={`/class/${id}`}
               className="nav-link text-white"
               activeClassName="active"
             >
@@ -172,8 +174,6 @@ const Dash = () => {
               Classwork
             </NavLink>
             <Link to="/teacher/people" className="nav-link text-white">
-              {" "}
-              {/* Updated */}
               People
             </Link>
             <Link to="/marks" className="nav-link text-white">
@@ -203,21 +203,18 @@ const Dash = () => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <main
-        className={`dashboard-content ${showSidebar ? "sidebar-open" : ""}`}
-      >
+      
+      <main className={`dashboard-content ${showSidebar ? "sidebar-open" : ""}`}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <h2>{classDetails.name}</h2>
-              {/* Customize Section - Moved to the top */}
+              <h2>{classDetails ? classDetails.className : "Loading..."}</h2>
               <div className="card mb-4">
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-center">
                     <h5 className="card-title">Customize</h5>
                     <button className="btn btn-outline-success">
-                      <Pencil /> {/* Pencil icon */}
+                      <Pencil />
                     </button>
                   </div>
                   <div
@@ -239,7 +236,10 @@ const Dash = () => {
                   <h5 className="card-title">Stream</h5>
                   <p className="card-text">Announce something to your class</p>
                   <p className="card-text">
-                    <strong>Class code:</strong> 7evppy4
+                    <strong>Class code:</strong> {classDetails ? classDetails.code : "Loading..."}
+                  </p>
+                  <p className="card-text">
+                    <strong>Class ID:</strong> {classDetails ? classDetails._id : "Loading..."}
                   </p>
                   <div className="d-flex flex-column gap-2">
                     <button className="btn btn-success">View all</button>
@@ -261,13 +261,7 @@ const Dash = () => {
                 <div className="card-body">
                   <h5 className="card-title">Classwork</h5>
                   <p className="card-text">Manage assignments and materials</p>
-                  {/* Updated Classwork Button */}
-                  <button
-                    className="btn btn-success"
-                    onClick={() => navigate("/teacher/classwork")}
-                  >
-                    View Classwork
-                  </button>
+                  <button className="btn btn-success">View assignments</button>
                 </div>
               </div>
             </div>
@@ -278,13 +272,7 @@ const Dash = () => {
                 <div className="card-body">
                   <h5 className="card-title">People</h5>
                   <p className="card-text">Manage students and co-teachers</p>
-                  {/* Updated People Button */}
-                  <button
-                    className="btn btn-success"
-                    onClick={() => navigate("/teacher/people")} // Add navigation
-                  >
-                    View people
-                  </button>
+                  <button className="btn btn-success">View people</button>
                 </div>
               </div>
             </div>
@@ -298,7 +286,6 @@ const Dash = () => {
               </div>
             </div>
           </div>
-          {/* Announcement Section */}
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
@@ -321,11 +308,11 @@ const Dash = () => {
                     <button
                       className="btn btn-success"
                       onClick={handleAddAnnouncement}
+                      disabled={loading}
                     >
-                      Post Announcement
+                      {loading ? "Posting..." : "Post Announcement"}
                     </button>
                   </div>
-                  {/* Scrollable Content Section */}
                   <div
                     className="scrollable-content"
                     style={{
@@ -336,38 +323,44 @@ const Dash = () => {
                       padding: "10px",
                     }}
                   >
-                    {announcements.map((announcement, index) => (
-                      <div key={index} className="announcement-item mb-3">
-                        <p>{announcement.text}</p>
-                        {announcement.file && (
-                          <div className="file-preview">
-                            {announcement.fileType.startsWith("video") ? (
-                              <video controls width="100%">
-                                <source
-                                  src={announcement.file}
-                                  type={announcement.fileType}
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            ) : announcement.fileType.startsWith("audio") ? (
-                              <audio controls>
-                                <source
-                                  src={announcement.file}
-                                  type={announcement.fileType}
-                                />
-                                Your browser does not support the audio tag.
-                              </audio>
-                            ) : (
-                              <a
-                                href={announcement.file}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                View Text File
-                              </a>
-                            )}
-                          </div>
+                    {materials.map((material) => (
+                      <div key={material._id} className="material-item mb-4 p-3 border rounded">
+                        <h5>{material.title}</h5>
+                        <p className="text-muted mb-2">
+                          {new Date(material.createdAt).toLocaleDateString()}
+                        </p>
+                        {material.description && (
+                          <p className="mb-3">{material.description}</p>
                         )}
+                        <div className="file-previews d-flex gap-3">
+                          {material.files?.map((file) => (
+                            <div key={file.publicId} className="file-preview">
+                              {file.type === "image" && (
+                                <img
+                                  src={file.url}
+                                  alt="Preview"
+                                  className="img-thumbnail"
+                                  style={{ maxWidth: "200px" }}
+                                />
+                              )}
+                              {file.type === "video" && (
+                                <video controls style={{ maxWidth: "300px" }}>
+                                  <source src={file.url} type="video/mp4" />
+                                </video>
+                              )}
+                              {file.type === "raw" && (
+                                <a
+                                  href={file.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="btn btn-outline-primary"
+                                >
+                                  View File
+                                </a>
+                              )}
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -378,7 +371,7 @@ const Dash = () => {
         </div>
       </main>
 
-      {/* Footer */}
+     
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, Link, NavLink } from "react-router-dom";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoImage from "../logo.png";
 import "./learner_dashboard.css";
@@ -7,80 +8,50 @@ import "./learner_dashboard.css";
 const LearnerDashboard = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [classDetails, setClassDetails] = useState(null);
+  const [materials, setMaterials] = useState([]);
   const [showSidebar, setShowSidebar] = useState(false);
   const [showClassworkPopup, setShowClassworkPopup] = useState(false);
-  const [showPeoplePopup, setShowPeoplePopup] = useState(false); // State for People popup visibility
+  const [showPeoplePopup, setShowPeoplePopup] = useState(false);
   const popupRef = useRef(null);
 
-  const classDetails = {
-    id: id,
-    name: "MATH IV",
-    section: "B",
-    instructor: "Md. Majibul Hasan Imran",
-  };
 
-  const announcements = [
-    {
-      id: 1,
-      date: "2023-10-15",
-      section: "Quiz",
-      content: [
-        "# Monday-Quiz-02",
-        "# And I will take extra class in that day In Sha Allah",
-        "# Sunday I will be absent (Sorry about that)",
-      ],
-    },
-    {
-      id: 2,
-      date: "2023-10-16",
-      section: "Class Schedule",
-      content: [
-        "**Md. Majibul Hasan Imran**",
-        "Jan 26",
-        "Today class : 1:00 PM",
-      ],
-    },
-  ];
+  const announcements = [];
+  const people = [];
 
-  const people = [
-    { id: 1, name: "Farhana Islam Nitu", role: "Student" },
-    { id: 2, name: "Nafifun Alam Ayon", role: "Student" },
-    { id: 3, name: "Pabak Dev", role: "Teacher" },
-    { id: 4, name: "Ashfaq Bhuiyan", role: "Teacher" },
-    { id: 5, name: "Azad Ragib Nehal", role: "Teacher" },
-  ];
-
+ 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setShowClassworkPopup(false);
-        setShowPeoplePopup(false);
+    const fetchData = async () => {
+      try {
+        const classResponse = await axios.get(`/api/v1/user/classes/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        if (classResponse.data.success) {
+          setClassDetails(classResponse.data.class);
+        }
+
+        const materialsResponse = await axios.get(`/api/v1/material/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        if (materialsResponse.data.success) {
+          setMaterials(materialsResponse.data.materials);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    fetchData();
+  }, [id]);
 
   const handleDonateClick = (e) => {
     e.preventDefault();
     navigate("/donate");
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 992) {
-        setShowSidebar(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <div className="learner-dashboard">
-      {/* Navbar */}
+    
       <nav className="navbar navbar-expand-lg bg-dark fixed-top">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
@@ -118,7 +89,6 @@ const LearnerDashboard = () => {
               >
                 Donate
               </button>
-              {/* Settings Button */}
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -130,7 +100,7 @@ const LearnerDashboard = () => {
         </div>
       </nav>
 
-      {/* Top Bar - Updated Stream link */}
+      
       <div className="top-bar d-none d-lg-block">
         <div className="d-flex align-items-center">
           <nav className="nav">
@@ -166,7 +136,7 @@ const LearnerDashboard = () => {
           </nav>
         </div>
 
-        {/* Classwork Popup */}
+      
         {showClassworkPopup && (
           <div className="classwork-popup" ref={popupRef}>
             <div className="popup-header">
@@ -183,25 +153,18 @@ const LearnerDashboard = () => {
                 {announcements.map((announcement) => (
                   <div key={announcement.id} className="announcement-item">
                     <div className="announcement-date">
-                      {new Date(announcement.date).toLocaleDateString()}
+                      {new Date().toLocaleDateString()}
                     </div>
                     <div className="announcement-content">
-                      {announcement.content.map((line, index) => (
-                        <p key={index}>{line}</p>
-                      ))}
+                      <p>No announcements available</p>
                     </div>
                   </div>
                 ))}
-              </div>
-              <div className="classwork-section">
-                <h6>Your Work</h6>
-                <p>No assignments yet. Lucky you!</p>
               </div>
             </div>
           </div>
         )}
 
-        {/* People Popup */}
         {showPeoplePopup && (
           <div className="people-popup" ref={popupRef}>
             <div className="popup-header">
@@ -222,21 +185,12 @@ const LearnerDashboard = () => {
                       <p>{teacher.name}</p>
                     </div>
                   ))}
-                <h6>Classmates</h6>
-                {people
-                  .filter((person) => person.role === "Student")
-                  .map((student) => (
-                    <div key={student.id} className="person-item">
-                      <p>{student.name}</p>
-                    </div>
-                  ))}
               </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Sidebar */}
       <div
         className={`sidebar bg-dark text-white ${
           showSidebar ? "show" : "hide"
@@ -261,10 +215,6 @@ const LearnerDashboard = () => {
               to={`/learner_dashboard/${id}/classwork`}
               className="nav-link text-white"
               activeClassName="active"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowClassworkPopup(!showClassworkPopup);
-              }}
             >
               Classwork
             </NavLink>
@@ -272,10 +222,6 @@ const LearnerDashboard = () => {
               to={`/learner_dashboard/${id}/people`}
               className="nav-link text-white"
               activeClassName="active"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowPeoplePopup(!showPeoplePopup);
-              }}
             >
               People
             </NavLink>
@@ -285,7 +231,6 @@ const LearnerDashboard = () => {
             >
               Donate
             </button>
-            {/* Settings Button in Sidebar */}
             <button
               className="btn btn-outline-light text-start"
               onClick={() => navigate("/settings")}
@@ -296,42 +241,18 @@ const LearnerDashboard = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      
       <main
         className={`dashboard-content ${showSidebar ? "sidebar-open" : ""}`}
       >
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <h2>{classDetails.name}</h2>
-              <p className="text-muted">Section: {classDetails.section}</p>
+              <h2>{classDetails?.className}</h2>
+              <p className="text-muted">Section: {classDetails?.section}</p>
               <p className="text-muted">
-                Instructor: {classDetails.instructor}
+                Instructor: {classDetails?.teacherId.name}
               </p>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-6">
-              <div className="card mb-4">
-                <div className="card-body">
-                  <h5 className="card-title">Upcoming</h5>
-                  <p className="card-text">No work due soon.</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="card mb-4">
-                <div className="card-body">
-                  <h5 className="card-title">Classwork</h5>
-                  <p className="card-text">View assignments and materials.</p>
-                  <button
-                    className="btn btn-success"
-                    onClick={() => setShowClassworkPopup(!showClassworkPopup)}
-                  >
-                    View Classwork
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
           <div className="row">
@@ -339,33 +260,37 @@ const LearnerDashboard = () => {
               <div className="card mb-4">
                 <div className="card-body">
                   <h5 className="card-title">Announcements</h5>
-                  <div className="announcement-container position-relative">
-                    <div
-                      className="announcement-list"
-                      style={{
-                        maxHeight: "400px",
-                        overflowY: "auto",
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
-                        padding: "10px",
-                      }}
-                    >
-                      {announcements.map((announcement) => (
-                        <div
-                          key={announcement.id}
-                          className="announcement-item mb-3"
-                        >
-                          <h6>
-                            <strong>{announcement.section}</strong> -{" "}
-                            {new Date(announcement.date).toLocaleDateString()}
-                          </h6>
-                          {announcement.content.map((line, index) => (
-                            <p key={index}>{line}</p>
-                          ))}
-                          <hr />
-                        </div>
-                      ))}
-                    </div>
+                  <div className="announcement-container">
+                    {materials.map((material) => (
+                      <div
+                        key={material._id}
+                        className="announcement-item mb-3"
+                      >
+                        <h6>{material.title}</h6>
+                        <p>{material.description}</p>
+                        {material.files?.map((file) => (
+                          <div key={file.publicId}>
+                            {file.type === "image" && (
+                              <img src={file.url} alt="Preview" />
+                            )}
+                            {file.type === "video" && (
+                              <video controls>
+                                <source src={file.url} type="video/mp4" />
+                              </video>
+                            )}
+                            {file.type === "raw" && (
+                              <a
+                                href={file.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                View File
+                              </a>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -374,7 +299,6 @@ const LearnerDashboard = () => {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

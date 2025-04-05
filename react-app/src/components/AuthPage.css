@@ -1,4 +1,4 @@
-/* General reset */
+
 * {
   margin: 0;
   padding: 0;
@@ -27,13 +27,13 @@ body {
   transition: height 0.3s ease;
 }
 
-/* Desktop Navbar */
+
 .navbar.bg-dark {
   padding: 0.5rem 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile Offcanvas */
+
 .offcanvas-start {
   width: 250px;
   background-color: #333;
@@ -44,7 +44,7 @@ body {
 }
 
 .auth-page {
-  padding-top: 56px; /* Bootstrap's default navbar height */
+  padding-top: 56px; 
 }
 
 .navbar-left,
@@ -54,7 +54,7 @@ body {
   align-items: center;
 }
 
-/* Add logo styling */
+
 .navbar-logo {
   height: 100px;
   width: auto;
@@ -80,7 +80,7 @@ body {
   white-space: nowrap;
 }
 
-/* Adjust existing styles to work with Bootstrap */
+
 .search-bar {
   max-width: 400px;
 }
@@ -535,7 +535,7 @@ body {
   text-align: center;
 }
 
-/* Footer Section */
+
 .footer {
   background-color: #333;
   color: white;
@@ -563,7 +563,7 @@ body {
   text-decoration: underline;
 }
 
-/* Responsive Design */
+
 @media (max-width: 1024px) {
   .navbar {
     flex-wrap: wrap;
@@ -742,7 +742,7 @@ body {
   }
 }
 
-/* Core responsive image handling */
+
 img {
   max-width: 100%;
   height: auto;
@@ -750,12 +750,12 @@ img {
   margin: 0 auto;
 }
 
-/* Dynamic padding handled by JS */
+
 .auth-page {
   padding-top: var(--nav-height);
 }
 
-/* Bootstrap overrides */
+
 .btn-outline-success {
   color: #4CAF50;
   border-color: #4CAF50;

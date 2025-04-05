@@ -4,11 +4,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./support.css";
 import logoImage from "../logo.png";
+import axios from "axios";
 
 const SupportCommunity = () => {
   const navigate = useNavigate();
   const navbarRef = useRef(null);
   const [navHeight, setNavHeight] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [uploadTitle, setUploadTitle] = useState("");
+  const [uploadContent, setUploadContent] = useState("");
+  const [searchError, setSearchError] = useState("");
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,9 +34,44 @@ const SupportCommunity = () => {
     };
   }, []);
 
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) {
+      setSearchError("Please enter a search term.");
+      return;
+    }
+
+    try {
+      const response = await axios.get(`/api/v1/support/search?q=${searchQuery}`);
+      setSearchResults(response.data);
+      setSearchError("");
+    } catch (error) {
+      console.error("Error searching support texts:", error);
+      setSearchError("Failed to search support texts. Please try again.");
+      setSearchResults([]);
+    }
+  };
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    if (!uploadTitle.trim() || !uploadContent.trim()) {
+      alert("Please fill in both the title and content fields.");
+      return;
+    }
+
+    try {
+      await axios.post("/api/v1/support/upload", { title: uploadTitle, content: uploadContent });
+      alert("Support text uploaded successfully!");
+      setUploadTitle("");
+      setUploadContent("");
+    } catch (error) {
+      console.error("Error uploading support text:", error);
+      alert("Failed to upload support text. Please try again.");
+    }
+  };
+
   const handleDonateClick = (e) => {
     e.preventDefault();
-    navigate("/donate"); // Navigate to the Donate page
+    navigate("/donate");
   };
 
   const handleLoginRedirect = () => navigate("/login");
@@ -41,15 +82,15 @@ const SupportCommunity = () => {
   };
 
   return (
-    <div className="support-page" style={{ paddingTop: `${navHeight}px` }}>
-      {/* Desktop Navbar */}
+    <div className="support-page">
+     
       <nav
         className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block"
         ref={navbarRef}
       >
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
-            {/* Left Section */}
+          
             <div className="d-flex align-items-center me-auto">
               <button
                 className="btn btn-outline-success me-3"
@@ -62,14 +103,16 @@ const SupportCommunity = () => {
                   type="text"
                   className="form-control"
                   placeholder="Search here..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <button className="btn btn-success" type="button">
+                <button className="btn btn-success" type="button" onClick={handleSearch}>
                   Search
                 </button>
               </div>
             </div>
 
-            {/* Centered Logo */}
+          
             <Link
               to="/"
               className="position-absolute top-50 start-50 translate-middle"
@@ -82,7 +125,7 @@ const SupportCommunity = () => {
               />
             </Link>
 
-            {/* Right Section */}
+         
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
@@ -107,7 +150,7 @@ const SupportCommunity = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
+      
       <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
         <div className="container-fluid">
           <button
@@ -143,7 +186,12 @@ const SupportCommunity = () => {
                   type="text"
                   className="form-control"
                   placeholder="Search here..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
+                <button className="btn btn-success" type="button" onClick={handleSearch}>
+                  Search
+                </button>
               </div>
 
               <nav className="nav flex-column gap-2">
@@ -177,16 +225,63 @@ const SupportCommunity = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="support-content">
-        <h1>Support Community</h1>
-        <p>
-          Welcome to the Pathshala Support Community! Here, you can find help,
-          share your story, and connect with others.
-        </p>
+      <main className="support-content" style={{ paddingTop: `${navHeight}px` }}>
+        <div className="search-background" style={{ backgroundImage: `url('https://png.pngtree.com/thumb_back/fh260/back_our/20190625/ourmid/pngtree-overshoot-computer-desktop-background-image_259786.jpg')` }}>
+          <div className="search-container">
+            <h1>How can we help?</h1>
+            <div className="input-group search-bar-main">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Start your search here..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="btn btn-success" type="button" onClick={handleSearch}>
+                Search
+              </button>
+            </div>
+            {searchError && <p className="text-danger mt-2">{searchError}</p>}
+          </div>
+        </div>
+        <div className="community-content">
+          <h2>Community</h2>
+          <div className="latest-news">
+            <h3>Search Results</h3>
+            {searchResults.length > 0 ? (
+              searchResults.map((text) => (
+                <div key={text._id} className="news-item">
+                  <h4>{text.title}</h4>
+                  <p>{text.content}</p>
+                </div>
+              ))
+            ) : (
+              <p>No results found.</p>
+            )}
+          </div>
+          <div className="upload-section">
+            <h3>Upload Support Text</h3>
+            <form onSubmit={handleUpload}>
+              <input
+                type="text"
+                placeholder="Title"
+                value={uploadTitle}
+                onChange={(e) => setUploadTitle(e.target.value)}
+                required
+              />
+              <textarea
+                placeholder="Content"
+                value={uploadContent}
+                onChange={(e) => setUploadContent(e.target.value)}
+                required
+              />
+              <button type="submit">Upload</button>
+            </form>
+          </div>
+        </div>
       </main>
 
-      {/* Footer Section */}
+      
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

@@ -1,4 +1,4 @@
-/* Dashboard Styles */
+
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -6,26 +6,26 @@
   background-color: #f9f9f9;
 }
 
-/* Navbar Styles */
+
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Ensure navbar is above everything */
-  background-color: #343a40; /* Dark background for navbar */
+  z-index: 1000; 
+  background-color: #343a40;
 }
 
-/* Top Bar Styles - Only for larger screens */
+
 .top-bar {
   position: fixed;
-  top: 60px; /* Adjusted for navbar height */
+  top: 60px; 
   left: 0;
   right: 0;
   height: 50px;
-  background-color: #ffffff; /* Light background for top bar */
+  background-color: #ffffff; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 999; /* Ensure top bar is below navbar but above content */
+  z-index: 999; 
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -46,58 +46,58 @@
   text-decoration: underline;
 }
 
-/* Sidebar Styles */
+
 .sidebar {
   width: 250px;
   height: 100vh;
   position: fixed;
   top: 60px;
-  left: 0; /* Set to 0, rely on transform for visibility */
+  left: 0;
   overflow-y: auto;
   transition: transform 0.3s ease;
   z-index: 998;
   background-color: #343a40;
-  transform: translateX(-250px); /* Initially hidden */
+  transform: translateX(-250px);
 }
 
 .sidebar.show {
-  transform: translateX(0); /* Move sidebar into view */
+  transform: translateX(0); 
 }
 
 .sidebar.hide {
-  transform: translateX(-250px); /* Move sidebar out of view */
+  transform: translateX(-250px); /
 }
 
-/* Sidebar Links */
+
 .sidebar .nav-link {
-  color: white !important; /* Ensure text is white */
+  color: white !important; 
 }
 
 .sidebar .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Slight hover effect */
+  background-color: rgba(255, 255, 255, 0.1); 
 }
 
-/* Main Content Styles */
+
 .dashboard-content {
-  margin-top: 110px; /* Adjusted for fixed navbar and top bar */
+  margin-top: 110px; 
   padding: 20px;
   transition: margin-left 0.3s ease;
 }
 
-/* Adjust main content when sidebar is open */
+
 .dashboard-content.sidebar-open {
-  margin-left: 250px; /* Push content to the right when sidebar is open */
+  margin-left: 250px; 
 }
 
-/* Responsive Design */
+
 @media (max-width: 992px) {
   .top-bar {
-    display: none; /* Hide top bar on smaller screens */
+    display: none; 
   }
 
   .sidebar {
-    top: 60px; /* Adjusted to start below the navbar */
-    height: calc(100vh - 60px); /* Adjusted height */
+    top: 60px; 
+    height: calc(100vh - 60px);
   }
 
   .sidebar.show {
@@ -110,22 +110,22 @@
   }
 
   .dashboard-content.sidebar-open {
-    margin-left: 0; /* Reset margin when sidebar is open on mobile */
+    margin-left: 0; 
   }
 }
 
-/* Popup Overlay */
+
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it appears above other content */
+  z-index: 1000; 
 }
 
 .popup-content {
@@ -135,7 +135,7 @@
   max-width: 500px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .popup-content h2 {
@@ -167,12 +167,12 @@
   background-color: #218838;
 }
 
-/* Card Styles */
+
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Add margin between cards */
+  margin-bottom: 20px; 
 }
 
 .card-body {
@@ -189,7 +189,7 @@
   margin-bottom: 15px;
 }
 
-/* Blank Box Styles */
+
 .blank-box {
   background-color: #f9f9f9;
   display: flex;
@@ -202,7 +202,7 @@
   border-radius: 8px;
 }
 
-/* Button Styles */
+
 .btn-success {
   background-color: #28a745;
   border: none;

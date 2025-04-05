@@ -1,4 +1,4 @@
-/* Mobile First Approach */
+
 * {
   margin: 0;
   padding: 0;
@@ -12,16 +12,16 @@ body {
   background-color: #f8f9fa;
 }
 
-/* Navbar Styles */
+
 .navbar {
   background-color: #2c3e50;
   padding: 0.8rem 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Ensure navbar spans full width */
-  position: fixed; /* Fix the navbar at the top */
-  top: 0; /* Position at the top */
-  left: 0; /* Align to the left */
-  z-index: 1000; /* Ensure it stays above other content */
+  width: 100%; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  z-index: 1000; 
 }
 
 .navbar-logo {
@@ -53,14 +53,14 @@ body {
   background-color: #45a049;
 }
 
-/* Signup Container */
+
 .signup-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  padding-top: 70px; /* Add padding to prevent content from being hidden behind the fixed navbar */
+  justify-content: center; 
+  align-items: center;
+  padding-top: 70px; 
 }
 
 .signup-content {
@@ -72,7 +72,7 @@ body {
   width: 100%;
 }
 
-/* Form Section */
+
 .signup-form-section {
   flex: 1;
   padding: 2rem 1rem;
@@ -82,7 +82,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 400px; /* Limit form width */
+  max-width: 400px; 
 }
 
 .signup-form-section h1 {
@@ -98,7 +98,7 @@ body {
   text-align: center;
 }
 
-/* Role Selection */
+
 .role-buttons {
   display: grid;
   grid-template-columns: 1fr;
@@ -124,7 +124,7 @@ body {
   color: white;
 }
 
-/* Signup Form */
+
 .signup-form {
   width: 100%;
   max-width: 400px;
@@ -155,7 +155,7 @@ body {
   outline: none;
 }
 
-/* Date of Birth Section */
+
 .dob-section {
   margin-bottom: 1.5rem;
 }
@@ -174,22 +174,22 @@ body {
 .dob-inputs select,
 .dob-inputs input {
   flex: 1;
-  padding: 0.6rem; /* Reduced padding */
+  padding: 0.6rem; 
   border: 2px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 0.9rem; /* Reduced font size */
-  width: 100px; /* Fixed width for better alignment */
+  font-size: 0.9rem; 
+  width: 100px; 
 }
 
 .dob-inputs select {
-  appearance: none; /* Remove default dropdown arrow */
+  appearance: none; 
   background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")
-    no-repeat right 0.5rem center; /* Custom dropdown arrow */
+    no-repeat right 0.5rem center; 
   background-size: 16px;
-  padding-right: 2rem; /* Add space for the custom arrow */
+  padding-right: 2rem; 
 }
 
-/* Submit Button */
+
 .submit-button {
   width: 100%;
   padding: 0.8rem;
@@ -207,42 +207,42 @@ body {
   background: #45a049;
 }
 
-/* Provider Buttons */
+
 .provider-buttons {
   width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center buttons horizontally */
-  gap: 1rem; /* Add consistent spacing between buttons */
+  align-items: center; 
+  gap: 1rem; 
   margin: 2rem 0;
 }
 
-/* Provider Buttons */
+
 .provider-buttons {
   width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center buttons horizontally */
-  gap: 1rem; /* Add consistent spacing between buttons */
+  align-items: center;
+  gap: 1rem; 
   margin: 2rem 0;
 }
 
 .provider-button {
-  width: 100%; /* Ensure buttons take full width of container */
+  width: 100%; 
   padding: 0.8rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   background: white;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Align content to the left */
-  gap: 1rem; /* Add spacing between logo and text */
+  justify-content: flex-start; 
+  gap: 1rem; 
   font-weight: 500;
   color: #7f8c8d;
   transition: all 0.2s ease;
-  text-align: left; /* Ensure text is aligned to the left */
+  text-align: left; 
 }
 
 .provider-button:hover {
@@ -253,10 +253,10 @@ body {
 .provider-logo {
   width: 20px;
   height: 20px;
-  margin-left: 1rem; /* Add margin to the left of the logo */
+  margin-left: 1rem; 
 }
 
-/* Links */
+
 .login-link,
 .terms {
   text-align: center;
@@ -276,16 +276,16 @@ body {
   opacity: 0.8;
 }
 
-/* Footer Section */
+
 .footer {
-  width: 100%; /* Ensure footer spans full width */
+  width: 100%; 
   background-color: #2c3e50;
   color: white;
   padding: 1rem 0;
   text-align: center;
 }
 
-/* Desktop Styles */
+
 @media (min-width: 992px) {
   .signup-form-section {
     padding: 4rem 2rem;
@@ -296,7 +296,7 @@ body {
   }
 }
 
-/* Small Screens */
+
 @media (max-width: 576px) {
   .signup-form-section {
     padding: 2rem 1rem;

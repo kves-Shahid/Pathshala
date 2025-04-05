@@ -8,7 +8,7 @@
   .help-content {
     flex: 1;
     padding: 20px;
-    margin-top: 80px; /* Adjusted to account for navbar height */
+    margin-top: 80px; 
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -50,19 +50,19 @@
     margin-top: 30px;
   }
   
-  /* Custom Light Green Button */
+
   .btn-light-green {
-    background-color: #90EE90; /* Light green color */
+    background-color: #90EE90; 
     border-color: #90EE90;
-    color: #000; /* Text color */
+    color: #000; 
   }
   
   .btn-light-green:hover {
-    background-color: #76c776; /* Slightly darker green on hover */
+    background-color: #76c776; 
     border-color: #76c776;
   }
   
-  /* Ensure navbar does not overlap content */
+ 
   .navbar {
     position: fixed;
     top: 0;
@@ -71,14 +71,14 @@
     z-index: 1000;
   }
   
-  /* Adjust padding for larger screens */
+
   @media (min-width: 992px) {
     .help-content {
-      padding-top: 80px; /* Adjust based on navbar height */
+      padding-top: 80px; 
     }
   }
   
-  /* Responsive Design */
+
   @media (max-width: 768px) {
     .help-content h1 {
       font-size: 2rem;

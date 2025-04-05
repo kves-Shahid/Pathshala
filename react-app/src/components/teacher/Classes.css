@@ -1,13 +1,13 @@
-/* Classes Dashboard Styles */
+
 .classes-dashboard {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure the page can grow beyond the viewport height */
+  min-height: 100vh; 
   background-color: #f9f9f9;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto; 
 }
 
-/* Navbar */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -24,19 +24,19 @@
 }
 
 .navbar-logo {
-  height: 40px; /* Adjust as needed */
+  height: 40px; 
   width: auto;
 }
 
-/* Welcome Section */
+
 .welcome-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #333; /* Same as navbar */
+  background-color: #333; 
   color: white;
-  margin-top: 60px; /* To account for the fixed navbar */
+  margin-top: 60px; 
 }
 
 .welcome-text {
@@ -54,9 +54,9 @@
   text-decoration: underline;
 }
 
-/* Main Content */
+
 .classes-content {
-  margin-top: 60px; /* Adjusted for fixed navbar */
+  margin-top: 60px;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -111,7 +111,7 @@
   background-color: #3d8b40;
 }
 
-/* Help and Tips Section */
+
 .help-section {
   width: 300px;
   background-color: #ffffff;
@@ -163,7 +163,7 @@
   text-decoration: underline;
 }
 
-/* About Us Section */
+
 .about-us-section {
   width: 100%;
   padding: 40px 20px;
@@ -183,7 +183,7 @@
   line-height: 1.6;
 }
 
-/* Contact Section */
+
 .contact {
   width: 100%;
   padding: 40px 20px;
@@ -213,7 +213,7 @@
   text-decoration: underline;
 }
 
-/* Bottom Bar */
+
 .bottom-bar {
   width: 100%;
   padding: 20px;
@@ -227,13 +227,13 @@
   font-size: 14px;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .classes-content {
-    flex-direction: column; /* Stack sections vertically on smaller screens */
+    flex-direction: column; 
   }
 
   .help-section {
-    width: 100%; /* Make help section full width on smaller screens */
+    width: 100%; 
   }
 }

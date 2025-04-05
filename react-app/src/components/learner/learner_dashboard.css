@@ -1,4 +1,4 @@
-/* Learner Dashboard Styles */
+
 .learner-dashboard {
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
     background-color: #f9f9f9;
   }
   
-  /* Navbar Styles */
+
   .navbar {
     position: fixed;
     top: 0;
@@ -16,7 +16,7 @@
     background-color: #343a40;
   }
   
-  /* Top Bar Styles - Only for larger screens */
+
   .top-bar {
     position: fixed;
     top: 60px;
@@ -46,7 +46,7 @@
     text-decoration: underline;
   }
   
-  /* Sidebar Styles */
+
   .sidebar {
     width: 250px;
     height: 100vh;
@@ -68,7 +68,7 @@
     transform: translateX(-250px);
   }
   
-  /* Sidebar Links */
+ 
   .sidebar .nav-link {
     color: white !important;
   }
@@ -77,19 +77,19 @@
     background-color: rgba(255, 255, 255, 0.1);
   }
   
-  /* Main Content Styles */
+
   .dashboard-content {
     margin-top: 110px;
     padding: 20px;
     transition: margin-left 0.3s ease;
   }
   
-  /* Adjust main content when sidebar is open */
+
   .dashboard-content.sidebar-open {
     margin-left: 250px;
   }
   
-  /* Responsive Design */
+
   @media (max-width: 992px) {
     .top-bar {
       display: none;
@@ -114,7 +114,6 @@
     }
   }
   
-  /* Card Styles */
   .card {
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -136,7 +135,7 @@
     margin-bottom: 15px;
   }
   
-  /* Button Styles */
+ 
   .btn-success {
     background-color: #28a745;
     border: none;
@@ -160,19 +159,19 @@
     color: white;
   }
   
-  /* Highlight active link in the top bar */
+
   .nav-link.active {
     font-weight: bold;
     border-bottom: 3px solid #28a745;
   }
   
-  /* Highlight active link in the sidebar */
+
   .sidebar .nav-link.active {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
   }
 
-  /* Scroll buttons for announcements */
+
 .announcement-container {
     position: relative;
   }
@@ -201,7 +200,7 @@
     background-color: rgba(0, 0, 0, 0.8);
   }
 
-  /* Classwork Popup Styles */
+  
 .classwork-popup {
   position: absolute;
   top: 100%;
@@ -246,13 +245,13 @@
   margin-bottom: 0.5rem;
 }
 
-/* Make sure the popup appears above other content */
+
 .top-bar {
   position: relative;
   z-index: 1000;
 }
 
-/* People Popup Styles */
+
 .people-popup {
   position: absolute;
   top: 100%;

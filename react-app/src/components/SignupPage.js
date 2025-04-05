@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { message } from "antd";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./SignupPage.css";
-import googleLogo from "./assets/images/google-logo.png"; // Import Google logo
+import googleLogo from "./assets/images/google-logo.png";
 import logoImage from "./logo.png";
 
 const SignupPage = () => {
@@ -13,34 +15,38 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignupWithEmail = () => {
-    console.log("Signing up with Email as:", role);
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const handleSignupWithEmail = async () => {
+    try {
+        const endpoint = role === "teacher" 
+            ? "/api/v1/user/register" 
+            : "/api/v1/learner/register";
 
-    // Redirect based on role
-    if (role === "learner") {
-      navigate("/learner"); // Redirect to Learner Dashboard
-    } else if (role === "teacher") {
-      navigate("/teacher-dashboard"); // Redirect to Teacher Dashboard
+        const res = await axios.post(`http://localhost:8080${endpoint}`, {
+            name,
+            email,
+            password,
+        });
+
+        if (res.data.success) {
+            message.success(res.data.message);
+            navigate("/login");
+        } else {
+            message.error(res.data.message); 
+        }
+    } catch (error) {
+        console.error("Registration error:", error);
+        message.error(error.response?.data?.message || "Registration failed. Please try again.");
     }
-  };
+};
 
   const handleSignupWithGoogle = () => {
     console.log("Signing up with Google as:", role);
-
-    // Redirect based on role
-    if (role === "learner") {
-      navigate("/learner"); // Redirect to Learner Dashboard
-    } else if (role === "teacher") {
-      navigate("/teacher-dashboard"); // Redirect to Teacher Dashboard
-    }
+    role === "learner" ? navigate("/learner") : navigate("/teacher-dashboard");
   };
 
   return (
     <div className="signup-container">
-      {/* Desktop Navbar */}
+    
       <nav className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
@@ -97,7 +103,7 @@ const SignupPage = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
+      
       <nav className="navbar bg-dark fixed-top d-lg-none">
         <div className="container-fluid">
           <button
@@ -169,9 +175,9 @@ const SignupPage = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
+      
       <div className="signup-content">
-        {/* Form Section */}
+    
         <div className="signup-form-section">
           <h1>Sign up</h1>
           <p>Join Pathshala for free as a</p>
@@ -190,7 +196,7 @@ const SignupPage = () => {
             </button>
           </div>
 
-          {/* Sign up with Google Button */}
+          
           <div className="provider-buttons">
             <button
               className="provider-button google"
@@ -205,7 +211,6 @@ const SignupPage = () => {
             </button>
           </div>
 
-          {/* Learners Section */}
           {role === "learner" && (
             <div className="signup-form">
               <div className="form-group">
@@ -247,7 +252,7 @@ const SignupPage = () => {
             </div>
           )}
 
-          {/* Teacher Section */}
+         
           {role === "teacher" && (
             <div className="signup-form">
               <div className="form-group">
@@ -290,18 +295,17 @@ const SignupPage = () => {
           )}
 
           <p className="login-link">
-            Already have an account? <a href="/login">Log in</a>
+            Already have an account? <Link to="/login">Log in</Link>
           </p>
 
           <p className="terms">
             By signing up for Pathshala, you agree to our{" "}
-            <a href="/terms">Terms of use</a> and{" "}
-            <a href="/privacy">Privacy Policy</a>.
+            <Link to="/terms">Terms of use</Link> and{" "}
+            <Link to="/privacy">Privacy Policy</Link>.
           </p>
         </div>
       </div>
 
-      {/* Footer Section */}
       <footer className="footer bg-dark text-white py-4">
         <div className="container text-center">
           <p className="mb-0">© 2025 Pathshala. All rights reserved.</p>

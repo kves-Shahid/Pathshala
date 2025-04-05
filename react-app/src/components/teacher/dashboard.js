@@ -16,7 +16,8 @@ const Dashboard = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [announcements, setAnnouncements] = useState([]);
   const [newAnnouncement, setNewAnnouncement] = useState("");
-  const [file, setFile] = useState(null); // State to store the uploaded file
+  const [file, setFile] = useState(null);
+  const [classCode, setClassCode] = useState("");
 
   const handleAgree = () => {
     setShowPopup(false);
@@ -28,34 +29,45 @@ const Dashboard = () => {
     navigate("/donate");
   };
 
-  const handleCreateClass = () => {
-    const newClass = {
-      id: Date.now(), // Unique ID for the class
-      name: className,
-      section,
-      subject,
-      room,
-    };
+  const handleCreateClass = async () => {
+    try {
+      const response = await fetch("/api/v1/user/create-class", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          className,
+          section,
+          subject,
+          room,
+        }),
+      });
 
-    // Save the new class to local storage
-    const existingClasses = JSON.parse(localStorage.getItem("classes")) || [];
-    const updatedClasses = [...existingClasses, newClass];
-    localStorage.setItem("classes", JSON.stringify(updatedClasses));
-
-    // Redirect back to the Onboarding page
-    navigate("/teacher/onboarding");
+      const data = await response.json();
+      if (data.success) {
+        setClassCode(data.code);
+        navigate("/teacher/onboarding");
+      } else {
+        alert("Failed to create class");
+      }
+    } catch (error) {
+      console.error("Class creation error:", error);
+      alert("Error creating class");
+    }
   };
 
   const handleAddAnnouncement = () => {
     if (newAnnouncement.trim() || file) {
       const announcement = {
         text: newAnnouncement,
-        file: file ? URL.createObjectURL(file) : null, // Generate Blob URL for the file
-        fileType: file ? file.type : null, // Store file type (e.g., video/mp4, audio/mp3, text/plain)
+        file: file ? URL.createObjectURL(file) : null,
+        fileType: file ? file.type : null,
       };
       setAnnouncements([...announcements, announcement]);
       setNewAnnouncement("");
-      setFile(null); // Clear the file input after posting
+      setFile(null);
     }
   };
 
@@ -81,7 +93,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      {/* Navbar */}
+     
       <nav className="navbar navbar-expand-lg bg-dark fixed-top">
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
@@ -119,7 +131,6 @@ const Dashboard = () => {
               >
                 Donate
               </button>
-              {/* Settings Button */}
               <button
                 className="btn btn-outline-light me-2"
                 onClick={() => navigate("/settings")}
@@ -131,7 +142,7 @@ const Dashboard = () => {
         </div>
       </nav>
 
-      {/* Top Bar - Only for larger screens */}
+     
       <div className="top-bar d-none d-lg-block">
         <div className="d-flex align-items-center">
           <nav className="nav">
@@ -151,12 +162,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Sidebar - Included directly in the Dashboard component */}
-      <div
-        className={`sidebar bg-dark text-white ${
-          showSidebar ? "show" : "hide"
-        }`}
-      >
+      
+      <div className={`sidebar bg-dark text-white ${showSidebar ? "show" : "hide"}`}>
         <div className="sidebar-header">
           <h5>Classroom</h5>
         </div>
@@ -201,21 +208,18 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <main
-        className={`dashboard-content ${showSidebar ? "sidebar-open" : ""}`}
-      >
+      
+      <main className={`dashboard-content ${showSidebar ? "sidebar-open" : ""}`}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
               <h2>Classroom</h2>
-              {/* Customize Section - Moved to the top */}
               <div className="card mb-4">
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-center">
                     <h5 className="card-title">Customize</h5>
                     <button className="btn btn-outline-success">
-                      <Pencil /> {/* Pencil icon */}
+                      <Pencil />
                     </button>
                   </div>
                   <div
@@ -237,7 +241,7 @@ const Dashboard = () => {
                   <h5 className="card-title">Stream</h5>
                   <p className="card-text">Announce something to your class</p>
                   <p className="card-text">
-                    <strong>Class code:</strong> 7evppy4
+                    <strong>Class code:</strong> {classCode || "Generating..."}
                   </p>
                   <div className="d-flex flex-column gap-2">
                     <button className="btn btn-success">View all</button>
@@ -284,7 +288,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          {/* Announcement Section */}
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
@@ -311,7 +314,6 @@ const Dashboard = () => {
                       Post Announcement
                     </button>
                   </div>
-                  {/* Scrollable Content Section */}
                   <div
                     className="scrollable-content"
                     style={{
@@ -364,7 +366,7 @@ const Dashboard = () => {
         </div>
       </main>
 
-      {/* Popup Modals */}
+      
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-content">

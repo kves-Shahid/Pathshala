@@ -9,6 +9,10 @@ const Story = () => {
   const navigate = useNavigate();
   const navbarRef = useRef(null);
   const [navHeight, setNavHeight] = useState(0);
+  const [name, setName] = useState("");
+  const [story, setStory] = useState("");
+  const [email, setEmail] = useState("");
+  const [stories, setStories] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,28 +32,78 @@ const Story = () => {
     };
   }, []);
 
-  const handleDonateClick = (e) => {
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const response = await fetch("/api/v1/stories");
+        if (response.ok) {
+          const data = await response.json();
+          setStories(data);
+        } else {
+          console.error("Failed to fetch stories");
+        }
+      } catch (error) {
+        console.error("Error fetching stories:", error);
+      }
+    };
+
+    fetchStories();
+  }, []);
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/donate"); // Navigate to the Donate page
+    try {
+      const response = await fetch("/api/v1/stories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name, story }),
+      });
+
+      if (response.ok) {
+        alert("Thank you for sharing your story!");
+        setName("");
+        setStory("");
+        setEmail("");
+
+        
+        const updatedResponse = await fetch("/api/v1/stories");
+        if (updatedResponse.ok) {
+          const data = await updatedResponse.json();
+          setStories(data);
+        }
+      } else {
+        alert("Failed to submit story. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting story:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
-  const handleLoginRedirect = () => navigate("/login");
-  const handleSignupRedirect = () => navigate("/signup");
   const handleExploreClick = (e) => {
     e.preventDefault();
-    console.log("Explore clicked");
+    navigate("/explore"); 
   };
+
+  const handleDonateClick = (e) => {
+    e.preventDefault();
+    navigate("/donate"); 
+  };
+
+  const handleLoginRedirect = () => navigate("/login"); 
+  const handleSignupRedirect = () => navigate("/signup"); 
 
   return (
     <div className="story-page" style={{ paddingTop: `${navHeight}px` }}>
-      {/* Desktop Navbar */}
+     
       <nav
         className="navbar navbar-expand-lg bg-dark fixed-top d-none d-lg-block"
         ref={navbarRef}
       >
         <div className="container-fluid">
           <div className="d-flex align-items-center w-100">
-            {/* Left Section */}
+           
             <div className="d-flex align-items-center me-auto">
               <button
                 className="btn btn-outline-success me-3"
@@ -69,7 +123,7 @@ const Story = () => {
               </div>
             </div>
 
-            {/* Centered Logo */}
+            
             <Link
               to="/"
               className="position-absolute top-50 start-50 translate-middle"
@@ -82,7 +136,7 @@ const Story = () => {
               />
             </Link>
 
-            {/* Right Section */}
+            
             <div className="d-flex align-items-center ms-auto">
               <button
                 className="btn btn-outline-light me-2"
@@ -107,7 +161,7 @@ const Story = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
+     
       <nav className="navbar bg-dark fixed-top d-lg-none" ref={navbarRef}>
         <div className="container-fluid">
           <button
@@ -177,39 +231,80 @@ const Story = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
+      
       <main className="story-content">
         <h1>Share Your Story</h1>
         <div className="story-section">
           <h2>Tell Us Your Experience</h2>
-          <div className="form-group">
-            <label htmlFor="name">Your Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              placeholder="Enter your name"
-            />
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Your Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Your Email</label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="story">Your Story</label>
+              <textarea
+                className="form-control"
+                id="story"
+                rows="5"
+                placeholder="Share your story with us..."
+                value={story}
+                onChange={(e) => setStory(e.target.value)}
+                required
+              ></textarea>
+            </div>
+            <button type="submit" className="btn btn-success">
+              Submit
+            </button>
+          </form>
+        </div>
+
+        
+        <div className="submitted-stories mt-5">
+          <h2>Submitted Stories</h2>
+          <div className="stories-grid">
+            {stories.length === 0 ? (
+              <p>No stories submitted yet.</p>
+            ) : (
+              stories.map((story) => (
+                <div key={story._id} className="story-card">
+                  <div className="card-body">
+                    <h5 className="card-title">{story.name}</h5>
+                    <p className="card-text">{story.story}</p>
+                    <p className="card-text">
+                      <small className="text-muted">
+                        Submitted on:{" "}
+                        {new Date(story.createdAt).toLocaleDateString()}
+                      </small>
+                    </p>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
-          <div className="form-group">
-            <label htmlFor="story">Your Story</label>
-            <textarea
-              className="form-control"
-              id="story"
-              rows="5"
-              placeholder="Share your story with us..."
-            ></textarea>
-          </div>
-          <button
-            className="btn btn-success"
-            onClick={() => alert("Thank you for sharing your story!")}
-          >
-            Submit
-          </button>
         </div>
       </main>
 
-      {/* Footer Section */}
       <footer className="footer bg-dark text-white py-5">
         <div className="container">
           <div className="row">

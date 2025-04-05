@@ -8,7 +8,7 @@
   .donate-content {
     flex: 1;
     padding: 20px;
-    margin-top: 80px; /* Adjusted to account for navbar height */
+    margin-top: 80px; 
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -39,7 +39,7 @@
     text-align: center;
   }
   
-  /* Ensure navbar does not overlap content */
+
   .navbar {
     position: fixed;
     top: 0;
@@ -48,14 +48,14 @@
     z-index: 1000;
   }
   
-  /* Adjust padding for larger screens */
+
   @media (min-width: 992px) {
     .donate-content {
-      padding-top: 80px; /* Adjust based on navbar height */
+      padding-top: 80px; 
     }
   }
   
-  /* Responsive Design */
+ 
   @media (max-width: 768px) {
     .donate-content h1 {
       font-size: 2rem;
